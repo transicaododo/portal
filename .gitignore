@@ -8,3 +8,6 @@ _backup_cleanup_*/
 _backup_stitch_consolidacao_*/
 _archive_legacy_stitch/
 **/.git
+
+# Material de referência local (não versionado)
+docs/*.pdf
