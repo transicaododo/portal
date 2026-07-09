@@ -19,11 +19,11 @@
 ## FLOW: Sessão (validação / logout)
 
 - **ENTRADA**: chamada autenticada qualquer (token existente) ou ação de sair.
-  arquivo: `mae/Index.html` · função: `sairDoApp()` (chama `google.script.run.logout(token)`)
+  arquivo: `mae/Index.html` · função: `sairDoApp()` — **aguarda** a revogação no servidor antes de limpar o estado local (2026-07-09).
 - **PROCESSAMENTO**: valida token vigente ou encerra sessão.
   arquivo: `mae/WebApp.js` · funções: `validarToken()` (~L214), `logout()` (~L227)
-  origem dos dados: token em memória/sessão (duração 21600s/6h, hardcoded em `login()` e `validarToken()`)
-- **SAÍDA**: sessão válida/inválida; encerramento de sessão.
+  origem dos dados: token em `sessionStorage` (não `localStorage`; duração 21600s/6h, hardcoded em `login()` e `validarToken()`)
+- **SAÍDA**: sessão válida/inválida; encerramento de sessão. Se o servidor não confirmar a revogação, a sessão local é encerrada assim mesmo e a parceira é avisada por toast — o token segue ativo do outro lado.
   destino: front-end (`mae/Index.html`).
 
 ---
@@ -79,6 +79,16 @@
 - **SAÍDA**: lista de pagamentos com status normalizado, renderizada como tracker visual.
   destino: componente tracker em `mae/Index.html` (`ETAPA_ORDEM`/`ETAPA_LABELS`, ~L875).
   restrição de layout: CSS `.tracker{align-items:flex-start}` — não trocar para `center` (causa raiz de bug de alinhamento já corrigido).
+
+### Pagamento extra (sidebar do ERP) → `ANO_REFERENCIA` (corrigido em 2026-07-09, FIN-01)
+
+- **ENTRADA**: gestora lança pagamento extra pela sidebar, digitando texto livre em "Mês ou Campanha".
+  arquivo: `mae/Sidebar*.html` → `mae/SidebarBackend.js` · função: `salvarPagamentoExtra()`
+- **PROCESSAMENTO**: o mês/ano é normalizado por `parseMesAno()` (`mae/Código.js`) e grava **`MES_REFERENCIA` + `ANO_REFERENCIA`**. Antes gravava só o mês; a célula de ano ficava vazia.
+  origem dos dados: aba `PAGAMENTOS`
+- **SAÍDA**: linha de pagamento com período completo.
+  efeito da ausência do ano (bug corrigido): `listarPeriodos()` gerava a chave `"AGOSTO|"` em vez de `"AGOSTO|2026"`, o Portal exibia dois períodos para o mesmo mês, e selecionar o de ano vazio fazia `getPagamentos()` avaliar `!anoFiltro` e **desligar o filtro de ano**, somando todos os agostos de todos os anos.
+- **BACKFILL das linhas antigas**: menu " ERP ELÃ 6.2 → Cadastros & Configurações → 11. Preencher ANO_REFERENCIA em Pagamentos" (`backfillAnoReferenciaPagamentos()`, `mae/Código.js`). Ação manual, idempotente, preenche só células vazias. **Ainda não executada na planilha viva.**
 
 ### Schema oficial da aba `PAGAMENTOS` (planilha `[JESCRI] INFLUÊNCIA 360º`)
 
@@ -196,9 +206,10 @@ Sub-fluxo fechado por leitura de código — sem pendências. **Correção**: tr
 
 - **ENTRADA**: influenciadora abre ou edita o próprio perfil.
   arquivo: `mae/Index.html` · funções: `carregarPerfil()` (~L1514), `salvarPerfil()` (~L1540)
-- **PROCESSAMENTO**: lê/atualiza dados cadastrais.
+- **PROCESSAMENTO**: lê/atualiza dados cadastrais. Desde 2026-07-09, se o CEP mudou, `updatePerfil()` resolve o endereço na BrasilAPI e recalcula `RUA`/`BAIRRO`/`CIDADE`/`UF`/`INFLUENCIADORA_ENDERECO` — a chamada de rede acontece **antes** do `LockService`, para não serializar todos os salvamentos atrás de uma API de terceiro. Se a API não responder, os campos derivados ficam como estavam e o salvamento não falha.
   arquivo: `mae/WebApp.js` · funções: `getPerfil()` (~L523), `updatePerfil()` (~L569)
-  origem dos dados: aba `BASE DE DADOS`
+  serviço de endereço: `normalizarCep()` / `resolverEnderecoPorCep()` / `montarEnderecoCompleto()` (`mae/Código.js`, namespace global do Apps Script)
+  origem dos dados: aba `BASE DE DADOS` + BrasilAPI
 - **SAÍDA**: dados de perfil exibidos ou confirmação de atualização.
   destino: aba `BASE DE DADOS` (na escrita) / front-end (na leitura).
 
@@ -226,7 +237,7 @@ Sub-fluxo fechado por leitura de código — sem pendências. **Correção**: tr
 - **PROCESSAMENTO**: submissão cai na aba `CADASTROS`, dispara trigger instalável de `onFormSubmit()`.
   arquivo: `mae/Código.js` · função: `onFormSubmit()` (~L829)
   origem dos dados: aba `CADASTROS`
-  regra: a nova linha em `BASE DE DADOS` nasce com coluna A = `OFF` (inativa) e **sem `CUPOM`** — sem esses dois preenchidos manualmente pela equipe, a influenciadora não entra no ciclo mensal nem consegue fazer login. `onFormSubmit()` também consulta a BrasilAPI pelo CEP para montar `INFLUENCIADORA_ENDERECO`.
+  regra: a nova linha em `BASE DE DADOS` nasce com coluna A = `OFF` (inativa) e **sem `CUPOM`** — sem esses dois preenchidos manualmente pela equipe, a influenciadora não entra no ciclo mensal nem consegue fazer login. `onFormSubmit()` também consulta a BrasilAPI pelo CEP para montar `INFLUENCIADORA_ENDERECO`, desde 2026-07-09 pelo serviço de endereço compartilhado (`resolverEnderecoPorCep()`/`montarEnderecoCompleto()`), o mesmo usado por `updatePerfil()`. Funciona aqui porque `onFormSubmit()` roda por trigger **instalável**, que tem autorização para `UrlFetchApp` (ao contrário do `onEdit` simples — ver `CLAUDE.md` seção 6, lição V-03).
   nota: depende de trigger instalável configurado fora do código-fonte (painel de Triggers do Apps Script) — não verificável por código.
 - **SAÍDA**: novo registro de influenciadora (inativo).
   destino: aba `BASE DE DADOS`.
