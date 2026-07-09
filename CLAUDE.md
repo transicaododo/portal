@@ -227,3 +227,30 @@ Impacto em governança: sim | não (+ qual arquivo diverge, se sim)
 Risco de estado implícito: sim | não
 Recomendação final: seguir | ajustar | não aplicar
 ```
+
+## 12. PROJETO TEAR (ARQUITETURA V2 — DDD)
+
+> Iniciado em 2026-07-09, branch `feature/arquitetura-v2`. Fluxo executável: `FLOW.md`, bloco `FLOW: Projeto Tear (Arquitetura V2 — DDD)` — esta seção é regra estrutural, não fonte de execução (seção 10, item 3).
+
+**Coexistência**: V2 não toca V1. Nenhum arquivo da camada V2 lê, chama ou é chamado por `mae/Código.js`, `mae/WebApp.js`, `mae/Index.html`, `mae/SidebarBackend.js` ou `mae/PortalUi.gs`. As abas também são distintas: V1 usa nomes em maiúsculo/acentuados (`ATIVAÇÕES`), V2 usa os nomes de `PLANILHAS` em `mae/Config.js` (`Ativacoes`). Um corte de migração V1→V2 exige autorização explícita do usuário.
+
+**Padrão arquitetural oficial da V2: Service-Repository.**
+- **Controller** (`mae/WebAppController.js`) — fronteira com a UI. Só orquestra: recebe payload, valida estrutura, delega ao Service, devolve envelope. **Proibido tocar `SpreadsheetApp`, `DriveApp`, `PropertiesService` ou qualquer API do GAS.** Sem regra de negócio, sem acesso a dados. Converte exceções de domínio em `{success:false, error}`. Entity, Service e Repository sempre propagam; só o Controller e o `dispatch()` do EventDispatcher capturam.
+- **Repository** (`mae/AtivacaoRepository.js`) — única camada autorizada a tocar `SpreadsheetApp` para sua entidade. Nenhuma outra camada da V2 pode chamar `SpreadsheetApp` diretamente. `save()` preserva fórmulas da linha (`getFormulas()`) — colunas derivadas como `Ativacoes.Estado_Derivado` nunca são sobrescritas com valor literal.
+- **Entity** (`mae/Ativacao.js`) — invariantes de domínio, sem I/O. Não conhece planilha, não conhece repositório.
+- **Service** (`mae/AtivacaoService.js`) — orquestra Repository + Entity + eventos. Sem regra de negócio própria: valida via Entity, persiste via Repository, publica via `EventDispatcher`.
+- **EventDispatcher** (`mae/EventDispatcher.js`) — Pub/Sub síncrono. **Erro de listener NÃO propaga**: `dispatch()` isola cada callback em `try/catch`, loga via `console.error` e segue para o próximo. Motivo: o Apps Script não tem rollback; quando `dispatch()` roda, o `save()` já foi commitado. Deixar um side-effect derrubar a resposta faria a UI relatar falha sobre uma escrita concluída. **Não reintroduzir fail-fast aqui.**
+
+**Contrato de resposta da V2 (Controller → UI)**: `{ success: boolean, data?: any, message?: string, error?: string }`. Mensagens de erro de domínio são em pt-BR e chegam à UI via `error`. Distinto do contrato da V1 (`{ok:false, erro:"CODIGO"}` em `mae/WebApp.js`, consumido por `switch` no `mae/Index.html`) — **não unificar os dois sem autorização**.
+
+**DTO, não linha crua**: `AtivacaoService.alterarEstado()` devolve `{ idAtivacao, estadoAnterior, novoEstado, atualizadoEm }` — nunca o objeto vindo do Repository. Colunas de planilha não vazam para a UI. O mesmo DTO é o payload do evento `AtivacaoEstadoAlterado`.
+
+**Sanity check manual**: `mae/TestRunner_V2.js`, função global `runV2SanityCheck()`. Roda no editor do Apps Script com `AtivacaoRepositoryFake` (JS puro, zero `SpreadsheetApp`) — não toca a planilha. Como a V2 inteira é JS puro fora do Repository real, também roda sob Node concatenando os arquivos da camada.
+
+**Acesso a dados: SEMPRE por nome de cabeçalho, NUNCA por índice fixo de coluna.** Regra não-negociável, herdada do risco #1 da V1 (ver seção 6: `MAP.BASE` com índice fixo quebrava login/perfil em silêncio quando alguém inseria coluna em `BASE DE DADOS`). Nomes de coluna vivem em constantes (`CAMPOS_ATIVACAO` em `mae/AtivacaoRepository.js`), nunca em literais espalhados pelo código. Inserir/reordenar coluna nas abas V2 não pode quebrar nada.
+
+**Constantes**: `ESTADOS_ATIVACAO` (13 etapas) e `PLANILHAS` em `mae/Config.js`, ambos `Object.freeze`. São `const` de escopo global do Apps Script (não existe namespace por arquivo) — referenciar como `ESTADOS_ATIVACAO.X` / `PLANILHAS.X`, nunca `Config.X`. **Nunca referenciar essas constantes em tempo de carga de outro arquivo** (topo de arquivo, inicializador de `const`): a ordem de carga entre arquivos do Apps Script não é garantida e `const`/`class` não sofrem hoisting entre arquivos. Referenciar só dentro de função/método/getter.
+
+**Schema das abas V2**: `docs/spec/SCHEMA_V2.md` (escrito à mão; as abas V2 ainda não existem na planilha viva, então o `SchemaExporter.js` não as enxerga).
+
+**Zona proibida da V2** (soma-se à seção 7): criar as abas V2 na planilha viva, acoplar V2 ao código legado, ou rodar `clasp push`/`clasp deploy` — tudo exige confirmação explícita do usuário. Arquivo novo em `mae/` só sobe no push se for adicionado à allowlist `mae/.claspignore`.

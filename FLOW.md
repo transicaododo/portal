@@ -251,3 +251,29 @@ Confirmado via `ls`: `mae/Index.html`, `mae/WebApp.js`, `mae/Código.js` existem
   destino: PRs abertos no GitHub + atualização dos arquivos de documentação nesta lista.
 
 **Regra para próximos agentes**: se esta auditoria precisar rodar de novo no futuro, ela já está documentada aqui — não é necessário pedir nova autorização de exceção ao FRAMEWORK LOCK MODE para repetir este mesmo tipo de tarefa (auditoria de governança/performance), só para tarefas que não se encaixem em nenhum fluxo listado neste arquivo.
+
+---
+
+## FLOW: Projeto Tear (Arquitetura V2 — DDD)
+
+> Registrado em 2026-07-09 para satisfazer o FRAMEWORK LOCK MODE (`CLAUDE.md` seção 10). Trabalho em `feature/arquitetura-v2`. **Nenhum arquivo desta camada toca o código legado** (`Código.js`, `WebApp.js`, `Index.html`, `SidebarBackend.js`, `PortalUi.gs`) — V1 e V2 coexistem sem acoplamento até que uma migração de corte seja explicitamente autorizada pelo usuário.
+
+- **ENTRADA**: solicitação explícita do usuário para evoluir uma sprint do Projeto Tear.
+- **PROCESSAMENTO**: criação/edição **apenas** dos arquivos da camada de domínio V2, listados abaixo.
+  arquivos da camada V2 (todos em `mae/`, extensão local `.js`):
+  - `mae/Config.js` — enums e constantes. `ESTADOS_ATIVACAO` (13 etapas), `PLANILHAS` (nomes literais das abas V2). Ambos `Object.freeze`.
+  - `mae/EventDispatcher.js` — classe `EventDispatcher`, Pub/Sub síncrono sobre `Map`. Métodos `subscribe(eventName, callback)` / `dispatch(eventName, payload)`. Erro de listener é isolado (`try/catch` + `console.error`) e não propaga — o `save()` já foi commitado quando o evento dispara, e o GAS não tem rollback.
+  - `mae/AtivacaoRepository.js` — classe `AtivacaoRepository`, único ponto de acesso a `SpreadsheetApp` para a entidade Ativação. Métodos `getById(id)` / `findByCiclo(cicloId)` / `save(ativacaoData)`. `save()` preserva fórmulas da linha alvo.
+  - `mae/Ativacao.js` — entidade de domínio. Invariante da máquina de estados em `Ativacao.TRANSICOES_PERMITIDAS` (getter estático, nunca `const` de topo — ordem de carga do GAS não é garantida), validada por `validateStateTransition(nextState)`. Sem I/O.
+  - `mae/AtivacaoService.js` — serviço de aplicação. `alterarEstado(idAtivacao, novoEstado)`: busca no Repository → valida na Entity → persiste → publica `AtivacaoEstadoAlterado` no `EventDispatcher`. Retorna DTO `{idAtivacao, estadoAnterior, novoEstado, atualizadoEm}`, nunca a linha crua.
+  - `mae/TestRunner_V2.js` — `runV2SanityCheck()`, função global executável no editor do Apps Script. Usa `AtivacaoRepositoryFake` (JS puro) e não toca a planilha.
+  - `mae/WebAppController.js` — fronteira com a UI. `handleAtivacaoUpdate(payload)` recebe `{action:'CHANGE_STATE', idAtivacao, newState}`, valida estrutura, delega ao Service e devolve `{success, data?, message?, error?}`. Não toca nenhuma API do GAS. Única camada que captura exceções.
+  origem dos dados: abas V2 `Parceiros_Influenciadoras`, `Planos_Colaboracao`, `Ciclos`, `Ativacoes` (distintas das abas V1 em maiúsculo/acentuadas — `ATIVAÇÕES` ≠ `Ativacoes`). Schema: `docs/spec/SCHEMA_V2.md`.
+- **SAÍDA**: camada de domínio isolada, sem efeito em runtime até ser chamada por um entrypoint.
+  destino: `mae/*.js` da lista acima + `mae/.claspignore` (allowlist — arquivo novo em `mae/` só sobe no `clasp push` se estiver listado lá).
+
+**Sprints**: Sprint 0 = `Config.js` + `EventDispatcher.js` (concluída). Sprint 1 = `AtivacaoRepository.js` (concluída). Sprint 2 = `Ativacao.js` + `AtivacaoService.js` (concluída). Sprint 3 = `WebAppController.js` (concluída). Sprint 4 = `TestRunner_V2.js` + refinamento pré-cutover (em andamento; o desligamento da V1 **não** foi executado). Sprints seguintes não estão especificadas aqui — pedir ao usuário antes de executar.
+
+**Estado de validação em 2026-07-09**: `runV2SanityCheck()` roda verde (6/6 cenários) sob Node, com `AtivacaoRepositoryFake`. Ainda **não** validado dentro do Apps Script, **não** validado contra planilha real (as abas V2 não existem), sem cobertura na suíte `test/`, e nada enviado via `clasp push`. O caminho `AtivacaoRepository` real (`SpreadsheetApp`, `getFormulas()`, `appendRow`) nunca executou.
+
+**Não fazer sem autorização explícita**: criar as abas V2 na planilha viva, chamar código V2 a partir de `WebApp.js`/`Código.js`, ou rodar `clasp push`/`clasp deploy`.
