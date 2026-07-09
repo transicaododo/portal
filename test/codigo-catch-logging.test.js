@@ -75,7 +75,10 @@ describe('Código.js — onFormSubmit() — catches silenciosos agora logam o er
     expect(() => modulo.onFormSubmit()).not.toThrow();
     expect(logger._chamadas).toHaveLength(1);
     const [mensagem, ...resto] = logger._chamadas[0];
-    expect(mensagem).toEqual(expect.stringContaining('onFormSubmit'));
+    // Quem captura é resolverEnderecoPorCep(); o chamador viaja como argumento
+    // de formatação, não dentro do template.
+    expect(mensagem).toEqual(expect.stringContaining('resolverEnderecoPorCep'));
+    expect(resto.some((arg) => String(arg).includes('onFormSubmit'))).toBe(true);
     expect(resto[resto.length - 1]).toBeTruthy(); // err.message não-vazio
 
     // Confirma que a linha ainda foi gravada na BASE apesar da falha no CEP —
