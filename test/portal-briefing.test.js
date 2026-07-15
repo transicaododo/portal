@@ -77,6 +77,22 @@ function fakeBriefingAba() {
   ]);
 }
 
+// Aba ENTREGAS fake (M4): compilar materializa Entregas (SPEC-012 RN-01) e
+// publicar o briefing espelha aprovações (§14.1), então o slice do M3
+// precisa da aba desde M4.
+function fakeEntregasAba() {
+  return fakeAbaGravavel([
+    'INFLU_KEY',
+    'ANO_REFERENCIA',
+    'MES_REFERENCIA',
+    'ROTULO',
+    'ESTADO',
+    'LINK_MATERIAL',
+    'DATA_APROVACAO_INTERNA',
+    'DATA_ARQUIVAMENTO',
+  ]);
+}
+
 function montarPortal(abas) {
   return loadGas(
     [
@@ -89,18 +105,25 @@ function montarPortal(abas) {
       'src/domain/CalculadoraDeAprovacao.js',
       'src/domain/BlocoDeFormato.js',
       'src/domain/Briefing.js',
+      'src/domain/IdentificadorDeEntrega.js',
+      'src/domain/LinkDoMaterial.js',
+      'src/domain/Entrega.js',
       'src/acl/ParceiraACL.js',
       'src/acl/ColaboracaoMensalACL.js',
       'src/acl/BriefingACL.js',
+      'src/acl/EntregaACL.js',
       'src/repository/ParceiraRepository.js',
       'src/repository/ColaboracaoMensalRepository.js',
       'src/repository/BriefingRepository.js',
+      'src/repository/EntregaRepository.js',
       'src/service/CadastrarParceiraService.js',
       'src/service/CompiladorDoMes.js',
       'src/service/BriefingService.js',
+      'src/service/EntregaService.js',
       'src/controller/ParceiraController.js',
       'src/controller/ColaboracaoMensalController.js',
       'src/controller/BriefingController.js',
+      'src/controller/EntregaController.js',
       'src/entrypoint/Portal.js',
     ],
     {
@@ -120,6 +143,7 @@ function portalCompilado() {
     'BASE DE DADOS': fakeBaseDeDados(),
     COLABORACOES: fakeColaboracoes(),
     BRIEFING: briefingAba,
+    ENTREGAS: fakeEntregasAba(),
   });
   expect(gas.compilarMes({ mesReferencia: '2026-07' }).success).toBe(true);
   return { gas, briefingAba };
