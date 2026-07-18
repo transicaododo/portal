@@ -45,4 +45,18 @@ describe('Entidade Parceira', () => {
     expect(parceira.estado).toBe('Inativa');
     expect(parceira.nome).toBe('Maria');
   });
+
+  // GP-02 (SPEC-002 §17): repetir a transição atual é transição inválida.
+  test('ativar() quem já está Ativa falha barulhento (GP-02)', () => {
+    const parceira = novaParceira('Maria');
+    parceira.ativar();
+
+    expect(() => parceira.ativar()).toThrow(/GP-02/);
+  });
+
+  test('inativar() quem já está Inativa falha barulhento (GP-02)', () => {
+    const parceira = novaParceira('Maria');
+
+    expect(() => parceira.inativar()).toThrow(/GP-02/);
+  });
 });

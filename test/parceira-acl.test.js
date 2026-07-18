@@ -1,13 +1,23 @@
 const { loadGas } = require('./helpers/gasHarness');
 
-// Fake mínimo da API de Sheet exercida pela ACL (getDataRange/appendRow).
-// Mantém a ACL como único ponto que fala com a planilha, sem depender de
-// SpreadsheetApp real no teste.
+// Fake mínimo da API de Sheet exercida pela ACL (getDataRange/appendRow/
+// getRange). Mantém a ACL como único ponto que fala com a planilha, sem
+// depender de SpreadsheetApp real no teste. getRange (SPEC-002,
+// atualizarEstado/atualizarCondicaoComercial) grava célula a célula, mesma
+// convenção 1-based de getDataRange().getValues() usada em perfil-portal.test.js.
 function fakeSheet(header) {
   const rows = [header.slice()];
   return {
+    get _rows() {
+      return rows;
+    },
     getDataRange: () => ({ getValues: () => rows.map((r) => r.slice()) }),
     appendRow: (arr) => rows.push(arr.slice()),
+    getRange: (linha, coluna) => ({
+      setValue: (v) => {
+        rows[linha - 1][coluna - 1] = v;
+      },
+    }),
   };
 }
 
@@ -255,6 +265,95 @@ describe('ParceiraACL — obterParaDocumentos (SPEC-023 §14.1)', () => {
     );
     expect(() => comLinha({ 'SIM/NÃO': 'talvez' }).obterParaDocumentos('Maria')).toThrow(
       /talvez/
+    );
+  });
+});
+
+describe('ParceiraACL — obterEstado/atualizarEstado (SPEC-002 §14.1, UC-002.01)', () => {
+  test('obterEstado devolve o estado canônico; null se a Parceira não existir', () => {
+    const sheet = fakeSheet(['INFLU_KEY', 'STATUS']);
+    sheet.appendRow(['Maria', 'ON']);
+    const acl = novaAcl(sheet).acl;
+
+    expect(acl.obterEstado('Maria')).toBe('Ativa');
+    expect(acl.obterEstado('Ana')).toBeNull();
+  });
+
+  // RN-11/INV-02: a inativação preserva o registro — só a célula STATUS
+  // muda, o resto da linha (e a linha em si) permanece intacto.
+  test('atualizarEstado grava só a célula STATUS, preservando o resto da linha (RN-11)', () => {
+    const sheet = fakeSheet(['INFLU_KEY', 'STATUS', 'CHAVE_PIX']);
+    sheet.appendRow(['Maria', 'ON', 'pix@maria']);
+    const acl = novaAcl(sheet).acl;
+
+    acl.atualizarEstado('Maria', 'Inativa');
+
+    expect(sheet._rows).toHaveLength(2);
+    expect(sheet._rows[1]).toEqual(['Maria', 'OFF', 'pix@maria']);
+  });
+
+  test('atualizarEstado de Parceira inexistente falha barulhento', () => {
+    const acl = novaAcl(fakeSheet(['INFLU_KEY', 'STATUS'])).acl;
+
+    expect(() => acl.atualizarEstado('Ana', 'Ativa')).toThrow(/Ana.*não encontrada/);
+  });
+});
+
+describe('ParceiraACL — obterCondicaoComercial/atualizarCondicaoComercial (SPEC-002 §14.1, UC-002.02)', () => {
+  const CABECALHO = [
+    'INFLU_KEY',
+    'VALOR_TOTAL',
+    'REELS_TEXTO',
+    'CARROSSEL_TEXTO',
+    'STORIES_TEXTO',
+    'LOOKS_QTD',
+    'PRAZO_USO_IMAGEM',
+    'CANAIS_USO_IMAGEM',
+  ];
+
+  function comLinha(sheet) {
+    sheet.appendRow(['Maria', 3500, '2 reels', '', '4 stories', '', '12 meses', 'Instagram']);
+    return novaAcl(sheet).acl;
+  }
+
+  test('obterCondicaoComercial projeta os campos crus, sem lançar em VALOR_TOTAL/entregável vazio', () => {
+    const acl = comLinha(fakeSheet(CABECALHO));
+
+    expect(acl.obterCondicaoComercial('Maria')).toEqual({
+      valorMensal: '3500',
+      reels: '2 reels',
+      carrossel: '',
+      stories: '4 stories',
+      looks: '',
+      prazoUsoImagem: '12 meses',
+      canaisUsoImagem: 'Instagram',
+    });
+    expect(acl.obterCondicaoComercial('Ana')).toBeNull();
+  });
+
+  test('atualizarCondicaoComercial grava só os campos informados, célula a célula', () => {
+    const sheet = fakeSheet(CABECALHO);
+    const acl = comLinha(sheet);
+
+    acl.atualizarCondicaoComercial('Maria', { valorMensal: '4000', canaisUsoImagem: 'Instagram e TikTok' });
+
+    expect(sheet._rows[1]).toEqual([
+      'Maria',
+      '4000',
+      '2 reels',
+      '',
+      '4 stories',
+      '',
+      '12 meses',
+      'Instagram e TikTok',
+    ]);
+  });
+
+  test('atualizarCondicaoComercial de Parceira inexistente falha barulhento', () => {
+    const acl = novaAcl(fakeSheet(CABECALHO)).acl;
+
+    expect(() => acl.atualizarCondicaoComercial('Ana', { valorMensal: '1' })).toThrow(
+      /Ana.*não encontrada/
     );
   });
 });

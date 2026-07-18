@@ -113,6 +113,73 @@ function cadastrarParceira(dados) {
 }
 
 /**
+ * Compõe o Controller da Gestão de Parceiras (M1, SPEC-002) sobre a
+ * planilha informada — ativar/inativar o vínculo e editar a Condição
+ * Comercial (UC-002.01/02). Operação administrativa da equipe, sem Sessão/
+ * token (dívida GP-03 registrada — ver docstring de GestaoDeParceirasService).
+ * @param {GoogleAppsScript.Spreadsheet.Sheet} sheet aba BASE DE DADOS.
+ * @returns {GestaoDeParceirasController}
+ */
+function montarGestaoDeParceiras(sheet) {
+  var acl = new ParceiraACL(sheet);
+  var servico = new GestaoDeParceirasService(acl);
+  return new GestaoDeParceirasController(servico);
+}
+
+/**
+ * Função exposta a google.script.run: ativa o vínculo de uma Parceira
+ * (UC-002.01). Devolve SEMPRE o envelope padrão — falhas de infraestrutura
+ * também viram envelope de falha (§3.3); erros do contrato carregam
+ * GP-01/GP-02 (§17).
+ * @param {{parceiraId: string}} dados
+ * @returns {{success: true, data: object}|{success: false, error: object}}
+ */
+function ativarParceira(dados) {
+  try {
+    return montarGestaoDeParceiras(abrirBaseDeDados()).ativar(dados);
+  } catch (erro) {
+    return envelopeFail({ mensagem: erro.message });
+  }
+}
+
+/**
+ * Função exposta a google.script.run: inativa o vínculo de uma Parceira
+ * (UC-002.01) — RN-11: preserva o registro cadastral/contratual, nunca
+ * exclui a linha. Devolve SEMPRE o envelope padrão (§3.3); erros do
+ * contrato carregam GP-01/GP-02 (§17).
+ * @param {{parceiraId: string}} dados
+ * @returns {{success: true, data: object}|{success: false, error: object}}
+ */
+function inativarParceira(dados) {
+  try {
+    return montarGestaoDeParceiras(abrirBaseDeDados()).inativar(dados);
+  } catch (erro) {
+    return envelopeFail({ mensagem: erro.message });
+  }
+}
+
+/**
+ * Função exposta a google.script.run: edita a Condição Comercial (valor,
+ * entregáveis, prazo e canais de uso de imagem) de uma Parceira (UC-002.02)
+ * — CB-02: não retroage a competências já compiladas (SPEC-005 RN-06).
+ * Devolve SEMPRE o envelope padrão (§3.3); erros do contrato carregam GP-01
+ * (§17).
+ * @param {{parceiraId: string, valorMensal: (string|undefined),
+ *   reels: (string|undefined), carrossel: (string|undefined),
+ *   stories: (string|undefined), looks: (string|undefined),
+ *   prazoUsoImagem: (string|undefined),
+ *   canaisUsoImagem: (string|undefined)}} dados
+ * @returns {{success: true, data: object}|{success: false, error: object}}
+ */
+function editarCondicaoComercialDaParceira(dados) {
+  try {
+    return montarGestaoDeParceiras(abrirBaseDeDados()).editarCondicaoComercial(dados);
+  } catch (erro) {
+    return envelopeFail({ mensagem: erro.message });
+  }
+}
+
+/**
  * Publicador de eventos mínimo: registra o fato em log SEM PII (RNF-08) —
  * barramento real para módulos vizinhos é dívida registrada (SPEC-005 D-01).
  * @returns {{publicar: function(object)}}
@@ -777,6 +844,9 @@ if (typeof module !== 'undefined' && module.exports) {
     renovarSessaoDoPortal,
     sairDoPortal,
     cadastrarParceira,
+    ativarParceira,
+    inativarParceira,
+    editarCondicaoComercialDaParceira,
     compilarMes,
     preencherBriefing,
     obterBriefing,

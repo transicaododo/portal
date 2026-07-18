@@ -9,11 +9,11 @@
  * Acessa a planilha SEMPRE por cabeçalho, nunca por índice fixo.
  * PII nunca é registrada em log/evento.
  *
- * Escrita: `inserir` faz append de linha nova; `atualizarPerfil` (SPEC-032)
- * grava célula a célula numa linha EXISTENTE — nunca reescreve a aba
- * inteira (ver docstring do método: 'BASE DE DADOS' tem colunas não
- * modeladas por este domínio, um upsert por matriz completa arriscaria
- * apagá-las).
+ * Escrita: `inserir` faz append de linha nova; `atualizarPerfil` (SPEC-032),
+ * `atualizarEstado` e `atualizarCondicaoComercial` (SPEC-002) gravam célula
+ * a célula numa linha EXISTENTE — nunca reescrevem a aba inteira (ver
+ * docstring de cada método: 'BASE DE DADOS' tem colunas não modeladas por
+ * este domínio, um upsert por matriz completa arriscaria apagá-las).
  *
  * Não pode conter regra de negócio nem ser duplicada.
  *
@@ -303,6 +303,127 @@ this.ParceiraACL = class ParceiraACL {
       cidade: 'CIDADE',
       uf: 'UF',
       enderecoCompleto: 'INFLUENCIADORA_ENDERECO',
+    };
+    Object.keys(mapaDeColuna).forEach((campo) => {
+      if (Object.prototype.hasOwnProperty.call(campos, campo)) {
+        this.sheet.getRange(linhaFisica, coluna(mapaDeColuna[campo]) + 1).setValue(campos[campo]);
+      }
+    });
+  }
+
+  /**
+   * Porta da Gestão de Parceiras (SPEC-002 §14.1, UC-002.01): estado atual
+   * do vínculo, para o Service reidratar a Parceira (Domínio) antes de
+   * ativar/inativar.
+   * @param {string} parceiraId INFLU_KEY da Parceira.
+   * @returns {('Ativa'|'Inativa')|null} null se a Parceira não existir.
+   */
+  obterEstado(parceiraId) {
+    const valores = this.sheet.getDataRange().getValues();
+    const coluna = this.resolvedorDeColuna(valores[0]);
+    const linha = valores
+      .slice(1)
+      .find((l) => String(l[coluna('INFLU_KEY')]).trim() === String(parceiraId).trim());
+    if (!linha) {
+      return null;
+    }
+    return this.statusParaCanonico(linha[coluna('STATUS')]);
+  }
+
+  /**
+   * Porta da Gestão de Parceiras (SPEC-002 §14.1, UC-002.01): grava SÓ a
+   * célula STATUS na linha existente. RN-11/INV-02: nunca exclui nem
+   * reescreve o resto da linha — mesmo padrão célula-a-célula de
+   * atualizarPerfil.
+   * @param {string} parceiraId INFLU_KEY da Parceira.
+   * @param {('Ativa'|'Inativa')} estadoCanonico estado já validado pelo
+   *   Domínio (Parceira.ativar()/.inativar()).
+   * @throws {Error} Parceira inexistente.
+   */
+  atualizarEstado(parceiraId, estadoCanonico) {
+    const valores = this.sheet.getDataRange().getValues();
+    const cabecalho = valores[0];
+    const coluna = this.resolvedorDeColuna(cabecalho);
+    const indice = valores
+      .slice(1)
+      .findIndex((l) => String(l[coluna('INFLU_KEY')]).trim() === String(parceiraId).trim());
+    if (indice === -1) {
+      throw new Error("Parceira '" + parceiraId + "' não encontrada em 'BASE DE DADOS'.");
+    }
+    const linhaFisica = indice + 2; // +1 pelo cabeçalho, +1 por ser 1-based.
+    this.sheet
+      .getRange(linhaFisica, coluna('STATUS') + 1)
+      .setValue(this.statusParaCru(estadoCanonico));
+  }
+
+  /**
+   * Porta da Gestão de Parceiras (SPEC-002 §14.1, UC-002.02): projeção crua
+   * da Condição Comercial (Contrato §7.3; SPEC-002 §6.1 — valor, entregáveis,
+   * prazo e canais de uso de imagem). Leitura permissiva: ao contrário de
+   * `condicoesDaLinha` (usada na compilação, SPEC-005), NUNCA lança em
+   * VALOR_TOTAL/entregável ausente ou não numérico — aqui o objetivo é
+   * exibir/editar o valor bruto, não compilar.
+   * @param {string} parceiraId INFLU_KEY da Parceira.
+   * @returns {{valorMensal: string, reels: string, carrossel: string,
+   *   stories: string, looks: string, prazoUsoImagem: string,
+   *   canaisUsoImagem: string}|null} null se a Parceira não existir.
+   */
+  obterCondicaoComercial(parceiraId) {
+    const valores = this.sheet.getDataRange().getValues();
+    const coluna = this.resolvedorDeColuna(valores[0]);
+    const linha = valores
+      .slice(1)
+      .find((l) => String(l[coluna('INFLU_KEY')]).trim() === String(parceiraId).trim());
+    if (!linha) {
+      return null;
+    }
+    const texto = (nome) =>
+      String(linha[coluna(nome)] == null ? '' : linha[coluna(nome)]).trim();
+    return {
+      valorMensal: texto('VALOR_TOTAL'),
+      reels: texto('REELS_TEXTO'),
+      carrossel: texto('CARROSSEL_TEXTO'),
+      stories: texto('STORIES_TEXTO'),
+      looks: texto('LOOKS_QTD'),
+      prazoUsoImagem: texto('PRAZO_USO_IMAGEM'),
+      canaisUsoImagem: texto('CANAIS_USO_IMAGEM'),
+    };
+  }
+
+  /**
+   * Porta da Gestão de Parceiras (SPEC-002 §14.1, UC-002.02): grava SÓ os
+   * campos de Condição Comercial informados, célula a célula, na linha
+   * existente — mesmo padrão de atualizarPerfil (nunca reescreve a aba
+   * inteira). CB-02/RN-06 (SPEC-005): esta escrita NUNCA toca COLABORACOES
+   * nem CondicaoComercialSnapshot já persistidos — a compilação já os
+   * fotografa de forma imutável, então a edição aqui só passa a valer para
+   * a PRÓXIMA compilação, sem retroagir.
+   * @param {string} parceiraId INFLU_KEY da Parceira.
+   * @param {{valorMensal: (string|undefined), reels: (string|undefined),
+   *   carrossel: (string|undefined), stories: (string|undefined),
+   *   looks: (string|undefined), prazoUsoImagem: (string|undefined),
+   *   canaisUsoImagem: (string|undefined)}} campos
+   * @throws {Error} Parceira inexistente.
+   */
+  atualizarCondicaoComercial(parceiraId, campos) {
+    const valores = this.sheet.getDataRange().getValues();
+    const cabecalho = valores[0];
+    const coluna = this.resolvedorDeColuna(cabecalho);
+    const indice = valores
+      .slice(1)
+      .findIndex((l) => String(l[coluna('INFLU_KEY')]).trim() === String(parceiraId).trim());
+    if (indice === -1) {
+      throw new Error("Parceira '" + parceiraId + "' não encontrada em 'BASE DE DADOS'.");
+    }
+    const linhaFisica = indice + 2;
+    const mapaDeColuna = {
+      valorMensal: 'VALOR_TOTAL',
+      reels: 'REELS_TEXTO',
+      carrossel: 'CARROSSEL_TEXTO',
+      stories: 'STORIES_TEXTO',
+      looks: 'LOOKS_QTD',
+      prazoUsoImagem: 'PRAZO_USO_IMAGEM',
+      canaisUsoImagem: 'CANAIS_USO_IMAGEM',
     };
     Object.keys(mapaDeColuna).forEach((campo) => {
       if (Object.prototype.hasOwnProperty.call(campos, campo)) {

@@ -113,6 +113,10 @@ module.exports = [
         ParceiraRepository: 'readonly',
         CadastrarParceiraService: 'readonly',
         ParceiraController: 'readonly',
+        // Gestão de Parceiras (SPEC-002): Service e Controller de
+        // ativar/inativar vínculo e editar Condição Comercial.
+        GestaoDeParceirasService: 'readonly',
+        GestaoDeParceirasController: 'readonly',
         ColaboracaoMensalACL: 'readonly',
         ColaboracaoMensalRepository: 'readonly',
         CompiladorDoMes: 'readonly',
