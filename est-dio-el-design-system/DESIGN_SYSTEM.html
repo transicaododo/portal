@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>criativo DODÔ. — Design System</title>
+<style>
+@font-face{
+  font-family:"Elms Sans";
+  src:url("./brand/fonts/ElmsSans.ttf") format("truetype");
+  font-weight:100 900;font-display:swap;
+}
+@font-face{
+  font-family:"Work Sans";
+  src:url("./brand/fonts/WorkSans.ttf") format("truetype");
+  font-weight:100 900;font-display:swap;
+}
+
+:root{
+  --laranja:#f85919;
+  --offwhite:#f1ece5;
+  --roxo:#564f94;
+  --amarelo:#eff857;
+  --preto:#1d1c1a;
+  --branco:#ffffff;
+
+  /* Papéis semânticos (v2.0 — roxo é a cor primária; laranja é secundária/apoio) */
+  --color-primary:var(--roxo);
+  --color-primary-text:var(--branco);
+  --color-primary-hover:#453f7a;
+  --color-secondary:var(--laranja);
+  --color-secondary-text:var(--preto);
+  --color-secondary-hover:#e04d10;
+  --color-link:var(--roxo);
+  --color-focus:var(--roxo);
+  --color-danger:var(--laranja);
+
+  --font-display:"Elms Sans",sans-serif;
+  --font-text:"Work Sans",sans-serif;
+
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;
+  --sp-6:32px;--sp-7:48px;--sp-8:64px;--sp-9:96px;
+
+  --r-sm:8px;--r-md:14px;--r-lg:24px;--r-pill:999px;
+  --maxw:1120px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-text);
+  color:var(--preto);
+  background:var(--offwhite);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-5)}
+section{padding:var(--sp-9) 0;border-top:1px solid rgba(29,28,26,.12)}
+section:first-of-type{border-top:none}
+
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;line-height:1.05;letter-spacing:-.01em}
+h2{font-size:clamp(32px,5vw,52px);margin-bottom:var(--sp-3)}
+h3{font-size:22px;font-weight:700;margin-bottom:var(--sp-4);letter-spacing:0}
+h4{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--sp-3)}
+p{max-width:64ch;margin-bottom:var(--sp-3)}
+.lead{font-size:19px;max-width:72ch}
+.eyebrow{font-family:var(--font-text);font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--sp-4)}
+.muted{color:rgba(29,28,26,.62)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:rgba(29,28,26,.08);padding:2px 6px;border-radius:6px}
+a{color:var(--color-link)}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--color-primary);color:var(--color-primary-text);padding:var(--sp-9) 0 var(--sp-8)}
+.hero .wordmark{width:min(560px,82%);margin-bottom:var(--sp-6);display:block}
+.hero h1{font-size:clamp(30px,4.4vw,46px);max-width:20ch;color:var(--color-primary-text)}
+.hero p{color:var(--color-primary-text);opacity:.82;font-size:18px;max-width:60ch;margin-top:var(--sp-4)}
+.hero .tag{display:inline-block;background:var(--preto);color:var(--offwhite);font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:var(--r-pill);margin-bottom:var(--sp-6)}
+
+/* ---------- NAV ---------- */
+nav.toc{position:sticky;top:0;z-index:20;background:var(--preto);color:var(--offwhite);padding:var(--sp-3) 0}
+nav.toc .wrap{display:flex;gap:var(--sp-5);flex-wrap:wrap;align-items:center}
+nav.toc strong{font-family:var(--font-display);font-weight:800;letter-spacing:-.01em}
+nav.toc a{color:var(--offwhite);text-decoration:none;font-size:14px;opacity:.72}
+nav.toc a:hover{opacity:1;color:var(--amarelo)}
+
+/* ---------- GRID HELPERS ---------- */
+.grid{display:grid;gap:var(--sp-5)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--branco);border-radius:var(--r-md);padding:var(--sp-5);border:1px solid rgba(29,28,26,.1)}
+
+/* ---------- COLOR ---------- */
+.propbar{display:flex;height:96px;border-radius:var(--r-md);overflow:hidden;margin-bottom:var(--sp-6);border:1px solid rgba(29,28,26,.12)}
+.propbar span{display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px}
+.swatch{border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(29,28,26,.12);background:var(--branco)}
+.swatch .chip{height:120px;display:flex;align-items:flex-end;padding:var(--sp-3)}
+.swatch .meta{padding:var(--sp-4)}
+.swatch .meta b{font-family:var(--font-display);font-size:16px;display:block}
+.swatch .role{font-size:13px;color:rgba(29,28,26,.66);margin-top:6px}
+.hex{font-family:ui-monospace,monospace;font-size:13px;letter-spacing:.02em}
+
+/* ---------- TYPE SPECIMEN ---------- */
+.specimen{background:var(--branco);border:1px solid rgba(29,28,26,.1);border-radius:var(--r-md);padding:var(--sp-6)}
+.specimen .big{font-family:var(--font-display);font-weight:800;font-size:clamp(48px,9vw,104px);line-height:.9;letter-spacing:-.02em}
+.scale-row{display:flex;align-items:baseline;gap:var(--sp-5);padding:var(--sp-3) 0;border-bottom:1px dashed rgba(29,28,26,.14);flex-wrap:wrap}
+.scale-row .lbl{font-size:12px;color:rgba(29,28,26,.6);width:150px;flex-shrink:0}
+
+/* ---------- ICONS ---------- */
+.iconset{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-4)}
+@media(max-width:820px){.iconset{grid-template-columns:repeat(3,1fr)}}
+.iconset .i{background:var(--branco);border:1px solid rgba(29,28,26,.1);border-radius:var(--r-md);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.iconset .i svg{width:34px;height:34px}
+.iconset .i small{font-size:11px;color:rgba(29,28,26,.6)}
+
+/* ---------- BUTTONS ---------- */
+.btn{font-family:var(--font-display);font-weight:700;font-size:15px;border:none;border-radius:var(--r-pill);padding:12px 24px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--color-primary);color:var(--color-primary-text)}
+.btn-primary:hover{background:var(--color-primary-hover)}
+.btn-cta{background:var(--color-secondary);color:var(--color-secondary-text)}
+.btn-cta:hover{background:var(--color-secondary-hover)}
+.btn-ghost{background:transparent;color:var(--preto);border:2px solid var(--preto)}
+.btn-ghost:hover{background:var(--preto);color:var(--offwhite)}
+.btn:disabled{background:rgba(29,28,26,.16);color:rgba(29,28,26,.4);cursor:not-allowed}
+.btnrow{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center;margin-bottom:var(--sp-4)}
+
+/* ---------- FORM ---------- */
+.field{margin-bottom:var(--sp-4)}
+.field label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+.field input{width:100%;padding:12px 14px;border:1.5px solid rgba(29,28,26,.24);border-radius:var(--r-sm);font-family:var(--font-text);font-size:15px;background:var(--branco)}
+.field input:focus{outline:none;border-color:var(--color-focus);box-shadow:0 0 0 3px rgba(86,79,148,.25)}
+.field.err input{border-color:var(--color-danger)}
+.field .hint{font-size:12.5px;margin-top:5px;color:rgba(29,28,26,.6)}
+.field.err .hint{color:#c0410f}
+
+/* ---------- BADGES ---------- */
+.badge{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.04em;padding:5px 12px;border-radius:var(--r-pill);text-transform:uppercase}
+.b-roxo{background:var(--color-primary);color:var(--color-primary-text)}
+.b-amarelo{background:var(--amarelo);color:var(--preto)}
+.b-preto{background:var(--preto);color:var(--offwhite)}
+.b-outline{background:transparent;color:var(--preto);border:1.5px solid var(--preto)}
+
+/* ---------- DO / DONT ---------- */
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5)}
+@media(max-width:820px){.dodont{grid-template-columns:1fr}}
+.dd{border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(29,28,26,.12);background:var(--branco)}
+.dd .head{padding:10px var(--sp-4);font-family:var(--font-display);font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;color:#fff}
+.dd.ok .head{background:#2e7d32}
+.dd.no .head{background:#b3261e}
+.dd .body{padding:var(--sp-5);min-height:120px;display:flex;align-items:center;justify-content:center}
+.dd .cap{padding:0 var(--sp-4) var(--sp-4);font-size:13.5px;color:rgba(29,28,26,.72)}
+
+.contrast-table{width:100%;border-collapse:collapse;background:var(--branco);border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(29,28,26,.12)}
+.contrast-table th,.contrast-table td{text-align:left;padding:12px var(--sp-4);border-bottom:1px solid rgba(29,28,26,.08);font-size:14px}
+.contrast-table th{font-family:var(--font-display);font-weight:700;background:rgba(29,28,26,.04)}
+.pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill)}
+.pass{background:#d7f0d8;color:#1e5c22}
+.large{background:#fff3cf;color:#8a6100}
+.fail{background:#f7d6cf;color:#a02a12}
+
+.foot{background:var(--preto);color:var(--offwhite);padding:var(--sp-8) 0}
+.foot a{color:var(--amarelo)}
+.logo-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-4)}
+@media(max-width:820px){.logo-tiles{grid-template-columns:repeat(2,1fr)}}
+.tile{border-radius:var(--r-md);padding:var(--sp-5);display:flex;align-items:center;justify-content:center;min-height:120px;border:1px solid rgba(29,28,26,.12)}
+.tile img{max-width:100%;max-height:64px}
+.t-light{background:var(--offwhite)}
+.t-dark{background:var(--preto)}
+.t-orange{background:var(--laranja)}
+.t-purple{background:var(--roxo)}
+</style>
+</head>
+<body>
+
+<nav class="toc"><div class="wrap">
+  <strong>DODÔ.</strong>
+  <a href="#identidade">Identidade</a>
+  <a href="#logo">Logotipo</a>
+  <a href="#cores">Cores</a>
+  <a href="#tipografia">Tipografia</a>
+  <a href="#icones">Ícones</a>
+  <a href="#grid">Grid</a>
+  <a href="#componentes">Componentes</a>
+  <a href="#acessibilidade">Acessibilidade</a>
+  <a href="#usos">Usos</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="tag">Design System · v2.0</span>
+  <img class="wordmark" src="./brand/logos/horizontal-branco.svg" alt="criativo DODÔ.">
+  <h1>A identidade que pensa alto e ocupa espaço.</h1>
+  <p>Sistema visual do criativo DODÔ: cores que gritam na medida, tipografia geométrica e regras de aplicação que mantêm tudo reconhecível em qualquer lugar.</p>
+</div></header>
+
+<!-- IDENTIDADE -->
+<section id="identidade"><div class="wrap">
+  <div class="eyebrow">01 · Identidade</div>
+  <h2>O que o Dodô é</h2>
+  <p class="lead">O Dodô é criativo antes de tudo. A marca nasce da ideia de um bicho que não deveria mais existir e mesmo assim aparece, com cor, presença e humor. É uma identidade que aposta na ousadia controlada: muita energia, pouca bagunça.</p>
+  <div class="grid g3" style="margin-top:var(--sp-6)">
+    <div class="card">
+      <h4>Conceito visual</h4>
+      <p class="muted" style="margin:0">Geométrico e direto. Formas cheias, contraste alto, roxo como base da identidade. Nada de gradiente, textura ruidosa ou ornamento. A força vem da cor e do espaço, não do efeito.</p>
+    </div>
+    <div class="card">
+      <h4>Personalidade</h4>
+      <p class="muted" style="margin:0">Confiante, brincalhona e criativa. Fala como quem tem repertório e não precisa provar. Leve sem ser infantil, séria sem ser dura.</p>
+    </div>
+    <div class="card">
+      <h4>Tom</h4>
+      <p class="muted" style="margin:0">Direto e curto. Frase afirmativa, verbo na frente, zero jargão. O ponto final do logotipo é o tom da marca: dito e resolvido.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:var(--sp-5)">
+    <h4>Direção de arte</h4>
+    <p class="muted" style="margin:0">Blocos de cor sólida, muito respiro, tipografia grande como imagem. Roxo domina; amarelo pontua e laranja entra como corte de apoio; preto e off-white organizam. Fotografia (quando houver) recebe overlay de uma das cores da marca para pertencer ao sistema. Composições preferem assimetria e escala, não simetria e moldura.</p>
+  </div>
+</div></section>
+
+<!-- LOGO -->
+<section id="logo"><div class="wrap">
+  <div class="eyebrow">02 · Logotipo</div>
+  <h2>Assinatura</h2>
+  <p class="lead">A assinatura é <b>criativo DODÔ.</b> — “criativo” em caixa baixa e peso leve, “DODÔ.” em bold com o circunflexo sobre o segundo O e o ponto final. Duas versões oficiais: horizontal (leitura completa) e empilhada (usos compactos e ícone de app/avatar).</p>
+
+  <div class="grid g2" style="margin-top:var(--sp-6)">
+    <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:220px">
+      <img src="./brand/logos/horizontal-preto.svg" alt="Versão horizontal" style="max-width:80%">
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:220px">
+      <img src="./brand/logos/stack-preto.svg" alt="Versão empilhada" style="max-height:170px">
+    </div>
+  </div>
+
+  <h3 style="margin-top:var(--sp-7)">Versões de cor</h3>
+  <p class="muted" style="margin-top:calc(-1 * var(--sp-3))">Ordem de preferência: roxo é o fundo primário da marca; as demais combinações são apoio. Branco sobre roxo (7.1:1 AAA) é a combinação recomendada — mesma versão já usada em produção no frontend.</p>
+  <div class="logo-tiles">
+    <div class="tile t-purple"><img src="./brand/logos/horizontal-branco.svg" alt="branco sobre roxo"></div>
+    <div class="tile t-light"><img src="./brand/logos/horizontal-preto.svg" alt="preto sobre claro"></div>
+    <div class="tile t-light"><img src="./brand/logos/horizontal-roxo.svg" alt="roxo sobre claro"></div>
+    <div class="tile t-dark"><img src="./brand/logos/horizontal-amarelo.svg" alt="amarelo sobre preto"></div>
+    <div class="tile t-light"><img src="./brand/logos/horizontal-laranja.svg" alt="laranja sobre claro"></div>
+    <div class="tile t-dark"><img src="./brand/logos/horizontal-laranja.svg" alt="laranja sobre preto"></div>
+    <div class="tile t-orange"><img src="./brand/logos/horizontal-preto.svg" alt="preto sobre laranja"></div>
+    <div class="tile t-purple"><img src="./brand/logos/stack-amarelo.svg" alt="empilhado amarelo sobre roxo (não existe versão empilhada branca ainda)"></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:var(--sp-6)">
+    <div class="card">
+      <h4>Área de proteção</h4>
+      <p class="muted" style="margin:0">Reserve, em volta da assinatura, um respiro igual à altura da letra “D” de DODÔ. Nada de texto, borda ou outro elemento dentro dessa margem.</p>
+    </div>
+    <div class="card">
+      <h4>Tamanho mínimo</h4>
+      <p class="muted" style="margin:0">Horizontal: 120px de largura em tela, 24mm em impresso. Empilhada: 40px em tela. Abaixo disso, o circunflexo e o ponto perdem definição.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- CORES -->
+<section id="cores"><div class="wrap">
+  <div class="eyebrow">03 · Sistema de cores</div>
+  <h2>Paleta e proporção</h2>
+  <p class="lead">A paleta não é lista, é receita. A proporção oficial define quanto de cada cor aparece: roxo domina, off-white estrutura, amarelo pontua, laranja aparece como apoio pontual, preto ancora.</p>
+
+  <div class="propbar" style="margin-top:var(--sp-5)">
+    <span style="background:var(--roxo);width:34%;color:#fff">34%</span>
+    <span style="background:var(--offwhite);width:21%;color:var(--preto)">21%</span>
+    <span style="background:var(--amarelo);width:17%;color:var(--preto)">17%</span>
+    <span style="background:var(--preto);width:14%;color:var(--offwhite)">14%</span>
+    <span style="background:var(--laranja);width:14%;color:var(--preto)">14%</span>
+  </div>
+
+  <div class="grid g3">
+    <div class="swatch">
+      <div class="chip" style="background:var(--roxo);color:#fff"><span class="hex">#564f94</span></div>
+      <div class="meta"><b>Roxo Dodô</b><span class="hex muted">34% · cor-assinatura / primária</span>
+        <div class="role"><b>Superfícies e fundos de destaque, CTA principal, links e foco.</b> É a cor dominante do sistema: grandes áreas, capas, blocos de seção. Aceita texto branco com folga (AAA).</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:var(--offwhite);color:var(--preto)"><span class="hex">#f1ece5</span></div>
+      <div class="meta"><b>Off-white</b><span class="hex muted">21% · base neutra</span>
+        <div class="role"><b>Fundo padrão de leitura.</b> Superfície de páginas e documentos longos. Descansa o olho entre os blocos de cor forte.</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:var(--amarelo);color:var(--preto)"><span class="hex">#eff857</span></div>
+      <div class="meta"><b>Amarelo-lima</b><span class="hex muted">17% · destaque</span>
+        <div class="role"><b>Realce e apoio.</b> Grifos, badges, detalhes. Só carrega texto preto. Nunca vira texto sobre fundo claro.</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:var(--preto);color:var(--offwhite)"><span class="hex">#1d1c1a</span></div>
+      <div class="meta"><b>Preto Dodô</b><span class="hex muted">14% · âncora</span>
+        <div class="role"><b>Texto e estrutura.</b> Cor de corpo, títulos, rodapés e navegação. É o texto universal do sistema.</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:var(--laranja);color:var(--preto)"><span class="hex">#f85919</span></div>
+      <div class="meta"><b>Laranja Dodô</b><span class="hex muted">14% · secundária / apoio</span>
+        <div class="role"><b>Ação secundária e pontuação de alerta.</b> Nunca é a cor dominante de uma composição. Sempre com texto preto (AA).</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:var(--branco);color:var(--preto);border-bottom:1px solid rgba(29,28,26,.1)"><span class="hex">#ffffff</span></div>
+      <div class="meta"><b>Branco</b><span class="hex muted">apoio · superfície</span>
+        <div class="role"><b>Cartões e campos.</b> Superfície de componentes sobre o off-white, para criar profundidade sem sombra pesada.</div></div>
+    </div>
+  </div>
+  <p class="muted" style="margin-top:var(--sp-5)">Regra de aplicação: em qualquer composição, mantenha a proporção como referência. Se o roxo não é a maior mancha de cor, a peça saiu do sistema. Laranja é apoio — não deve competir em área com o roxo.</p>
+</div></section>
+
+<!-- TIPOGRAFIA -->
+<section id="tipografia"><div class="wrap">
+  <div class="eyebrow">04 · Tipografia</div>
+  <h2>Duas fontes, um sistema</h2>
+  <p class="lead">Elms Sans para display e títulos (é a fonte do próprio logotipo). Work Sans para texto e interface. Ambas variáveis, geométricas e open-source (licença OFL).</p>
+
+  <div class="grid g2" style="margin-top:var(--sp-6)">
+    <div class="specimen">
+      <div style="font-family:var(--font-text);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);font-weight:600">Elms Sans · Display</div>
+      <div class="big">Dodô.</div>
+      <p class="muted" style="margin-top:var(--sp-3);font-family:var(--font-display);font-weight:300">ExtraLight 200 · <b style="font-weight:500">Medium 500</b> · <b style="font-weight:800">ExtraBold 800</b></p>
+      <p class="muted" style="margin:0;font-size:13px">Títulos, números grandes, palavras usadas como imagem. Peso 700–800 nos títulos. Letter-spacing levemente negativo.</p>
+    </div>
+    <div class="specimen">
+      <div style="font-family:var(--font-text);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);font-weight:600">Work Sans · Texto</div>
+      <div style="font-family:var(--font-text);font-size:44px;font-weight:600;line-height:1.05;margin:12px 0">Aa Bb Cc<br>123</div>
+      <p style="font-family:var(--font-text);margin:0 0 8px">O sistema respira quando o texto é claro. Corpo em Work Sans Regular, 16px, entrelinha 1.55. Semibold para ênfase, nunca itálico decorativo.</p>
+      <p class="muted" style="margin:0;font-size:13px">Regular 400 · Medium 500 · SemiBold 600</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:var(--sp-7)">Escala tipográfica</h3>
+  <div class="specimen">
+    <div class="scale-row"><span class="lbl">Display · Elms 800 · 64/60</span><span style="font-family:var(--font-display);font-weight:800;font-size:56px;line-height:1">Ocupa espaço</span></div>
+    <div class="scale-row"><span class="lbl">H2 · Elms 800 · 40/44</span><span style="font-family:var(--font-display);font-weight:800;font-size:38px">Título de seção</span></div>
+    <div class="scale-row"><span class="lbl">H3 · Elms 700 · 22/28</span><span style="font-family:var(--font-display);font-weight:700;font-size:22px">Subtítulo de bloco</span></div>
+    <div class="scale-row"><span class="lbl">Corpo · Work 400 · 16/25</span><span style="font-family:var(--font-text);font-size:16px">Texto de leitura, o padrão de tudo que é parágrafo.</span></div>
+    <div class="scale-row" style="border-bottom:none"><span class="lbl">Rótulo · Work 600 · 13/16 · caps</span><span style="font-family:var(--font-text);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase">Etiqueta e overline</span></div>
+  </div>
+</div></section>
+
+<!-- ICONES -->
+<section id="icones"><div class="wrap">
+  <div class="eyebrow">05 · Iconografia</div>
+  <h2>Ícones</h2>
+  <p class="lead">Linha de 2px, cantos arredondados, construção geométrica e grid de 24px. Mesma lógica das formas do logotipo: cheias por fora, limpas por dentro. Traço na cor preto Dodô; roxo ou laranja só quando o ícone é o próprio destaque.</p>
+
+  <div class="iconset" style="margin-top:var(--sp-6)">
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><small>check</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><small>close</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><small>arrow</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><small>plus</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><small>user</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><small>calendar</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><small>upload</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M10.5 21a1.9 1.9 0 0 0 3 0"/></svg><small>bell</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><small>chat</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><small>search</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#f85919" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 18l-5.9 3 1.1-6.5L2.4 9.9 9 9z"/></svg><small>star</small></div>
+    <div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="#564f94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><small>heart</small></div>
+  </div>
+</div></section>
+
+<!-- GRID + ESPACAMENTO -->
+<section id="grid"><div class="wrap">
+  <div class="eyebrow">06 · Grid e espaçamento</div>
+  <h2>Estrutura</h2>
+  <div class="grid g2" style="margin-top:var(--sp-5)">
+    <div class="card">
+      <h4>Grid</h4>
+      <p class="muted">Layout responsivo, mobile-first. 12 colunas no desktop, 4 no mobile, gutter de 24px e largura máxima de conteúdo de 1120px. Composições de marca podem quebrar o grid de propósito (escala e assimetria); interface, não.</p>
+      <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-top:var(--sp-3)">
+        <div style="background:var(--roxo);height:56px;border-radius:6px;grid-column:span 5"></div>
+        <div style="background:var(--amarelo);height:56px;border-radius:6px;grid-column:span 4"></div>
+        <div style="background:var(--laranja);height:56px;border-radius:6px;grid-column:span 3"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Escala de espaçamento (base 4)</h4>
+      <p class="muted" style="margin-bottom:var(--sp-3)">4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96. Sempre múltiplos de 4. Raios: 8 (campos), 14 (cartões), 24 (blocos), pill (botões e badges).</p>
+      <div style="display:flex;align-items:flex-end;gap:8px">
+        <div style="background:var(--preto);width:4px;height:4px"></div>
+        <div style="background:var(--preto);width:8px;height:8px"></div>
+        <div style="background:var(--preto);width:12px;height:12px"></div>
+        <div style="background:var(--preto);width:16px;height:16px"></div>
+        <div style="background:var(--preto);width:24px;height:24px"></div>
+        <div style="background:var(--preto);width:32px;height:32px"></div>
+        <div style="background:var(--preto);width:48px;height:48px"></div>
+        <div style="background:var(--preto);width:64px;height:64px"></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- COMPONENTES -->
+<section id="componentes"><div class="wrap">
+  <div class="eyebrow">07 · Componentes</div>
+  <h2>Componentes</h2>
+
+  <div class="grid g2" style="margin-top:var(--sp-5)">
+    <div class="card">
+      <h4>Botões</h4>
+      <div class="btnrow">
+        <button class="btn btn-primary">Ação primária</button>
+        <button class="btn btn-cta">Secundário</button>
+        <button class="btn btn-ghost">Terciário</button>
+      </div>
+      <div class="btnrow" style="margin:0">
+        <button class="btn btn-primary" disabled>Desabilitado</button>
+        <span class="muted" style="font-size:13px">Um CTA primário (roxo) por tela. Texto começa por verbo.</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Badges e tags</h4>
+      <div class="btnrow" style="margin:0">
+        <span class="badge b-roxo">Novo</span>
+        <span class="badge b-amarelo">Destaque</span>
+        <span class="badge b-preto">Ativo</span>
+        <span class="badge b-outline">Rascunho</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Campo de formulário</h4>
+      <div class="field">
+        <label>Nome da campanha</label>
+        <input type="text" value="Lançamento primavera" >
+        <div class="hint">Label sempre visível. Foco em roxo.</div>
+      </div>
+      <div class="field err" style="margin:0">
+        <label>E-mail</label>
+        <input type="text" value="dani@" >
+        <div class="hint">Informe um e-mail válido.</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--color-primary);color:var(--color-primary-text);border:none">
+      <h4 style="color:var(--amarelo)">Cartão primário</h4>
+      <p style="color:#fff;opacity:.9;margin-bottom:var(--sp-4)">Superfície primária (roxo) para blocos de ação ou dado importante. Título em amarelo, corpo em branco, ação secundária em laranja.</p>
+      <button class="btn btn-cta">Ver detalhes</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:var(--sp-5)">
+    <h4>Estados obrigatórios</h4>
+    <p class="muted" style="margin:0">Todo componente interativo declara: padrão, hover, foco, ativo, desabilitado, carregamento e erro. Toda tela declara: carregamento, vazio, sem resultados, erro, sem permissão e (quando aplicável) offline. Cor nunca é o único indicador de estado — sempre acompanha ícone ou texto.</p>
+  </div>
+</div></section>
+
+<!-- ACESSIBILIDADE -->
+<section id="acessibilidade"><div class="wrap">
+  <div class="eyebrow">08 · Acessibilidade</div>
+  <h2>Contraste real</h2>
+  <p class="lead">As cores fortes do Dodô não servem para tudo. A tabela abaixo traz as razões de contraste WCAG medidas: use como texto o que passa em AA (4.5:1) ou melhor.</p>
+
+  <table class="contrast-table" style="margin-top:var(--sp-5)">
+    <thead><tr><th>Combinação</th><th>Razão</th><th>Uso</th></tr></thead>
+    <tbody>
+      <tr><td>Preto sobre off-white / branco</td><td>14.5:1 – 17:1</td><td><span class="pill pass">AAA · texto de corpo</span></td></tr>
+      <tr><td>Preto sobre amarelo</td><td>14.8:1</td><td><span class="pill pass">AAA · texto sobre destaque</span></td></tr>
+      <tr><td>Branco sobre roxo</td><td>7.1:1</td><td><span class="pill pass">AAA · cor primária — CTA e fundo de assinatura</span></td></tr>
+      <tr><td>Roxo sobre off-white / branco</td><td>6.1:1</td><td><span class="pill pass">AA · texto, links e ação sobre claro</span></td></tr>
+      <tr><td>Roxo sobre amarelo</td><td>6.2:1</td><td><span class="pill pass">AA · título sobre destaque</span></td></tr>
+      <tr><td>Preto sobre laranja</td><td>5.2:1</td><td><span class="pill pass">AA · cor secundária — apoio e alerta</span></td></tr>
+      <tr><td>Branco sobre laranja</td><td>3.3:1</td><td><span class="pill large">Só título grande (≥24px)</span></td></tr>
+      <tr><td>Laranja sobre off-white</td><td>2.8:1</td><td><span class="pill fail">Não usar como texto de corpo</span></td></tr>
+      <tr><td>Amarelo sobre off-white / branco</td><td>1.0:1</td><td><span class="pill fail">Nunca como texto</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid g3" style="margin-top:var(--sp-5)">
+    <div class="card"><h4>Foco visível</h4><p class="muted" style="margin:0">Todo elemento navegável por teclado tem foco em roxo com halo (3px). Navegação por teclado é obrigatória.</p></div>
+    <div class="card"><h4>Área de toque</h4><p class="muted" style="margin:0">Mínimo 44×44px para qualquer alvo clicável, com espaçamento entre alvos vizinhos.</p></div>
+    <div class="card"><h4>Cor + sinal</h4><p class="muted" style="margin:0">Estado nunca depende só de cor. Erro leva ícone e texto; sucesso também. Ícone sozinho recebe rótulo quando o sentido não é óbvio.</p></div>
+  </div>
+</div></section>
+
+<!-- USOS -->
+<section id="usos"><div class="wrap">
+  <div class="eyebrow">09 · Exemplos</div>
+  <h2>Usos certos e errados</h2>
+
+  <div class="dodont" style="margin-top:var(--sp-5)">
+    <div class="dd ok">
+      <div class="head">✓ Faça</div>
+      <div class="body" style="background:var(--color-primary)"><img src="./brand/logos/horizontal-branco.svg" style="max-width:70%" alt=""></div>
+      <div class="cap">Logotipo branco sobre roxo: contraste AAA (7.1:1), cor primária como fundo. Combinação recomendada — já em uso em produção (preto sobre roxo falha, 2.4:1 — evite).</div>
+    </div>
+    <div class="dd no">
+      <div class="head">✕ Evite</div>
+      <div class="body" style="background:var(--offwhite)"><img src="./brand/logos/horizontal-amarelo.svg" style="max-width:70%" alt=""></div>
+      <div class="cap">Amarelo sobre off-white: contraste 1:1, o logotipo some. Amarelo só sobre preto ou roxo.</div>
+    </div>
+
+    <div class="dd ok">
+      <div class="head">✓ Faça</div>
+      <div class="body"><button class="btn btn-primary">Quero participar</button></div>
+      <div class="cap">CTA primário roxo com texto branco (7.1:1 AAA). Um único CTA primário por tela, verbo na frente.</div>
+    </div>
+    <div class="dd no">
+      <div class="head">✕ Evite</div>
+      <div class="body"><span style="font-family:var(--font-text);font-size:22px;color:var(--laranja);font-weight:600">Texto laranja em parágrafo</span></div>
+      <div class="cap">Laranja como texto sobre claro falha no contraste (2.8:1), mesmo como cor secundária. Corpo de texto é sempre preto.</div>
+    </div>
+
+    <div class="dd ok">
+      <div class="head">✓ Faça</div>
+      <div class="body" style="background:var(--offwhite);gap:16px"><span class="badge b-roxo">Novo</span><span class="badge b-amarelo">Destaque</span></div>
+      <div class="cap">Amarelo e roxo como pontuação (badges, grifos), respeitando a proporção: roxo continua dominante na peça.</div>
+    </div>
+    <div class="dd no">
+      <div class="head">✕ Evite</div>
+      <div class="body" style="background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--amarelo))"><span style="font-family:var(--font-display);font-weight:800;color:#fff;font-size:20px">Gradiente</span></div>
+      <div class="cap">Nada de gradiente entre as cores da marca. As cores são blocos sólidos, sempre.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:var(--sp-6)">
+    <h4>Proibições rápidas</h4>
+    <p class="muted" style="margin:0">Não distorcer ou rotacionar o logotipo. Não trocar as fontes do sistema. Não usar amarelo ou laranja como texto sobre fundo claro. Não empilhar mais de um CTA primário. Não inverter a proporção (roxo precisa ser a maior mancha; laranja nunca domina). Não aplicar sombra pesada, contorno ou textura sobre a assinatura.</p>
+  </div>
+</div></section>
+
+<footer class="foot"><div class="wrap">
+  <img src="./brand/logos/horizontal-amarelo.svg" alt="criativo DODÔ." style="width:220px;margin-bottom:var(--sp-4)">
+  <p style="color:var(--offwhite);opacity:.75;max-width:60ch">Design System do criativo DODÔ · v2.0 — identidade primária em roxo. Fonte única da identidade visual. Fontes Elms Sans e Work Sans sob licença OFL (ver <code>brand/fonts/</code>). Assets de logo em <code>brand/logos/</code>.</p>
+</div></footer>
+
+</body>
+</html>
