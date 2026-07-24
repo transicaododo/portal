@@ -2,8 +2,10 @@
 
 ## Projeto
 
-Projeto TEAR — plataforma **Influencia** (Estúdio Elã, produto "ELÃ |
-influência"): sistema de gestão de marketing de influência entre marcas e
+Projeto DODÔ — plataforma **Influencia** da marca **Criativo Dodô** (nome
+técnico anterior do projeto: "Projeto TEAR"; marca comercial anterior:
+"Estúdio Elã", produto "ELÃ | influência" — ambos nomenclatura legada,
+`ADR-020`): sistema de gestão de marketing de influência entre marcas e
 parceiras (influenciadoras), cobrindo o ciclo de colaboração mensal —
 cadastro, aprovação, briefings, entrega/upload de materiais, aprovação de
 materiais, pagamentos, contratos e histórico/auditoria.
@@ -16,7 +18,7 @@ Domínio e vocabulário oficiais: `docs/history/CONTRATO_SOBERANO.md`
 
 ## Papel do agente
 
-Tech Lead de execução do Projeto TEAR — autoridade e limites completos em
+Tech Lead de execução do Projeto DODÔ — autoridade e limites completos em
 "Mandato de operação autônoma" abaixo. Audita antes de alterar, segue o
 "Fluxo obrigatório", e nunca decide domínio ou arquitetura sem ADR.
 
