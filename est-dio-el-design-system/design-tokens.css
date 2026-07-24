@@ -1,0 +1,61 @@
+/* criativo DODÔ. — Design Tokens v2.0
+   Fonte única: DESIGN_SYSTEM.html. Importe este arquivo ou copie os :root para o layout.
+   v2.0 (2026-07-24): migração semântica — roxo é a cor primária; laranja é secundária/apoio.
+   Papéis semânticos renomeados (--color-action → --color-primary, --color-highlight → --color-secondary)
+   para não carregar mais o mapeamento antigo (laranja=destaque/dominante, roxo=ação). */
+:root{
+  /* Cores (com proporção oficial de uso, v2.0) */
+  --dodo-roxo:#564f94;      /* 34% · cor-assinatura/primária — identidade, CTA, foco, links; aceita texto branco (AAA) */
+  --dodo-offwhite:#f1ece5;  /* 21% · base neutra de leitura, fundo padrão */
+  --dodo-amarelo:#eff857;   /* 17% · realce/apoio; só texto preto, nunca vira texto sobre claro */
+  --dodo-preto:#1d1c1a;     /* 14% · texto e estrutura (texto universal) */
+  --dodo-laranja:#f85919;   /* 14% · secundária/apoio — ação secundária e alerta; nunca dominante; só texto preto */
+  --dodo-branco:#ffffff;    /* apoio · superfície de cartões e campos */
+
+  /* Papéis semânticos */
+  --color-bg:var(--dodo-offwhite);
+  --color-surface:var(--dodo-branco);
+  --color-text:var(--dodo-preto);
+  --color-text-inverse:var(--dodo-branco);
+
+  --color-primary:var(--dodo-roxo);            /* identidade, botão primário, foco, links */
+  --color-primary-text:var(--dodo-branco);     /* texto sobre fundo primário — AAA 7.1:1 */
+  --color-primary-hover:#453f7a;
+
+  --color-secondary:var(--dodo-laranja);       /* botão secundário, pontuação, alerta */
+  --color-secondary-text:var(--dodo-preto);    /* texto sobre fundo secundário — AA 5.2:1 */
+  --color-secondary-hover:#e04d10;
+
+  --color-accent:var(--dodo-amarelo);          /* realces, badges (texto preto) */
+  --color-accent-text:var(--dodo-preto);
+
+  --color-link:var(--dodo-roxo);
+  --color-focus:var(--dodo-roxo);
+  --color-danger:var(--dodo-laranja);          /* laranja dobra como acento de alerta/erro */
+  --color-danger-hint-text:#c0410f;
+
+  /* Tipografia */
+  --font-display:"Elms Sans",sans-serif;  /* títulos e display */
+  --font-text:"Work Sans",sans-serif;     /* corpo e interface */
+  --weight-display:800;
+  --weight-heading:700;
+  --weight-body:400;
+  --weight-emphasis:600;
+
+  /* Espaçamento (base 4) */
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;
+  --sp-6:32px;--sp-7:48px;--sp-8:64px;--sp-9:96px;
+
+  /* Raios */
+  --radius-field:8px;--radius-card:14px;--radius-block:24px;--radius-pill:999px;
+
+  /* Layout */
+  --content-max:1120px;
+  --grid-cols-desktop:12;
+  --grid-cols-mobile:4;
+  --grid-gutter:24px;
+}
+
+/* Fontes locais (variáveis, licença OFL) */
+@font-face{font-family:"Elms Sans";src:url("./brand/fonts/ElmsSans.ttf") format("truetype");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Work Sans";src:url("./brand/fonts/WorkSans.ttf") format("truetype");font-weight:100 900;font-display:swap}
