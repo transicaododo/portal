@@ -261,4 +261,59 @@ UX), §64/§65 (deploy), §58 (Sprint 01 + rebranding).
 
 ---
 
+## 2026-07-25 — Reorganização documental consolidada e commitada (`36ab33d`)
+
+**Commit:** `36ab33d3cf37799d1a15d7f72a0c14f57a3f1593` — 6 arquivos, nenhum
+código de aplicação tocado.
+
+**Resumo do que foi consolidado:**
+
+- `ESTADO_SESSAO.md` reescrito como snapshot enxuto (384 → 166 linhas),
+  com só 7 seções fixas (Situação atual, Objetivos, Próxima missão,
+  Pendências, Últimos commits relevantes, Arquivos importantes, Links
+  para logs).
+- Criado `docs/_workspace/logs/2026-Rebranding-DODO.md` (este arquivo),
+  recebendo — sem nenhuma perda — toda a narrativa, riscos, "IA
+  recomendada", prompt de handoff e checklists que antes inflavam o
+  snapshot.
+- `TASK_ROUTER.md` §73 registra a decisão e a política de manutenção.
+- `/comecar` e `/fim` atualizados para nunca mais tratar
+  `ESTADO_SESSAO.md` como diário: reescrita sempre completa, histórico
+  movido para o log da fase corrente antes de sobrescrever, log
+  rotacionado a cada ~1500 linhas.
+- `CLAUDE.md` §"Comandos padrão" e §"Documentação complementar"
+  atualizados para documentar `docs/_workspace/logs/`.
+
+**Correção operacional no meio do processo:** o primeiro commit
+(`6f69538`) acabou incluindo, além dos 6 arquivos da reorganização, 44
+deleções de `design-system/` que já estavam staged de uma sessão
+anterior (`git commit` sem pathspec commita todo o índice, não só o que
+foi adicionado por último). Corrigido com `git reset --soft HEAD~1` +
+restage exclusivo dos 6 arquivos + novo commit (`36ab33d`) — sem perda
+de dados, nada tinha sido pushado. Lição registrada: ao commitar um
+subconjunto de arquivos num índice que já tem outras coisas staged,
+usar `git status`/`git diff --cached --stat` para conferir o índice
+inteiro antes do commit, não só os arquivos que acabaram de ser
+adicionados.
+
+**Verificação de referências à arquitetura antiga (2026-07-25):**
+verificado `grep` por `ESTADO_SESSAO` em toda a árvore de documentação.
+Nenhuma referência ativa (`CLAUDE.md`, `/comecar`, `/fim`,
+`GOVERNANCA_DO_PROJETO.md`) descreve mais o arquivo como histórico
+contínuo ou exige *append* — todas já refletem a política nova. As
+únicas menções remanescentes em ADRs/`PLANO_DE_IMPLANTACAO.md`/
+`ARQUITETURA_PRODUCAO.md` são citações pontuais a seções específicas do
+snapshot em datas passadas (ex. "`ESTADO_SESSAO.md` §4"), não descrições
+da arquitetura do arquivo — não requerem correção.
+`docs/_workspace/ESTADO_SESSAO.backup.md` (untracked, herdado de sessão
+de 2026-07-23) já descrevia o mesmo princípio ("reescrito por completo,
+não duplica histórico") antes desta reorganização existir — não
+contradiz a arquitetura nova, só não foi migrado para dentro dela (seu
+destino, se algum dia for necessário, seria virar entrada de um log de
+fase anterior; decisão não tomada aqui, fora do escopo desta tarefa).
+
+**Resultado:** frente de reorganização documental encerrada. Próxima
+missão real do projeto: redesign incremental do frontend (Fase A do
+plano), conforme `ESTADO_SESSAO.md`.
+
 <!-- Próxima entrada de fechamento de fase ou sessão detalhada: acrescentar abaixo desta linha, nunca reescrever o que já está acima. -->

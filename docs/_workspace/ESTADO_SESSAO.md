@@ -29,12 +29,15 @@
   (secundária). O app React (`localhost:5173`/`127.0.0.1:8000`) é a
   fonte de verdade visual, evoluindo por redesign incremental — não o
   Design System do Stitch, removido do repositório.
-- **Reorganização documental (esta sessão):** `ESTADO_SESSAO.md`
-  reestruturado para snapshot enxuto (≤300 linhas); todo o histórico
-  narrativo anterior foi movido para
-  `docs/_workspace/logs/2026-Rebranding-DODO.md`, sem perda de conteúdo.
-  Nova política de manutenção descrita em `TASK_ROUTER.md` §73 e nos
-  comandos `/comecar`/`/fim`.
+- **Reorganização documental: concluída e commitada** (`36ab33d`).
+  `ESTADO_SESSAO.md` reestruturado para snapshot enxuto (≤300 linhas);
+  todo o histórico narrativo anterior foi movido, sem perda de
+  conteúdo, para `docs/_workspace/logs/2026-Rebranding-DODO.md`. Nova
+  política de manutenção (nunca *append*, sempre reescrita completa,
+  histórico movido antes para `logs/`, rotação a ~1500 linhas) descrita
+  em `TASK_ROUTER.md` §73 e implementada nos comandos `/comecar`/`/fim`.
+  Frente encerrada — próxima missão real do projeto é o redesign do
+  frontend (ver abaixo).
 
 ## Objetivos
 
@@ -107,6 +110,8 @@ responsável antes de retomar:
 
 ## Últimos commits relevantes
 
+- `36ab33d` docs(_workspace): reorganizar ESTADO_SESSAO.md como snapshot
+  enxuto e criar docs/_workspace/logs/
 - `3812c37` feat(design-system): importar Design System DODÔ do Stitch
   com equivalência semântica de tokens
 - `786a259` docs(governance): aplicar ADR-020 (nome DODÔ) em CLAUDE.md

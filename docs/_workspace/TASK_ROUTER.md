@@ -5476,3 +5476,26 @@ atualizado para citar `docs/_workspace/logs/` no mapa de pastas de
 **Nenhum código de aplicação, SPEC, ADR ou domínio foi alterado.** Escopo
 estritamente de organização documental operacional, autorizado
 diretamente pelo responsável nesta sessão.
+
+### Estado ao final — `[x]` concluído e commitado
+
+- [x] `docs/_workspace/logs/` criada, com `2026-Rebranding-DODO.md`
+      recebendo 100% do histórico retirado do `ESTADO_SESSAO.md`
+- [x] `ESTADO_SESSAO.md` reescrito como snapshot de 7 seções, ≤300 linhas
+- [x] Política de manutenção implementada em `/comecar` e `/fim`
+- [x] `CLAUDE.md` atualizado com a nova responsabilidade de `logs/`
+- [x] Commit `36ab33d3cf37799d1a15d7f72a0c14f57a3f1593` — só os 6
+      arquivos da reorganização (correção de um commit anterior,
+      `6f69538`, que incluiu por engano 44 deleções de `design-system/`
+      já staged de outra sessão — corrigido com `git reset --soft
+      HEAD~1` sem perda de dados, nada pushado)
+- [x] Verificação de referências à arquitetura antiga — nenhuma
+      referência ativa desatualizada encontrada (ver
+      `docs/_workspace/logs/2026-Rebranding-DODO.md`, entrada de
+      encerramento)
+- [ ] Push para `origin` — não feito (fora do escopo desta frente,
+      segue como pendência geral de todos os commits locais)
+
+**Frente encerrada.** Próxima missão do projeto: redesign incremental do
+frontend (Fase A do plano, `docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md`),
+sem relação com esta reorganização documental.
