@@ -1,0 +1,24 @@
+{
+  "title": "Configurações",
+  "slug": "configuracoes",
+  "screenId": "10b906d4dc5d49bc94baa82165ce4fd7",
+  "stitchResourceName": "projects/146458383206545482/screens/10b906d4dc5d49bc94baa82165ce4fd7",
+  "device": "DESKTOP",
+  "width": 2560,
+  "height": 2048,
+  "screenshot": "design-system/images/configuracoes.jpg",
+  "html": "design-system/code/configuracoes.html",
+  "htmlSizeBytes": 25984,
+  "assetsAssociated": [
+    "design-system/assets/design-tokens-stitch.json"
+  ],
+  "componentsIdentified": [
+    "Sidebar",
+    "Tabs",
+    "Tooltip",
+    "Upload"
+  ],
+  "designSystemUsed": "Criativo DODÔ (assets/a45ed3305ad44bcf89616a913962d736)",
+  "exportDate": "2026-07-25",
+  "sourceProjectId": "146458383206545482"
+}

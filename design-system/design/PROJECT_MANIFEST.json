@@ -1,0 +1,764 @@
+{
+  "_meta": {
+    "exportDate": "2026-07-25",
+    "sourceProjectId": "146458383206545482",
+    "sourceProjectName": "projects/146458383206545482",
+    "note": "Metadados brutos retornados pelo Stitch MCP (list_screens, get_project, list_design_systems), capturados no momento da importação fiel para design-system/. Sem alterações de conteúdo."
+  },
+  "list_screens": {
+    "screens": [
+      {
+        "deviceType": "DESKTOP",
+        "height": "2570",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTNlN2M4N2UwOTI1ZDNhODk0MTU0MTQ3EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/3261199342974787172"
+        },
+        "name": "projects/146458383206545482/screens/55137d8e639d4b5aafefc1ea86ccf505",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLurv7Ms1IScsIGU39Kx-6pHTzt2YRfZK3ct8UaA9EUgkPeWlwjJ9XD-qsL5DU49bt-7Ps_k26zvk79SrHV4Vot71u7s5-xuHw5QTHaM9ygUUQzTVSdsYJXG6qOpdY0R9-yW01_xW8bebyYY2EdxvZ01CblzKqBEPYkF4VOvqjBhQV4hM81eI3udutqSnEN_G2lBnQ3FsJPo3VVEOSQZQJYj9Joh1Th2c5qG2X1S0YgEPuHGgtqoyCbzJw",
+          "name": "projects/146458383206545482/files/10221971915538584658"
+        },
+        "title": "Influenciadoras - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "2826",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQ1ODczMjcwMWE2MzJiNWY4Mzk2YmI5EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/6765373118776344692"
+        },
+        "name": "projects/146458383206545482/screens/0e3e14c398d34c77a1f22547e5e602c3",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLv8SitvwwmCm6xqRNFIHqI7WRchZWi0uCmwBiciP0KFJisIv2f_xx5siuisv3Vrfu5K_IFi_JZk1MZIaKAzUGw2aQZE6uasP0ccuTBwlrMxaRYpy7XeH-AVvxV4L3iZ80xbRh4ibiUrPwXsSnZtULEJo5SOkw697OxfH20d-JSUUFQOb2bYsqd_HIDmAD5uj2RYij0aoiliwxXhLPAUryXTxtsFntRUOyPpG-p8kb1hiDx92s28XOTjsA",
+          "name": "projects/146458383206545482/files/3494488278740280696"
+        },
+        "title": "Calendário - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "3508",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTNmZjIxMDgwOTI1ZDNhODk0MTU0MTQ3EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/15783552074292456035"
+        },
+        "name": "projects/146458383206545482/screens/fd437f3f4af84eb1b1ed7a2c9f3879b0",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLt30e1qwzIPA0GXUSj7BSfUpk-awA6uavvwutQ6ly5-lwPJZS4-n_gjRzB30i9cVIv74dm4KRfbfYoNiiRuBsVS-ArqFc3S_xK3nGZqB84c4Yr2QYt4dGZxQ4YT4NwLReDBBP-oT-tyvR5Yt38xd60EF8byUubqNuWKeyjqVxgmdJcW6FhxJ9ZQPZ7qETbpDAGejMqPKnjuDdSVZhaG69gHJBD0p2ytzAs_Xfq5142YGDz9fE8FPblu",
+          "name": "projects/146458383206545482/files/3423797331301388361"
+        },
+        "title": "Perfil da Influenciadora - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "2048",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQ5MGNiZTQwOTI1YzM5Zjc3MGMyMDY3EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/13031000915064508991"
+        },
+        "name": "projects/146458383206545482/screens/5d8bb19510934626a33551afa38807a8",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLvHrareuRjOnl8RudxihDYzq2ZzSoQvtCNrrcEJdjnkuGZP95_VV0UkaMVoXlqQw61Y5RBrGxszLVUtltQ4aYoSzANibuU4cWFBChvU6-hP3LiZ9uchbubid1eHQpYcebeK1Vqr1tJx0M4zjmQRRUXlekICfQg4pF220hqgWFi0XT8_U7kmGlgukbzngPmV1mnRi5eOkDRJmjXFngGAxxv5HbLm_VEFOOwsxpfRCm6nsXUl6KB0p6nRbw",
+          "name": "projects/146458383206545482/files/1956746065478340938"
+        },
+        "title": "Login Refinado - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "3644",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQxMTBkMTgwMDMwMzE0MjFkMWY2ZTE5EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/6664168929338093093"
+        },
+        "name": "projects/146458383206545482/screens/2bfdac812a42497c9af7625f8347ac1b",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLvpQ1AZooSs0x6hYWrMeYYv_NzocVre6VuR_Uv-IAJbX2QtM92kMPbhVXDECpaK3iKISOTTvKHkXaIa3hNf-eQ-DIzmgn-FRR-UAE5CwJWlvgoTSDwkfXTbOiM1O1gRjG4fiQkpPmHBok-jjvrnoDc-8tIlFl6NwsGprVEnHwdJnNKz-7Lu-7wkB2_wiIP8uI2OnOEwoNuc67gHWTVTtysZqpPUw9u4_zHx_e00zU8g3sCa_MyyG6kPDQ",
+          "name": "projects/146458383206545482/files/1296268106787304350"
+        },
+        "title": "Revisão de Conteúdo - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "2426",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQ2MmMzOTcwODlhZjZjMWYxMmIzMDI3EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/9280806626859899304"
+        },
+        "name": "projects/146458383206545482/screens/d13f48bd2d804479aad10d47772383a5",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLs10vqEtl6c5Ps-DkRKwDPxAsMLkwIiRgsl06YDr7SD3vcLTGbgwM8UatA7wrVmtFs6zzCC1kqHFjDeZ0239wStOzuZvJT9mJMn-FmVkpnTo19k2yjtjz1smXiHfcvzAygjxrC3ORvEFCCBjvjZqyb9jOivgQYtHhXwKws6vtSHIvy_xNNc_grpkmP4XR0pV-wxQZ1Dh_PmgKrSgpvTXU0vx_UW-McczR8tXSiGaxPzOi3ysG6qFRKC",
+          "name": "projects/146458383206545482/files/2228822019915637751"
+        },
+        "title": "Campanhas - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "height": "1768",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKMARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmcKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NTc2NjMzNmE1MmVjMDdjNGVjODEyNDA1MjMzZhILEgcQvZuK5vIMGAGSASIKCnByb2plY3RfaWQSFEISMTQ2NDU4MzgzMjA2NTQ1NDgy&filename=&opi=89354086",
+          "mimeType": "text/markdown",
+          "name": "projects/146458383206545482/files/8559358013080732395"
+        },
+        "name": "projects/146458383206545482/screens/8559358013080734270",
+        "screenshot": {},
+        "title": "DESIGN DODÔ.md",
+        "width": "780"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "2296",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQzNGM2MmIwMzBmYzA1NTFjMWI5YWFhEgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/10117330834431404576"
+        },
+        "name": "projects/146458383206545482/screens/8de39152faee4ca984388242a42936f7",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLvqaJ8FNfZ693WrkltfJRvhbdGy2WYOnhn2hNXAjkCYiIaqx2A1ciqESGvjwtxF0GKJF2bG2_oJun_brjEiT_3G3GjsOZQVn7eEIw2q63o46F3Il3albzd5O3aS_AYCpaTTtat3AOYApKitHxoG7MWUM1E9pYRLVuXDjbub0dI3Q4ExCk4J8dOpDNkWophnPkmhIVoOg2tvd097kO8xI1MbxIh4VgAHV0RF9V9_YECZmwvBRJcEe16Cxw",
+          "name": "projects/146458383206545482/files/6322520064527430230"
+        },
+        "title": "Pagamentos - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "2048",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTNkMjFkMjgwMWE2MzJiNWY4Mzk2YmI5EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/11566264302246836187"
+        },
+        "name": "projects/146458383206545482/screens/6a2054cd790947b9820a4c0684866398",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLvVVIoXdHKYUrxubG8VWunU3vS0ZSviWELQa4mO-BDqNFoV3XG3hMjAq0LXkQN0JfKgqv5MiryTM8qG5GSIBSmsHIG-Z0tqEvLYjftI2bpuGgQ0bBD4bQdce3oE1wniUpUyRu4iOy6sO2EXAsamqZJugvcyWKVYwROcKuoJ-7AlolOph2t6zaRA2Wwzm17E1_Y-6cuBpFDjw9pHavTLcDS3LJThAj3w6iMexm42qsmy4b2lneAw8H8i3w",
+          "name": "projects/146458383206545482/files/6257398676451956967"
+        },
+        "title": "Painel Administrativo - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "MOBILE",
+        "height": "3230",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTNiNWM2OGMwMzRhNGUyMGRkMjVjMTFmEgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/15626656740381211690"
+        },
+        "name": "projects/146458383206545482/screens/84cb7c01eaec4acbadb8d92f225271a2",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLt3UuR19Qy5weoP71t-vwLIf7pLXNIj_eGgUybAbZTDNxofmsDYtt8XSqPPCemAOEOopGuIfnYwibbr3Z2D8te41CN4Ao_dzHnGC9rXmvOCT4wUldggTzT6LjWl_0Cfs0Do8fWTS_lSq6h_Gr-oRcwtPbG5OsJoc9GPQEbTHSwF-lyTpLnyHgAP1Gk_jt_K3AqvthmoBgVvDSnIFPsf4OwQAWqk8n3fkQqGlDPvv7nb6VuQGT-YyvvD",
+          "name": "projects/146458383206545482/files/11674429306491574676"
+        },
+        "title": "Painel Influenciadora - Mobile",
+        "width": "780"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "5464",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQ0MjA4MTcwMjJkNGE5YzRjMDVkMDNiEgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/6779584909878607107"
+        },
+        "name": "projects/146458383206545482/screens/9fc8704228c04b258c4b44460ea7af4a",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLsLkjc2grK-FSzocO4mq6v-NKOhmHSq6wuaRLecBSunxzSh480eC-1yUzHUKqBJLogIEWCUwSaTfsHYcCyOyys1Sld9mVOfl0RLU-w5-rG-n_hl74ldDpnpR8BBNVY4qwSD7Hkl_zaP6EnBaDpnpYh_4rv_JzbU2RMeghocwosE9cMLJNzcKxSFqerHtMZmvsOfpQpi1i_dexeXxJeK3u1_mp02mSWnfwj6RWSaCh0xoeRlFoca3ZqUQA",
+          "name": "projects/146458383206545482/files/1619050087367405206"
+        },
+        "title": "Nova Campanha - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "7460",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQ0ZTY2YmMwMzgzOGIzZjZlMmU0NzQzEgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/5324762664890620243"
+        },
+        "name": "projects/146458383206545482/screens/3392d048e12c4cdfa97eaaf0bff194c6",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLsvwn0SGpGyY8EhMnBHc4ok8Zc_jou1I4VtF28I6H4XZbC6Sb_DIPoCfkG9V7Vl1k16_xFZIOfFnysST6w5CYMaDgjw3iBfEuGGR1nV0OusM8ius7pZsKMWjJTkllk1Px3cSPS4DECjhn3-BOiRntVSuc80BSNMBr2KVFLh1GGCQoIZr8JDSxhS2EIXl7VOgyTXXIrd38Ydjjxa8kLlTzrysT4Bh26lC5rxoWT7wA3uXLjErgeQV6MD",
+          "name": "projects/146458383206545482/files/6092103177098828381"
+        },
+        "title": "Briefing da Campanha - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "2048",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQwOTE0M2YwMzM4NWRmMDI5MDE4NTcyEgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/1608343380159407787"
+        },
+        "name": "projects/146458383206545482/screens/10b906d4dc5d49bc94baa82165ce4fd7",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLvtNH4YseDLhRtCwJn4AstvJ1q_wmxjtSCZFR3xUaqMZjAkDPcXAnWpdN9RJ64RgLAxUAY-G7P8q_8eaEU5Rt-xQZitsalhoecb_1i1Ju6ud8GeEi0jii8cUf-C5E4frEvbDAfvMGcq05y-19hLzpEEPdGfdLLMyt10ByDC_N3F9f0GfZ1S4S6OE7REpcotKTyvtlSpOboxbQ-EfdZcswptKPwap2cLhEPuEeirQZUVrx6lMWYuu9yfQg",
+          "name": "projects/146458383206545482/files/1619050087367405395"
+        },
+        "title": "Configurações - Criativo DODÔ",
+        "width": "2560"
+      },
+      {
+        "deviceType": "DESKTOP",
+        "height": "4372",
+        "htmlCode": {
+          "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1NzY2NTQxYzJjYjUwMDMwM2VkMzdkMDc2OTM5EgsSBxC9m4rm8gwYAZIBIgoKcHJvamVjdF9pZBIUQhIxNDY0NTgzODMyMDY1NDU0ODI&filename=&opi=89354086",
+          "mimeType": "text/html",
+          "name": "projects/146458383206545482/files/12991791475921870562"
+        },
+        "name": "projects/146458383206545482/screens/93163f309ad74a9591ef5a4225c54c66",
+        "screenshot": {
+          "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLtK3swT4cNHGgfgAsHyLgzjQPwFL3QG5_Whk7eHVu1KrSZP0wsIOfB-tpYFHybqWntOff9-VCaqANc1YgmxGlusU0M1pal4jaSVnI-fFL2LtGmHT1daN5FtppRc8uXcJKw27du4MWfXMUYTuIIrWugb2MRUkiwnOLQz554FPGTchG350ClgBz-S9OOR69qNgJDMHVw0pemT0OhwdmYVdIJUGtbCGBV3rTiPh8jacS-PL3B7d1IhqfTsmg",
+          "name": "projects/146458383206545482/files/15061734120709450892"
+        },
+        "title": "Fashion Journal - Criativo DODÔ",
+        "width": "2560"
+      }
+    ]
+  },
+  "get_project": {
+    "createTime": "2026-07-25T02:25:19.035409Z",
+    "designTheme": {
+      "bodyFont": "WORK_SANS",
+      "bodyFontFamily": "Work Sans",
+      "colorMode": "LIGHT",
+      "colorVariant": "FIDELITY",
+      "customColor": "#f14f28",
+      "designMd": "---\nname: Criativo DODÔ\ncolors:\n  surface: '#fff8f6'\n  surface-dim: '#f0d4cd'\n  surface-bright: '#fff8f6'\n  surface-container-lowest: '#ffffff'\n  surface-container-low: '#fff0ed'\n  surface-container: '#ffe9e4'\n  surface-container-high: '#ffe2db'\n  surface-container-highest: '#f9dcd6'\n  on-surface: '#271814'\n  on-surface-variant: '#5b403a'\n  inverse-surface: '#3e2c28'\n  inverse-on-surface: '#ffede9'\n  outline: '#8f7068'\n  outline-variant: '#e4beb5'\n  surface-tint: '#b52700'\n  primary: '#b02600'\n  on-primary: '#ffffff'\n  primary-container: '#d63c16'\n  on-primary-container: '#fffbff'\n  inverse-primary: '#ffb4a3'\n  secondary: '#5655a8'\n  on-secondary: '#ffffff'\n  secondary-container: '#a7a5ff'\n  on-secondary-container: '#393689'\n  tertiary: '#00628a'\n  on-tertiary: '#ffffff'\n  tertiary-container: '#007dad'\n  on-tertiary-container: '#fcfcff'\n  error: '#ba1a1a'\n  on-error: '#ffffff'\n  error-container: '#ffdad6'\n  on-error-container: '#93000a'\n  primary-fixed: '#ffdad2'\n  primary-fixed-dim: '#ffb4a3'\n  on-primary-fixed: '#3d0700'\n  on-primary-fixed-variant: '#8a1c00'\n  secondary-fixed: '#e2dfff'\n  secondary-fixed-dim: '#c3c0ff'\n  on-secondary-fixed: '#100563'\n  on-secondary-fixed-variant: '#3e3c8e'\n  tertiary-fixed: '#c6e7ff'\n  tertiary-fixed-dim: '#83cfff'\n  on-tertiary-fixed: '#001e2e'\n  on-tertiary-fixed-variant: '#004c6c'\n  background: '#EFE7DC'\n  on-background: '#271814'\n  surface-variant: '#f9dcd6'\n  text: '#171715'\n  accent-lime: '#DAEA49'\ntypography:\n  display:\n    fontFamily: Be Vietnam Pro\n    fontSize: 72px\n    fontWeight: '700'\n    lineHeight: 80px\n  headline-lg:\n    fontFamily: Be Vietnam Pro\n    fontSize: 48px\n    fontWeight: '700'\n    lineHeight: 56px\n  headline-lg-mobile:\n    fontFamily: Be Vietnam Pro\n    fontSize: 32px\n    fontWeight: '700'\n    lineHeight: 40px\n  headline-md:\n    fontFamily: Be Vietnam Pro\n    fontSize: 32px\n    fontWeight: '700'\n    lineHeight: 40px\n  headline-sm:\n    fontFamily: Be Vietnam Pro\n    fontSize: 24px\n    fontWeight: '700'\n    lineHeight: 32px\n  lead:\n    fontFamily: Work Sans\n    fontSize: 20px\n    fontWeight: '400'\n    lineHeight: 30px\n  body-lg:\n    fontFamily: Work Sans\n    fontSize: 18px\n    fontWeight: '400'\n    lineHeight: 28px\n  body:\n    fontFamily: Work Sans\n    fontSize: 16px\n    fontWeight: '400'\n    lineHeight: 24px\n  body-sm:\n    fontFamily: Work Sans\n    fontSize: 14px\n    fontWeight: '400'\n    lineHeight: 20px\n  label:\n    fontFamily: Work Sans\n    fontSize: 13px\n    fontWeight: '500'\n    lineHeight: 16px\n  caption:\n    fontFamily: Work Sans\n    fontSize: 12px\n    fontWeight: '400'\n    lineHeight: 16px\n  micro:\n    fontFamily: Work Sans\n    fontSize: 11px\n    fontWeight: '500'\n    lineHeight: 14px\n  button:\n    fontFamily: Work Sans\n    fontSize: 14px\n    fontWeight: '600'\n    lineHeight: 16px\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  base: 4px\n  container-padding: 16px\n  section-gap: 48px\n  gutter-desktop: 24px\n  margin-desktop: 32px\n  gutter-mobile: 16px\n  margin-mobile: 20px\n---\n\n# DESIGN.md — Criativo DODÔ\n\nEste documento define o Design System e as regras de interface para a plataforma **Criativo DODÔ**. Ele foi estruturado especificamente para orientar o Google Stitch e outros agentes de IA na geração de interfaces consistentes, sofisticadas e fiéis à marca.\n\n---\n\n## 1. Design Tokens\n\nOs tokens abaixo são imutáveis. Nenhuma cor, fonte ou espaçamento fora desta lista é permitido.\n\n### 1.1 Paleta de Cores\n\nA paleta é distribuída por hierarquia. Cada cor possui um papel definido na interface.\n\n| Token | Cor | HEX | Uso Principal | Restrições |\n|---|---|---|---|---|\n| `color-background` | Creme | `#EFE7DC` | Fundo padrão, superfície principal | Nunca usar branco puro como fundo |\n| `color-text` | Preto | `#171715` | Tipografia, wordmark, elementos estruturais | Não é `#000`; tem calor |\n| `color-primary` | Laranja | `#F14F28` | CTAs primários, destaques, highlights | Usar com contenção |\n| `color-secondary` | Roxo | `#504EA1` | Blocos secundários, links, badges | Cor de confiança |\n| `color-accent` | Lime | `#DAEA49` | Contraponto de energia | Usar apenas sobre preto ou roxo. Nunca sobre branco. |\n\n**Combinações Permitidas:**\n- Preto + Creme (base institucional)\n- Preto + Laranja (energia, CTA)\n- Roxo + Creme (confiança)\n- Roxo + Lime (contraste alto, uso pontual)\n- Preto + Lime (destaque máximo)\n\n**Combinações Proibidas:**\n- Laranja + Roxo em áreas grandes\n- Lime + Laranja lado a lado\n- Lime + Branco\n\n### 1.2 Tipografia\n\nDuas famílias tipográficas. Nenhuma outra fonte é permitida. Nunca misturar na mesma linha.\n\n**Elms Sans (Primária)**\n- **Função:** Marca — títulos, chamadas, stats.\n- **Pesos:** Regular, Bold.\n- **Uso:** Wordmark, H1/H2/H3, hero, stats ≥40px, selos, tags.\n- **Restrição:** Nunca em blocos longos de texto corrido.\n\n**Work Sans (Secundária)**\n- **Função:** Sistema — corpo, UI, formulários.\n- **Pesos:** Regular (400), Medium (500), SemiBold (600), Bold (700).\n- **Uso:** Corpo de texto, botões, inputs, labels, tabelas, legendas, microcopy.\n- **Restrição:** Nunca no wordmark.\n\n**Escala Tipográfica:**\n- **Display:** 72/80 Bold (hero/landing)\n- **H1:** 48/56 Bold (título de página)\n- **H2:** 32/40 Bold (seções)\n- **H3:** 24/32 Bold (sub-seções)\n- **Lead:** 20/30 Regular (introdução)\n- **Body L:** 18/28 Regular (texto longo)\n- **Body:** 16/24 Regular (UI padrão)\n- **Body S:** 14/20 Regular (descrições, hints)\n- **Label:** 13/16 Medium (labels de form, chips)\n- **Caption:** 12/16 Regular (metadados, legendas)\n- **Micro:** 11/14 Medium (tags, badges pequenos)\n- **Button:** 14/16 SemiBold (ações, CAPS opcional)\n\n### 1.3 Espaçamento e Grid\n\n- **Escala de Espaçamento:** Múltiplos de 4px (4, 8, 12, 16, 24, 32, 48, 64, 96).\n- **Padding Interno Mínimo:** 16px para containers.\n- **Gap entre Seções:** ≥ 48px.\n- **Grid Web:** 12 colunas, gutter 24, max-width 1240px, margem lateral 32.\n- **Grid Mobile:** 4 colunas, gutter 16, margem 20.\n- **Baseline Vertical:** 8px.\n\n### 1.4 Cantos e Bordas\n\n- **Radius Padrão:** 12px (cards, inputs, botões).\n- **Radius Pequeno:** 8px (chips, tags, badges).\n- **Radius Grande:** 20px (modais, sheets).\n- **Radius Máximo:** 999px (avatares, botões pill).\n- **Bordas:** 1px em cinza sutil. Nunca bordas coloridas em elementos estruturais.\n\n### 1.5 Sombras e Elevação\n\n- **Sombras:** Praticamente inexistentes.\n- **Elevação:** Preferir elevação por cor (fundo creme sobre branco, card branco sobre creme).\n- **Sombra Sutil (se estritamente necessário):** `0 1px 2px rgba(23,23,21,.06)`.\n- **Restrição:** Nunca usar sombras longas ou coloridas.\n\n---\n\n## 2. Filosofia de Design e Direção de Arte\n\nA interface da Criativo DODÔ deve parecer um software premium criado por um estúdio contemporâneo de branding. Não um dashboard genérico, não um SaaS padrão, não um template.\n\n### 2.1 Princípios Visuais\n\n- **Editorial e Minimalista:** A tipografia deve comunicar antes da cor. O grid deve comunicar antes dos componentes.\n- **Espaço em Branco:** O espaço vazio faz parte da identidade. Respirar sempre: nenhum bloco sem 24px de margem em relação ao vizinho.\n- **Contemporânea e Sofisticada:** A criatividade deve nascer da composição, nunca do excesso de elementos.\n- **Silenciosa e Autoral:** A marca aparece como infraestrutura confiável para o trabalho criativo — não como protagonista visual da entrega.\n\n### 2.2 Elementos Gráficos da Marca\n\nEstes elementos não são decorativos; são a identidade visual do produto e devem aparecer de forma consistente:\n\n- **O Ponto:** O ponto do logotipo \"DODÔ.\" replicado como marcador, bullet point ou fim de bloco.\n- **O Círculo:** O \"O\" ampliado como moldura, container de avatar e frame de mídia.\n- **O Chapéu / Circunflexo:** O acento do \"Ô\" isolado como divisor e marca de seção (centralizado, máximo 24px, cor da paleta).\n\n### 2.3 Motion\n\nA marca se move com discrição. Movimento serve à leitura e ao feedback, nunca ao espetáculo.\n\n- **Duração:** 120–240ms para micro-interações; 320–480ms para transições de tela.\n- **Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` (ease-out suave).\n- **Restrições:** Uma animação por vez. Nada de bounce, elastic ou rotação > 360°. Respeitar `prefers-reduced-motion`.\n\n---\n\n## 3. Regras de UX e Componentes\n\n### 3.1 Regras Absolutas de UX\n\n1. **Um único CTA primário por tela:** Ações secundárias devem ser de contorno ou texto. Nunca dois botões primários competindo.\n2. **Mesma interação, mesmo padrão:** Não criar padrões diferentes para a mesma interação em telas distintas.\n3. **Ações destrutivas exigem confirmação inline:** Expandir seção na tela pedindo confirmação/motivo. Nunca usar modal desnecessário.\n4. **Estados obrigatórios:** Toda tela possui estados de Carregamento (Skeleton), Vazio (EmptyState), Sem Resultados e Erro.\n5. **Cor nunca é o único indicador:** Usar ícone + texto + cor em badges e feedbacks.\n6. **Não duplicar componentes:** Se `Badge` resolve, não criar `StatusBadge`. Se `Table` resolve, não reimplementar.\n7. **Prioridade de Dispositivo:** Mobile First para Influenciadora (bottom-nav), Desktop First para Admin (sidebar fixa).\n\n### 3.2 Componentes Obrigatórios\n\n- **Tabs:** Para alternar facetas da mesma entidade sem navegação de página.\n- **Table:** Tabela padrão (cabeçalho, linha, ação por linha).\n- **Pagination:** \"Página X de Y\" + anterior/próxima.\n- **Avatar:** Iniciais + nome a partir de `name`.\n- **Upload:** Envio de material com drag & drop e barra de progresso.\n- **Toast:** Feedback transitório de sucesso.\n- **Skeleton:** Placeholder de carregamento com forma do conteúdo final.\n- **Timeline:** Linha do tempo de status.\n- **Drawer:** Painel lateral para formulário curto sem rota própria.\n\n### 3.3 Anti-Padrões (O que NÃO fazer)\n\nPara manter a identidade da marca consistente, o Stitch deve **EVITAR** explicitamente:\n\n- Material Design ou Tailwind UI genérico.\n- Dashboards SaaS padrão.\n- Excesso de cards, badges, bordas ou sombras.\n- Gradientes, glassmorphism ou neorphism.\n- Interfaces \"fofas\" ou com aparência de startup genérica.\n- Uso da cor vermelha (usar Laranja para alertas/destaques).\n- Reinterpretar a paleta oficial ou alterar hexadecimais.\n- Modais/Dialogs genéricos (usar confirmação inline).\n- Substituir as fontes oficiais (Elms Sans e Work Sans).\n",
+      "font": "BE_VIETNAM_PRO",
+      "headlineFont": "BE_VIETNAM_PRO",
+      "headlineFontFamily": "Be Vietnam Pro",
+      "labelFont": "WORK_SANS",
+      "labelFontFamily": "Work Sans",
+      "namedColors": {
+        "accent-lime": "#DAEA49",
+        "background": "#EFE7DC",
+        "error": "#ba1a1a",
+        "error_container": "#ffdad6",
+        "inverse_on_surface": "#ffede9",
+        "inverse_primary": "#ffb4a3",
+        "inverse_surface": "#3e2c28",
+        "on_background": "#271814",
+        "on_error": "#ffffff",
+        "on_error_container": "#93000a",
+        "on_primary": "#ffffff",
+        "on_primary_container": "#fffbff",
+        "on_primary_fixed": "#3d0700",
+        "on_primary_fixed_variant": "#8a1c00",
+        "on_secondary": "#ffffff",
+        "on_secondary_container": "#393689",
+        "on_secondary_fixed": "#100563",
+        "on_secondary_fixed_variant": "#3e3c8e",
+        "on_surface": "#271814",
+        "on_surface_variant": "#5b403a",
+        "on_tertiary": "#ffffff",
+        "on_tertiary_container": "#fcfcff",
+        "on_tertiary_fixed": "#001e2e",
+        "on_tertiary_fixed_variant": "#004c6c",
+        "outline": "#8f7068",
+        "outline_variant": "#e4beb5",
+        "primary": "#b02600",
+        "primary_container": "#d63c16",
+        "primary_fixed": "#ffdad2",
+        "primary_fixed_dim": "#ffb4a3",
+        "secondary": "#5655a8",
+        "secondary_container": "#a7a5ff",
+        "secondary_fixed": "#e2dfff",
+        "secondary_fixed_dim": "#c3c0ff",
+        "surface": "#fff8f6",
+        "surface_bright": "#fff8f6",
+        "surface_container": "#ffe9e4",
+        "surface_container_high": "#ffe2db",
+        "surface_container_highest": "#f9dcd6",
+        "surface_container_low": "#fff0ed",
+        "surface_container_lowest": "#ffffff",
+        "surface_dim": "#f0d4cd",
+        "surface_tint": "#b52700",
+        "surface_variant": "#f9dcd6",
+        "tertiary": "#00628a",
+        "tertiary_container": "#007dad",
+        "tertiary_fixed": "#c6e7ff",
+        "tertiary_fixed_dim": "#83cfff",
+        "text": "#171715"
+      },
+      "overridePrimaryColor": "#f14f28",
+      "overrideSecondaryColor": "#504ea1",
+      "roundness": "ROUND_EIGHT",
+      "spacing": {
+        "base": "4px",
+        "container-padding": "16px",
+        "gutter-desktop": "24px",
+        "gutter-mobile": "16px",
+        "margin-desktop": "32px",
+        "margin-mobile": "20px",
+        "section-gap": "48px"
+      },
+      "spacingScale": 2,
+      "typography": {
+        "body": {
+          "fontFamily": "Work Sans",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px"
+        },
+        "body-lg": {
+          "fontFamily": "Work Sans",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "lineHeight": "28px"
+        },
+        "body-sm": {
+          "fontFamily": "Work Sans",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "lineHeight": "20px"
+        },
+        "button": {
+          "fontFamily": "Work Sans",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "16px"
+        },
+        "caption": {
+          "fontFamily": "Work Sans",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "16px"
+        },
+        "display": {
+          "fontFamily": "Be Vietnam Pro",
+          "fontSize": "72px",
+          "fontWeight": "700",
+          "lineHeight": "80px"
+        },
+        "headline-lg": {
+          "fontFamily": "Be Vietnam Pro",
+          "fontSize": "48px",
+          "fontWeight": "700",
+          "lineHeight": "56px"
+        },
+        "headline-lg-mobile": {
+          "fontFamily": "Be Vietnam Pro",
+          "fontSize": "32px",
+          "fontWeight": "700",
+          "lineHeight": "40px"
+        },
+        "headline-md": {
+          "fontFamily": "Be Vietnam Pro",
+          "fontSize": "32px",
+          "fontWeight": "700",
+          "lineHeight": "40px"
+        },
+        "headline-sm": {
+          "fontFamily": "Be Vietnam Pro",
+          "fontSize": "24px",
+          "fontWeight": "700",
+          "lineHeight": "32px"
+        },
+        "label": {
+          "fontFamily": "Work Sans",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "lineHeight": "16px"
+        },
+        "lead": {
+          "fontFamily": "Work Sans",
+          "fontSize": "20px",
+          "fontWeight": "400",
+          "lineHeight": "30px"
+        },
+        "micro": {
+          "fontFamily": "Work Sans",
+          "fontSize": "11px",
+          "fontWeight": "500",
+          "lineHeight": "14px"
+        }
+      }
+    },
+    "deviceType": "MOBILE",
+    "metadata": {
+      "userRole": "READER"
+    },
+    "name": "projects/146458383206545482",
+    "origin": "STITCH",
+    "projectType": "TEXT_TO_UI_PRO",
+    "screenInstances": [
+      {
+        "height": 1617,
+        "id": "0e3e14c398d34c77a1f22547e5e602c3",
+        "sourceScreen": "projects/146458383206545482/screens/0e3e14c398d34c77a1f22547e5e602c3",
+        "width": 1280,
+        "x": 2900,
+        "y": 7434
+      },
+      {
+        "height": 1024,
+        "id": "10b906d4dc5d49bc94baa82165ce4fd7",
+        "sourceScreen": "projects/146458383206545482/screens/10b906d4dc5d49bc94baa82165ce4fd7",
+        "width": 1280,
+        "x": 5659,
+        "y": 7447
+      },
+      {
+        "height": 2682,
+        "hidden": true,
+        "id": "1a3da81481b646b8aad06a8bf5c5afaa",
+        "sourceScreen": "projects/146458383206545482/screens/1a3da81481b646b8aad06a8bf5c5afaa",
+        "width": 1280,
+        "x": 1868
+      },
+      {
+        "height": 1024,
+        "hidden": true,
+        "id": "27e46975d2694ebe93e544a6d45a80ef",
+        "sourceScreen": "projects/146458383206545482/screens/27e46975d2694ebe93e544a6d45a80ef",
+        "width": 1280,
+        "x": 5010
+      },
+      {
+        "height": 1823,
+        "id": "2bfdac812a42497c9af7625f8347ac1b",
+        "sourceScreen": "projects/146458383206545482/screens/2bfdac812a42497c9af7625f8347ac1b",
+        "width": 1280,
+        "x": 7365,
+        "y": 2958
+      },
+      {
+        "height": 1822,
+        "hidden": true,
+        "id": "2bfdac812a42497c9af7625f8347ac1b-1784946784462",
+        "sourceScreen": "projects/146458383206545482/screens/2bfdac812a42497c9af7625f8347ac1b",
+        "width": 1280,
+        "x": 19001,
+        "y": 4827
+      },
+      {
+        "height": 3752,
+        "id": "3392d048e12c4cdfa97eaaf0bff194c6",
+        "sourceScreen": "projects/146458383206545482/screens/3392d048e12c4cdfa97eaaf0bff194c6",
+        "width": 1280,
+        "x": 5964,
+        "y": 2945
+      },
+      {
+        "height": 3752,
+        "hidden": true,
+        "id": "3392d048e12c4cdfa97eaaf0bff194c6-1784946784462",
+        "sourceScreen": "projects/146458383206545482/screens/3392d048e12c4cdfa97eaaf0bff194c6",
+        "width": 1280,
+        "x": 17599,
+        "y": 4814
+      },
+      {
+        "height": 1285,
+        "id": "55137d8e639d4b5aafefc1ea86ccf505",
+        "sourceScreen": "projects/146458383206545482/screens/55137d8e639d4b5aafefc1ea86ccf505",
+        "width": 1280,
+        "x": 2960,
+        "y": 2945
+      },
+      {
+        "height": 1285,
+        "hidden": true,
+        "id": "55137d8e639d4b5aafefc1ea86ccf505-1784946784462",
+        "sourceScreen": "projects/146458383206545482/screens/55137d8e639d4b5aafefc1ea86ccf505",
+        "width": 1280,
+        "x": 14595,
+        "y": 4814
+      },
+      {
+        "height": 1024,
+        "id": "5d8bb19510934626a33551afa38807a8",
+        "sourceScreen": "projects/146458383206545482/screens/5d8bb19510934626a33551afa38807a8",
+        "width": 1280,
+        "x": 7037,
+        "y": 7434
+      },
+      {
+        "height": 1741,
+        "id": "6a2054cd790947b9820a4c0684866398",
+        "sourceScreen": "projects/146458383206545482/screens/6a2054cd790947b9820a4c0684866398",
+        "width": 1280,
+        "x": 3212
+      },
+      {
+        "height": 1615,
+        "id": "84cb7c01eaec4acbadb8d92f225271a2",
+        "sourceScreen": "projects/146458383206545482/screens/84cb7c01eaec4acbadb8d92f225271a2",
+        "width": 390,
+        "x": 4556
+      },
+      {
+        "height": 1224,
+        "id": "8de39152faee4ca984388242a42936f7",
+        "sourceScreen": "projects/146458383206545482/screens/8de39152faee4ca984388242a42936f7",
+        "width": 1280,
+        "x": 1394,
+        "y": 7417
+      },
+      {
+        "height": 2186,
+        "id": "93163f309ad74a9591ef5a4225c54c66",
+        "sourceScreen": "projects/146458383206545482/screens/93163f309ad74a9591ef5a4225c54c66",
+        "width": 1280,
+        "x": 4311,
+        "y": 7434
+      },
+      {
+        "height": 2731,
+        "id": "9fc8704228c04b258c4b44460ea7af4a",
+        "sourceScreen": "projects/146458383206545482/screens/9fc8704228c04b258c4b44460ea7af4a",
+        "width": 1280,
+        "x": 1469,
+        "y": 2939
+      },
+      {
+        "height": 2731,
+        "hidden": true,
+        "id": "9fc8704228c04b258c4b44460ea7af4a-1784946784462",
+        "sourceScreen": "projects/146458383206545482/screens/9fc8704228c04b258c4b44460ea7af4a",
+        "width": 1280,
+        "x": 13105,
+        "y": 4808
+      },
+      {
+        "height": 540,
+        "id": "assets_a45ed3305ad44bcf89616a913962d736",
+        "sourceAsset": "assets/a45ed3305ad44bcf89616a913962d736",
+        "type": "DESIGN_SYSTEM_INSTANCE",
+        "width": 960,
+        "x": 844
+      },
+      {
+        "height": 1597,
+        "id": "d13f48bd2d804479aad10d47772383a5",
+        "sourceScreen": "projects/146458383206545482/screens/d13f48bd2d804479aad10d47772383a5",
+        "width": 1280,
+        "x": 5078,
+        "y": 95
+      },
+      {
+        "height": 1213,
+        "hidden": true,
+        "id": "d13f48bd2d804479aad10d47772383a5-1784946784462",
+        "sourceScreen": "projects/146458383206545482/screens/d13f48bd2d804479aad10d47772383a5",
+        "width": 1280,
+        "x": 11635,
+        "y": 4808
+      },
+      {
+        "height": 1768,
+        "id": "ef49f814-c45c-4ad0-a5d1-f7dd5143e7db",
+        "sourceScreen": "projects/146458383206545482/screens/8559358013080734270",
+        "type": "SCREEN_INSTANCE",
+        "width": 780
+      },
+      {
+        "height": 1754,
+        "id": "fd437f3f4af84eb1b1ed7a2c9f3879b0",
+        "sourceScreen": "projects/146458383206545482/screens/fd437f3f4af84eb1b1ed7a2c9f3879b0",
+        "width": 1280,
+        "x": 4540,
+        "y": 3006
+      },
+      {
+        "height": 1754,
+        "hidden": true,
+        "id": "fd437f3f4af84eb1b1ed7a2c9f3879b0-1784946784462",
+        "sourceScreen": "projects/146458383206545482/screens/fd437f3f4af84eb1b1ed7a2c9f3879b0",
+        "width": 1280,
+        "x": 16175,
+        "y": 4875
+      }
+    ],
+    "thumbnailScreenshot": {
+      "downloadUrl": "https://lh3.googleusercontent.com/aida/AP1WRLuCuEyfauwtzTFkG8sbI0h3e-nWfUsLtaAXtHth8Dp0TuzqutsoLAnTPXA90AWwaiUaKsi1H0hNBDyO-xaUkaBzjcsicVFtwzMqetGr1L4SoRODxefBilHnPeSFCgZPrnW5YxD2Jy7EYtig4FAZ8pOcmR7ptmNmXVomT5ACoXD5YH5kgU1pzN8v9eAIkB_OHSHAWIQJL9HObpFG-A61_WFf4C5MdObZ-c7HwRzPmb7RyXVvXdt-L-1u",
+      "name": "projects/146458383206545482/files/8f8f8e22734f453185016ce2ae87e265"
+    },
+    "title": "Criativo DODÔ Design System",
+    "updateTime": "2026-07-25T02:48:54.953063Z",
+    "visibility": "PUBLIC"
+  },
+  "list_design_systems": {
+    "designSystems": [
+      {
+        "name": "assets/a45ed3305ad44bcf89616a913962d736",
+        "version": "1",
+        "designSystem": {
+          "displayName": "Criativo DODÔ",
+          "styleGuidelines": "## Brand & Style\n\nThis design system embodies an editorial and minimalist philosophy, moving away from generic SaaS or dashboard aesthetics in favor of a sophisticated, branding-studio-inspired interface. The brand personality is contemporary, authoritative, and silent—acting as a reliable infrastructure for creative work rather than the protagonist.\n\nThe design style is **Minimalist and Typography-centric**, emphasizing whitespace and grid composition over decorative elements.\n\n**Core Visual Principles:**\n- **Space as Identity:** Every block must have at least 24px of margin. Empty space is a functional element of the brand.\n- **Graphic Motifs:** Incorporate the \"Point\" (from the logo) as a bullet or block terminator, the \"Circle\" (the 'O') as a container for avatars or media frames, and the \"Circumflex\" (the 'Ô' accent) as a centered section divider (max 24px).\n- **Refinement:** Avoid popular trends like glassmorphism, neomorphism, or gradients. The interface should feel \"autoral\" and custom-built.\n\n## Layout & Spacing\n\nThe system follows a strict 4px-based spacing scale (4, 8, 12, 16, 24, 32, 48, 64, 96) and an 8px vertical baseline.\n\n**Grid Architecture:**\n- **Desktop:** 12-column fixed grid with a 1240px max-width, 24px gutters, and 32px side margins.\n- **Mobile:** 4-column fluid grid with 16px gutters and 20px side margins.\n\n**Adaptation Philosophy:**\n- **Mobile First:** Optimized for Influencer-facing views (typically utilizing a bottom navigation).\n- **Desktop First:** Optimized for Admin-facing views (typically utilizing a fixed sidebar).\n\n## Elevation & Depth\n\nHierarchy is established through **color-based layering** rather than physical depth metaphors. Shadows are virtually non-existent.\n\n**Elevation Strategies:**\n- **Tonal Separation:** Use a cream background for the main surface and white cards or containers to indicate higher priority/interactive zones.\n- **Subtle Borders:** Use 1px subtle gray borders for structural elements. Avoid colored borders for structure.\n- **Minimal Shadows:** If strictly necessary for floating elements, use an extremely subtle, diffused shadow: `0 1px 2px rgba(23, 23, 21, 0.06)`. Never use long or colored shadows.\n\n## Components\n\nComponents should avoid generic SaaS styling. Every component must feature states for Loading (Skeleton), Empty, No Results, and Error.\n\n- **Buttons:** Only one Primary CTA (Orange) per screen. Secondary actions must be outlined or text-only. 12px radius.\n- **Badges/Chips:** 8px radius. Never rely on color alone for meaning; always combine with an icon and text.\n- **Inputs:** 12px radius with Work Sans labels.\n- **Cards:** Defined by tonal elevation (White on Cream) rather than shadows.\n- **Avatars:** Circular (999px) using the \"Circle\" motif, containing initials.\n- **Confirmations:** Destructive actions must use **inline confirmations** (expanding a section) rather than generic modals.\n- **Feedback:** Use Toasts for success and Skeletons for loading. Never use red for alerts; use the Primary Orange.\n- **Navigation:** Bottom-nav for mobile; fixed sidebar for desktop.",
+          "theme": {
+            "bodyFont": "WORK_SANS",
+            "bodyFontFamily": "Work Sans",
+            "colorMode": "LIGHT",
+            "colorVariant": "FIDELITY",
+            "customColor": "#f14f28",
+            "designMd": "---\nname: Criativo DODÔ\ncolors:\n  surface: '#fff8f6'\n  surface-dim: '#f0d4cd'\n  surface-bright: '#fff8f6'\n  surface-container-lowest: '#ffffff'\n  surface-container-low: '#fff0ed'\n  surface-container: '#ffe9e4'\n  surface-container-high: '#ffe2db'\n  surface-container-highest: '#f9dcd6'\n  on-surface: '#271814'\n  on-surface-variant: '#5b403a'\n  inverse-surface: '#3e2c28'\n  inverse-on-surface: '#ffede9'\n  outline: '#8f7068'\n  outline-variant: '#e4beb5'\n  surface-tint: '#b52700'\n  primary: '#b02600'\n  on-primary: '#ffffff'\n  primary-container: '#d63c16'\n  on-primary-container: '#fffbff'\n  inverse-primary: '#ffb4a3'\n  secondary: '#5655a8'\n  on-secondary: '#ffffff'\n  secondary-container: '#a7a5ff'\n  on-secondary-container: '#393689'\n  tertiary: '#00628a'\n  on-tertiary: '#ffffff'\n  tertiary-container: '#007dad'\n  on-tertiary-container: '#fcfcff'\n  error: '#ba1a1a'\n  on-error: '#ffffff'\n  error-container: '#ffdad6'\n  on-error-container: '#93000a'\n  primary-fixed: '#ffdad2'\n  primary-fixed-dim: '#ffb4a3'\n  on-primary-fixed: '#3d0700'\n  on-primary-fixed-variant: '#8a1c00'\n  secondary-fixed: '#e2dfff'\n  secondary-fixed-dim: '#c3c0ff'\n  on-secondary-fixed: '#100563'\n  on-secondary-fixed-variant: '#3e3c8e'\n  tertiary-fixed: '#c6e7ff'\n  tertiary-fixed-dim: '#83cfff'\n  on-tertiary-fixed: '#001e2e'\n  on-tertiary-fixed-variant: '#004c6c'\n  background: '#EFE7DC'\n  on-background: '#271814'\n  surface-variant: '#f9dcd6'\n  text: '#171715'\n  accent-lime: '#DAEA49'\ntypography:\n  display:\n    fontFamily: Be Vietnam Pro\n    fontSize: 72px\n    fontWeight: '700'\n    lineHeight: 80px\n  headline-lg:\n    fontFamily: Be Vietnam Pro\n    fontSize: 48px\n    fontWeight: '700'\n    lineHeight: 56px\n  headline-lg-mobile:\n    fontFamily: Be Vietnam Pro\n    fontSize: 32px\n    fontWeight: '700'\n    lineHeight: 40px\n  headline-md:\n    fontFamily: Be Vietnam Pro\n    fontSize: 32px\n    fontWeight: '700'\n    lineHeight: 40px\n  headline-sm:\n    fontFamily: Be Vietnam Pro\n    fontSize: 24px\n    fontWeight: '700'\n    lineHeight: 32px\n  lead:\n    fontFamily: Work Sans\n    fontSize: 20px\n    fontWeight: '400'\n    lineHeight: 30px\n  body-lg:\n    fontFamily: Work Sans\n    fontSize: 18px\n    fontWeight: '400'\n    lineHeight: 28px\n  body:\n    fontFamily: Work Sans\n    fontSize: 16px\n    fontWeight: '400'\n    lineHeight: 24px\n  body-sm:\n    fontFamily: Work Sans\n    fontSize: 14px\n    fontWeight: '400'\n    lineHeight: 20px\n  label:\n    fontFamily: Work Sans\n    fontSize: 13px\n    fontWeight: '500'\n    lineHeight: 16px\n  caption:\n    fontFamily: Work Sans\n    fontSize: 12px\n    fontWeight: '400'\n    lineHeight: 16px\n  micro:\n    fontFamily: Work Sans\n    fontSize: 11px\n    fontWeight: '500'\n    lineHeight: 14px\n  button:\n    fontFamily: Work Sans\n    fontSize: 14px\n    fontWeight: '600'\n    lineHeight: 16px\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  base: 4px\n  container-padding: 16px\n  section-gap: 48px\n  gutter-desktop: 24px\n  margin-desktop: 32px\n  gutter-mobile: 16px\n  margin-mobile: 20px\n---\n\n# DESIGN.md — Criativo DODÔ\n\nEste documento define o Design System e as regras de interface para a plataforma **Criativo DODÔ**. Ele foi estruturado especificamente para orientar o Google Stitch e outros agentes de IA na geração de interfaces consistentes, sofisticadas e fiéis à marca.\n\n---\n\n## 1. Design Tokens\n\nOs tokens abaixo são imutáveis. Nenhuma cor, fonte ou espaçamento fora desta lista é permitido.\n\n### 1.1 Paleta de Cores\n\nA paleta é distribuída por hierarquia. Cada cor possui um papel definido na interface.\n\n| Token | Cor | HEX | Uso Principal | Restrições |\n|---|---|---|---|---|\n| `color-background` | Creme | `#EFE7DC` | Fundo padrão, superfície principal | Nunca usar branco puro como fundo |\n| `color-text` | Preto | `#171715` | Tipografia, wordmark, elementos estruturais | Não é `#000`; tem calor |\n| `color-primary` | Laranja | `#F14F28` | CTAs primários, destaques, highlights | Usar com contenção |\n| `color-secondary` | Roxo | `#504EA1` | Blocos secundários, links, badges | Cor de confiança |\n| `color-accent` | Lime | `#DAEA49` | Contraponto de energia | Usar apenas sobre preto ou roxo. Nunca sobre branco. |\n\n**Combinações Permitidas:**\n- Preto + Creme (base institucional)\n- Preto + Laranja (energia, CTA)\n- Roxo + Creme (confiança)\n- Roxo + Lime (contraste alto, uso pontual)\n- Preto + Lime (destaque máximo)\n\n**Combinações Proibidas:**\n- Laranja + Roxo em áreas grandes\n- Lime + Laranja lado a lado\n- Lime + Branco\n\n### 1.2 Tipografia\n\nDuas famílias tipográficas. Nenhuma outra fonte é permitida. Nunca misturar na mesma linha.\n\n**Elms Sans (Primária)**\n- **Função:** Marca — títulos, chamadas, stats.\n- **Pesos:** Regular, Bold.\n- **Uso:** Wordmark, H1/H2/H3, hero, stats ≥40px, selos, tags.\n- **Restrição:** Nunca em blocos longos de texto corrido.\n\n**Work Sans (Secundária)**\n- **Função:** Sistema — corpo, UI, formulários.\n- **Pesos:** Regular (400), Medium (500), SemiBold (600), Bold (700).\n- **Uso:** Corpo de texto, botões, inputs, labels, tabelas, legendas, microcopy.\n- **Restrição:** Nunca no wordmark.\n\n**Escala Tipográfica:**\n- **Display:** 72/80 Bold (hero/landing)\n- **H1:** 48/56 Bold (título de página)\n- **H2:** 32/40 Bold (seções)\n- **H3:** 24/32 Bold (sub-seções)\n- **Lead:** 20/30 Regular (introdução)\n- **Body L:** 18/28 Regular (texto longo)\n- **Body:** 16/24 Regular (UI padrão)\n- **Body S:** 14/20 Regular (descrições, hints)\n- **Label:** 13/16 Medium (labels de form, chips)\n- **Caption:** 12/16 Regular (metadados, legendas)\n- **Micro:** 11/14 Medium (tags, badges pequenos)\n- **Button:** 14/16 SemiBold (ações, CAPS opcional)\n\n### 1.3 Espaçamento e Grid\n\n- **Escala de Espaçamento:** Múltiplos de 4px (4, 8, 12, 16, 24, 32, 48, 64, 96).\n- **Padding Interno Mínimo:** 16px para containers.\n- **Gap entre Seções:** ≥ 48px.\n- **Grid Web:** 12 colunas, gutter 24, max-width 1240px, margem lateral 32.\n- **Grid Mobile:** 4 colunas, gutter 16, margem 20.\n- **Baseline Vertical:** 8px.\n\n### 1.4 Cantos e Bordas\n\n- **Radius Padrão:** 12px (cards, inputs, botões).\n- **Radius Pequeno:** 8px (chips, tags, badges).\n- **Radius Grande:** 20px (modais, sheets).\n- **Radius Máximo:** 999px (avatares, botões pill).\n- **Bordas:** 1px em cinza sutil. Nunca bordas coloridas em elementos estruturais.\n\n### 1.5 Sombras e Elevação\n\n- **Sombras:** Praticamente inexistentes.\n- **Elevação:** Preferir elevação por cor (fundo creme sobre branco, card branco sobre creme).\n- **Sombra Sutil (se estritamente necessário):** `0 1px 2px rgba(23,23,21,.06)`.\n- **Restrição:** Nunca usar sombras longas ou coloridas.\n\n---\n\n## 2. Filosofia de Design e Direção de Arte\n\nA interface da Criativo DODÔ deve parecer um software premium criado por um estúdio contemporâneo de branding. Não um dashboard genérico, não um SaaS padrão, não um template.\n\n### 2.1 Princípios Visuais\n\n- **Editorial e Minimalista:** A tipografia deve comunicar antes da cor. O grid deve comunicar antes dos componentes.\n- **Espaço em Branco:** O espaço vazio faz parte da identidade. Respirar sempre: nenhum bloco sem 24px de margem em relação ao vizinho.\n- **Contemporânea e Sofisticada:** A criatividade deve nascer da composição, nunca do excesso de elementos.\n- **Silenciosa e Autoral:** A marca aparece como infraestrutura confiável para o trabalho criativo — não como protagonista visual da entrega.\n\n### 2.2 Elementos Gráficos da Marca\n\nEstes elementos não são decorativos; são a identidade visual do produto e devem aparecer de forma consistente:\n\n- **O Ponto:** O ponto do logotipo \"DODÔ.\" replicado como marcador, bullet point ou fim de bloco.\n- **O Círculo:** O \"O\" ampliado como moldura, container de avatar e frame de mídia.\n- **O Chapéu / Circunflexo:** O acento do \"Ô\" isolado como divisor e marca de seção (centralizado, máximo 24px, cor da paleta).\n\n### 2.3 Motion\n\nA marca se move com discrição. Movimento serve à leitura e ao feedback, nunca ao espetáculo.\n\n- **Duração:** 120–240ms para micro-interações; 320–480ms para transições de tela.\n- **Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` (ease-out suave).\n- **Restrições:** Uma animação por vez. Nada de bounce, elastic ou rotação > 360°. Respeitar `prefers-reduced-motion`.\n\n---\n\n## 3. Regras de UX e Componentes\n\n### 3.1 Regras Absolutas de UX\n\n1. **Um único CTA primário por tela:** Ações secundárias devem ser de contorno ou texto. Nunca dois botões primários competindo.\n2. **Mesma interação, mesmo padrão:** Não criar padrões diferentes para a mesma interação em telas distintas.\n3. **Ações destrutivas exigem confirmação inline:** Expandir seção na tela pedindo confirmação/motivo. Nunca usar modal desnecessário.\n4. **Estados obrigatórios:** Toda tela possui estados de Carregamento (Skeleton), Vazio (EmptyState), Sem Resultados e Erro.\n5. **Cor nunca é o único indicador:** Usar ícone + texto + cor em badges e feedbacks.\n6. **Não duplicar componentes:** Se `Badge` resolve, não criar `StatusBadge`. Se `Table` resolve, não reimplementar.\n7. **Prioridade de Dispositivo:** Mobile First para Influenciadora (bottom-nav), Desktop First para Admin (sidebar fixa).\n\n### 3.2 Componentes Obrigatórios\n\n- **Tabs:** Para alternar facetas da mesma entidade sem navegação de página.\n- **Table:** Tabela padrão (cabeçalho, linha, ação por linha).\n- **Pagination:** \"Página X de Y\" + anterior/próxima.\n- **Avatar:** Iniciais + nome a partir de `name`.\n- **Upload:** Envio de material com drag & drop e barra de progresso.\n- **Toast:** Feedback transitório de sucesso.\n- **Skeleton:** Placeholder de carregamento com forma do conteúdo final.\n- **Timeline:** Linha do tempo de status.\n- **Drawer:** Painel lateral para formulário curto sem rota própria.\n\n### 3.3 Anti-Padrões (O que NÃO fazer)\n\nPara manter a identidade da marca consistente, o Stitch deve **EVITAR** explicitamente:\n\n- Material Design ou Tailwind UI genérico.\n- Dashboards SaaS padrão.\n- Excesso de cards, badges, bordas ou sombras.\n- Gradientes, glassmorphism ou neorphism.\n- Interfaces \"fofas\" ou com aparência de startup genérica.\n- Uso da cor vermelha (usar Laranja para alertas/destaques).\n- Reinterpretar a paleta oficial ou alterar hexadecimais.\n- Modais/Dialogs genéricos (usar confirmação inline).\n- Substituir as fontes oficiais (Elms Sans e Work Sans).\n",
+            "font": "BE_VIETNAM_PRO",
+            "headlineFont": "BE_VIETNAM_PRO",
+            "headlineFontFamily": "Be Vietnam Pro",
+            "labelFont": "WORK_SANS",
+            "labelFontFamily": "Work Sans",
+            "namedColors": {
+              "accent-lime": "#DAEA49",
+              "background": "#EFE7DC",
+              "error": "#ba1a1a",
+              "error_container": "#ffdad6",
+              "inverse_on_surface": "#ffede9",
+              "inverse_primary": "#ffb4a3",
+              "inverse_surface": "#3e2c28",
+              "on_background": "#271814",
+              "on_error": "#ffffff",
+              "on_error_container": "#93000a",
+              "on_primary": "#ffffff",
+              "on_primary_container": "#fffbff",
+              "on_primary_fixed": "#3d0700",
+              "on_primary_fixed_variant": "#8a1c00",
+              "on_secondary": "#ffffff",
+              "on_secondary_container": "#393689",
+              "on_secondary_fixed": "#100563",
+              "on_secondary_fixed_variant": "#3e3c8e",
+              "on_surface": "#271814",
+              "on_surface_variant": "#5b403a",
+              "on_tertiary": "#ffffff",
+              "on_tertiary_container": "#fcfcff",
+              "on_tertiary_fixed": "#001e2e",
+              "on_tertiary_fixed_variant": "#004c6c",
+              "outline": "#8f7068",
+              "outline_variant": "#e4beb5",
+              "primary": "#b02600",
+              "primary_container": "#d63c16",
+              "primary_fixed": "#ffdad2",
+              "primary_fixed_dim": "#ffb4a3",
+              "secondary": "#5655a8",
+              "secondary_container": "#a7a5ff",
+              "secondary_fixed": "#e2dfff",
+              "secondary_fixed_dim": "#c3c0ff",
+              "surface": "#fff8f6",
+              "surface_bright": "#fff8f6",
+              "surface_container": "#ffe9e4",
+              "surface_container_high": "#ffe2db",
+              "surface_container_highest": "#f9dcd6",
+              "surface_container_low": "#fff0ed",
+              "surface_container_lowest": "#ffffff",
+              "surface_dim": "#f0d4cd",
+              "surface_tint": "#b52700",
+              "surface_variant": "#f9dcd6",
+              "tertiary": "#00628a",
+              "tertiary_container": "#007dad",
+              "tertiary_fixed": "#c6e7ff",
+              "tertiary_fixed_dim": "#83cfff",
+              "text": "#171715"
+            },
+            "overridePrimaryColor": "#f14f28",
+            "overrideSecondaryColor": "#504ea1",
+            "roundness": "ROUND_EIGHT",
+            "spacing": {
+              "base": "4px",
+              "container-padding": "16px",
+              "gutter-desktop": "24px",
+              "gutter-mobile": "16px",
+              "margin-desktop": "32px",
+              "margin-mobile": "20px",
+              "section-gap": "48px"
+            },
+            "spacingScale": 2,
+            "typography": {
+              "body": {
+                "fontFamily": "Work Sans",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "24px"
+              },
+              "body-lg": {
+                "fontFamily": "Work Sans",
+                "fontSize": "18px",
+                "fontWeight": "400",
+                "lineHeight": "28px"
+              },
+              "body-sm": {
+                "fontFamily": "Work Sans",
+                "fontSize": "14px",
+                "fontWeight": "400",
+                "lineHeight": "20px"
+              },
+              "button": {
+                "fontFamily": "Work Sans",
+                "fontSize": "14px",
+                "fontWeight": "600",
+                "lineHeight": "16px"
+              },
+              "caption": {
+                "fontFamily": "Work Sans",
+                "fontSize": "12px",
+                "fontWeight": "400",
+                "lineHeight": "16px"
+              },
+              "display": {
+                "fontFamily": "Be Vietnam Pro",
+                "fontSize": "72px",
+                "fontWeight": "700",
+                "lineHeight": "80px"
+              },
+              "headline-lg": {
+                "fontFamily": "Be Vietnam Pro",
+                "fontSize": "48px",
+                "fontWeight": "700",
+                "lineHeight": "56px"
+              },
+              "headline-lg-mobile": {
+                "fontFamily": "Be Vietnam Pro",
+                "fontSize": "32px",
+                "fontWeight": "700",
+                "lineHeight": "40px"
+              },
+              "headline-md": {
+                "fontFamily": "Be Vietnam Pro",
+                "fontSize": "32px",
+                "fontWeight": "700",
+                "lineHeight": "40px"
+              },
+              "headline-sm": {
+                "fontFamily": "Be Vietnam Pro",
+                "fontSize": "24px",
+                "fontWeight": "700",
+                "lineHeight": "32px"
+              },
+              "label": {
+                "fontFamily": "Work Sans",
+                "fontSize": "13px",
+                "fontWeight": "500",
+                "lineHeight": "16px"
+              },
+              "lead": {
+                "fontFamily": "Work Sans",
+                "fontSize": "20px",
+                "fontWeight": "400",
+                "lineHeight": "30px"
+              },
+              "micro": {
+                "fontFamily": "Work Sans",
+                "fontSize": "11px",
+                "fontWeight": "500",
+                "lineHeight": "14px"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

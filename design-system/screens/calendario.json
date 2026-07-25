@@ -1,0 +1,23 @@
+{
+  "title": "Calendário",
+  "slug": "calendario",
+  "screenId": "0e3e14c398d34c77a1f22547e5e602c3",
+  "stitchResourceName": "projects/146458383206545482/screens/0e3e14c398d34c77a1f22547e5e602c3",
+  "device": "DESKTOP",
+  "width": 2560,
+  "height": 2826,
+  "screenshot": "design-system/images/calendario.jpg",
+  "html": "design-system/code/calendario.html",
+  "htmlSizeBytes": 29460,
+  "assetsAssociated": [
+    "design-system/assets/design-tokens-stitch.json"
+  ],
+  "componentsIdentified": [
+    "Calendar",
+    "Sidebar",
+    "Tabs"
+  ],
+  "designSystemUsed": "Criativo DODÔ (assets/a45ed3305ad44bcf89616a913962d736)",
+  "exportDate": "2026-07-25",
+  "sourceProjectId": "146458383206545482"
+}

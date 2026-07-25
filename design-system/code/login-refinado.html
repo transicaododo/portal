@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Login | Criativo DODÔ</title>
+<style>
+  @font-face {
+    font-family: 'Elms Sans';
+    src: url('../assets/fonts/ElmsSans.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#504EA1",
+                    "on-error-container": "#8A2C15",
+                    "on-tertiary-container": "#2E2D63",
+                    "on-tertiary": "#FFFFFF",
+                    "surface-container-lowest": "#FFFFFF",
+                    "on-primary-fixed": "#8A2C15",
+                    "secondary-fixed-dim": "#B7B4E0",
+                    "inverse-primary": "#DAEA49",
+                    "text": "#171715",
+                    "secondary": "#504EA1",
+                    "on-primary": "#FFFFFF",
+                    "primary-container": "#E3E2F5",
+                    "on-primary-container": "#2E2D63",
+                    "surface-container-highest": "#FFFFFF",
+                    "surface-bright": "#F1ECE5",
+                    "on-error": "#FFFFFF",
+                    "secondary-fixed": "#E3E2F5",
+                    "outline": "#B9AF9E",
+                    "on-secondary": "#FFFFFF",
+                    "on-surface": "#171715",
+                    "on-secondary-fixed-variant": "#2E2D63",
+                    "error-container": "#FBD9CE",
+                    "accent-lime": "#DAEA49",
+                    "on-secondary-container": "#2E2D63",
+                    "on-tertiary-fixed": "#2E2D63",
+                    "surface-container-low": "#E7DED2",
+                    "primary-fixed": "#FBD9CE",
+                    "background": "#F1ECE5",
+                    "surface-dim": "#F1ECE5",
+                    "secondary-container": "#E3E2F5",
+                    "on-background": "#171715",
+                    "on-tertiary-fixed-variant": "#2E2D63",
+                    "on-surface-variant": "#6B655C",
+                    "error": "#F14F28",
+                    "surface-tint": "#F14F28",
+                    "surface-container": "#F1ECE5",
+                    "surface": "#F1ECE5",
+                    "tertiary-fixed": "#E3E2F5",
+                    "on-primary-fixed-variant": "#8A2C15",
+                    "tertiary-container": "#E3E2F5",
+                    "surface-variant": "#F1ECE5",
+                    "outline-variant": "#E4DED2",
+                    "tertiary-fixed-dim": "#8886C4",
+                    "surface-container-high": "#FFFFFF",
+                    "primary-fixed-dim": "#F14F28",
+                    "inverse-on-surface": "#F1ECE5",
+                    "on-secondary-fixed": "#2E2D63",
+                    "inverse-surface": "#171715",
+                    "primary": "#F14F28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "0.75rem",
+                    "xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "16px",
+                    "section-gap": "48px",
+                    "container-padding": "16px",
+                    "base": "4px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "20px",
+                    "gutter-desktop": "24px"
+            },
+            "fontFamily": {
+                    "display": ["Elms Sans"],
+                    "headline-md": ["Elms Sans"],
+                    "micro": ["Work Sans"],
+                    "body-sm": ["Work Sans"],
+                    "label": ["Work Sans"],
+                    "headline-lg": ["Elms Sans"],
+                    "headline-lg-mobile": ["Elms Sans"],
+                    "button": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "caption": ["Work Sans"],
+                    "headline-sm": ["Elms Sans"],
+                    "lead": ["Work Sans"],
+                    "body": ["Work Sans"]
+            },
+            "fontSize": {
+                    "display": ["72px", {"lineHeight": "80px", "fontWeight": "700"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "micro": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label": ["13px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "button": ["14px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "lead": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "body": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #F1ECE5; /* Background Base */
+            color: #171715;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for minimalist feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E4DED2; border-radius: 10px; }
+        
+        .auth-split-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+        }
+        @media (min-width: 768px) {
+            .auth-split-container {
+                grid-template-columns: 1.1fr 0.9fr;
+            }
+        }
+    </style>
+</head>
+<body class="font-body text-body">
+<!-- AuthSplitLayout Wrapper -->
+<main class="auth-split-container overflow-hidden">
+<!-- Left Side: Editorial Brand Visual -->
+<section class="relative hidden md:flex flex-col justify-between p-margin-desktop bg-secondary overflow-hidden">
+<!-- Branding Header -->
+<div class="z-10">
+<div class="flex items-center gap-base">
+<div class="w-8 h-8 rounded-full bg-accent-lime flex items-center justify-center">
+<span class="font-headline-sm text-secondary font-bold">D</span>
+</div>
+<h1 class="font-headline-sm text-headline-sm text-accent-lime tracking-tight">Criativo DODÔ</h1>
+</div>
+</div>
+<!-- Central Editorial Quote/Text -->
+<div class="z-10 max-w-md">
+<p class="font-headline-lg text-headline-lg text-accent-lime leading-[1.1] mb-8">
+                    Infraestrutura silenciosa para mentes barulhentas.
+                </p>
+<div class="w-12 h-[2px] bg-accent-lime mb-8"></div>
+<p class="font-body-lg text-body-lg text-white opacity-80">
+                    A plataforma que transforma a gestão de campanhas em uma experiência editorial. Simples, autoritária e essencial.
+                </p>
+</div>
+<!-- Bottom Graphic Element -->
+<div class="z-10 flex items-center gap-4">
+<span class="font-label text-label text-accent-lime uppercase tracking-widest">© 2024 Design System</span>
+<div class="w-2 h-2 rounded-full bg-accent-lime"></div>
+</div>
+<!-- Background Aesthetic Circle Motif -->
+<div class="absolute -right-24 -bottom-24 w-[500px] h-[500px] rounded-full border border-accent-lime/20 pointer-events-none"></div>
+<div class="absolute -right-12 -bottom-12 w-[300px] h-[300px] rounded-full border border-accent-lime/10 pointer-events-none"></div>
+<!-- Atmospheric Image Placeholder -->
+<div class="absolute inset-0 opacity-10 grayscale mix-blend-overlay">
+<img class="w-full h-full object-cover" data-alt="A sophisticated, high-end editorial fashion photograph with minimalist composition. The scene features clean lines, soft shadows, and a neutral cream and deep purple color palette. The aesthetic is contemporary and authoritative, reflecting a professional creative studio environment. High-contrast lighting highlights architectural textures and smooth surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY-_tjmuH_vujWx1XURky9WxVSq4Rtcd2iENnJk4G5BrtPrOUz9XZq78mobph1_IhtD5zAl1b03viIHto2dfo04-Bw2jHmPDROpOhNsQoYwqoMycJ-LYXHfGVUmvQn5Gmkm5SjV9u_hxuYJ7-pJ_C2xC0OliOAfmnkKxHAU6KzXpIPzWJZgJAFm7gH-Q22IR601vFvYYAiUQDxAyu213fMldkNjxpzkewkGhGjDmlzT1xZTpjEm_JR6hlQDiIXlFb435bST-NPgA">
+</div>
+</section>
+<!-- Right Side: Minimalist Login Form -->
+<section class="flex flex-col justify-center items-center p-gutter-mobile md:p-margin-desktop bg-background">
+<div class="w-full max-w-[460px] bg-white p-10 md:p-16 rounded-xl shadow-none">
+<!-- Mobile Logo Header (Visible only on small screens) -->
+<div class="md:hidden flex flex-col items-center mb-12">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-4">
+<span class="font-headline-sm text-accent-lime font-bold">D</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Criativo DODÔ</h2>
+</div>
+<header class="text-center md:text-left mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4 tracking-tight">Bem-vindo</h2>
+<p class="font-body text-body text-on-surface-variant">Acesse sua conta para gerenciar seus projetos.</p>
+</header>
+<!-- Feedback Message (Error State Mockup) -->
+<div class="hidden flex items-center gap-3 p-4 mb-6 rounded-xl bg-primary-fixed text-on-primary-fixed-variant border border-primary/10" id="error-message">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<p class="font-label text-label">E-mail ou senha incorretos. Tente novamente.</p>
+</div>
+<form class="space-y-6" onsubmit="event.preventDefault(); document.getElementById('error-message').classList.remove('hidden');">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block font-label text-label text-on-surface-variant ml-1 tracking-widest" for="email">E-mail corporativo</label>
+<div class="relative">
+<input class="w-full px-4 py-3.5 bg-surface-container-low border border-outline-variant rounded-xl font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" id="email" placeholder="nome@agencia.com" required="" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="block font-label text-label text-on-surface-variant tracking-widest" for="password">Senha</label>
+<a class="font-label text-label text-primary hover:underline transition-all" href="#">Esqueceu?</a>
+</div>
+<div class="relative">
+<input class="w-full px-4 py-3.5 bg-surface-container-low border border-outline-variant rounded-xl font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" id="password" placeholder="••••••••" required="" type="password">
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center gap-3 px-1">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" id="remember" type="checkbox">
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer tracking-widest" for="remember">Manter conectado neste dispositivo</label>
+</div>
+<!-- Login CTA -->
+<button class="w-full py-4 bg-primary-container text-white font-button text-button rounded-xl hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+<span>Entrar na Plataforma</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Links -->
+<footer class="mt-12 pt-8 border-t border-outline-variant flex flex-col items-center gap-4"><div class="flex items-center justify-center mb-4"><div class="w-2 h-2 rounded-full bg-primary"></div></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ainda não tem acesso?</p>
+<button class="font-button text-button text-secondary border border-secondary px-6 py-2.5 rounded-xl hover:bg-primary-fixed transition-colors">
+                        Solicitar Acesso
+                    </button>
+</footer>
+</div>
+<!-- Page Footer Branding Point -->
+<div class="mt-8 flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="font-micro text-micro text-on-surface-variant opacity-60 uppercase tracking-[0.2em]">Criativo DODÔ v.2.4</span>
+</div>
+</section>
+</main>
+<script>
+        // Micro-interaction: Password visibility toggle
+        document.querySelector('button[type="button"]').addEventListener('click', function() {
+            const input = document.getElementById('password');
+            const icon = this.querySelector('span');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        });
+
+        // Atmospheric cursor follow (Subtle)
+        const editorialSide = document.querySelector('section.bg-secondary');
+        editorialSide.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const xPos = (clientX / window.innerWidth) * 20;
+            const yPos = (clientY / window.innerHeight) * 20;
+            
+            // Subtle parallax for background circles
+            const circles = editorialSide.querySelectorAll('div[class*="rounded-full"]');
+            circles.forEach((circle, index) => {
+                const depth = (index + 1) * 0.5;
+                circle.style.transform = `translate(${xPos * depth}px, ${yPos * depth}px)`;
+            });
+        });
+    </script>
+</body></html>

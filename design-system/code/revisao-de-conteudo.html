@@ -1,0 +1,448 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<style>
+  @font-face {
+    font-family: 'Elms Sans';
+    src: url('../assets/fonts/ElmsSans.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#8A2C15",
+                    "secondary-fixed-dim": "#B7B4E0",
+                    "outline": "#B9AF9E",
+                    "on-secondary-fixed-variant": "#2E2D63",
+                    "tertiary": "#504EA1",
+                    "on-primary-fixed": "#8A2C15",
+                    "inverse-surface": "#171715",
+                    "on-surface": "#171715",
+                    "secondary": "#504EA1",
+                    "primary-fixed-dim": "#F14F28",
+                    "on-error": "#FFFFFF",
+                    "surface-bright": "#F1ECE5",
+                    "tertiary-fixed": "#E3E2F5",
+                    "primary-fixed": "#FBD9CE",
+                    "background": "#F1ECE5",
+                    "surface-dim": "#F1ECE5",
+                    "on-secondary-container": "#2E2D63",
+                    "primary": "#F14F28",
+                    "primary-container": "#E3E2F5",
+                    "text": "#171715",
+                    "accent-lime": "#DAEA49",
+                    "on-tertiary-fixed": "#2E2D63",
+                    "error-container": "#FBD9CE",
+                    "surface-container-low": "#E7DED2",
+                    "surface-container": "#F1ECE5",
+                    "on-error-container": "#8A2C15",
+                    "tertiary-fixed-dim": "#8886C4",
+                    "surface-container-highest": "#FFFFFF",
+                    "outline-variant": "#E4DED2",
+                    "on-tertiary-fixed-variant": "#2E2D63",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#2E2D63",
+                    "on-surface-variant": "#6B655C",
+                    "on-primary-container": "#2E2D63",
+                    "on-primary": "#FFFFFF",
+                    "surface-container-lowest": "#FFFFFF",
+                    "on-background": "#171715",
+                    "surface-tint": "#F14F28",
+                    "on-secondary-fixed": "#2E2D63",
+                    "inverse-primary": "#DAEA49",
+                    "surface-variant": "#F1ECE5",
+                    "secondary-fixed": "#E3E2F5",
+                    "surface-container-high": "#FFFFFF",
+                    "error": "#F14F28",
+                    "surface": "#F1ECE5",
+                    "inverse-on-surface": "#F1ECE5",
+                    "secondary-container": "#E3E2F5",
+                    "tertiary-container": "#E3E2F5",
+                    "on-secondary": "#FFFFFF"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "0.75rem",
+                    "xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "container-padding": "16px",
+                    "gutter-desktop": "24px",
+                    "gutter-mobile": "16px",
+                    "base": "4px",
+                    "margin-mobile": "20px",
+                    "section-gap": "48px"
+            },
+            "fontFamily": {
+                    "lead": ["Work Sans"],
+                    "headline-sm": ["Elms Sans"],
+                    "headline-lg": ["Elms Sans"],
+                    "headline-md": ["Elms Sans"],
+                    "caption": ["Work Sans"],
+                    "button": ["Work Sans"],
+                    "body": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "label": ["Work Sans"],
+                    "display": ["Elms Sans"],
+                    "body-sm": ["Work Sans"],
+                    "micro": ["Work Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #F1ECE5;
+            font-family: 'Work Sans', sans-serif;
+            color: #171715;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-tab-indicator {
+            position: relative;
+        }
+        .active-tab-indicator::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #504EA1;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1ECE5;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E4DED2;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Desktop Fixed) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface flex flex-col border-r border-outline-variant z-50 hidden md:flex">
+<div class="p-6 flex flex-col h-full">
+<div class="mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">circle</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight">Criativo DODÔ</h1>
+<p class="font-micro text-micro text-on-surface-variant tracking-wider uppercase">Admin Panel</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-body text-body">Campanhas</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body text-body">Influenciadoras</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-surface-container-low text-secondary font-bold border-r-2 border-secondary" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body text-body">Revisão</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body text-body">Configurações</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant space-y-2">
+<button class="w-full bg-primary text-on-primary py-3 px-6 rounded-xl font-button transition-transform active:scale-95 mb-4">
+                    Novo Projeto
+                </button>
+<a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label text-label">Suporte</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label text-label">Sair</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<div class="flex-1 md:ml-64 flex flex-col">
+<!-- TopAppBar -->
+<header class="sticky top-0 bg-background/80 backdrop-blur-md z-40">
+<div class="max-w-[1240px] mx-auto px-6 py-4 flex justify-between items-center">
+<div class="flex items-center gap-8">
+<h2 class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary md:hidden">DODÔ</h2>
+<nav class="hidden md:flex gap-6">
+<a class="font-body text-body text-primary border-b border-primary py-1" href="#">Visão Geral</a>
+<a class="font-body text-body text-on-surface-variant hover:text-primary py-1 transition-all" href="#">Arquivos</a>
+<a class="font-body text-body text-on-surface-variant hover:text-primary py-1 transition-all" href="#">Equipe</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 ml-2 pl-4 border-l border-outline-variant">
+<span class="hidden md:block font-label text-label text-on-surface">Marina Silva</span>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional and stylish headshot of a female creative director in her 30s. She has a minimalist aesthetic with neutral tones, wearing a cream blazer. The background is a soft, out-of-focus studio with warm, editorial lighting. The visual style is high-end fashion photography with a clean, modern vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXZItJjnGWqwTRZI-mzZiUY1reeUbgrEOVXjsgLr1vxFvufzzg6MMXccr97aDNusUe6x7EaSTc300A7jkpKAny3q3KGLo9hj5l0OOV-_m22Q4_1j53eGl1tv3ePFH8dQVhB3fJ1j-5PQ6jksKll-a59naVx0uUdFKurzuLiF81RTGGojuKnhM41xR0z_QUFeSa3b-SyM-5Yia8NBAZxs8-6BAwFomvrCxcA4rzzTpUL0Ap9k8pgjF5YdLHW0L7xxkADV7q-Lqk8Q">
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-1 max-w-[1240px] mx-auto w-full px-6 py-12">
+<!-- Page Header -->
+<div class="mb-12">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span class="font-micro text-micro uppercase tracking-widest text-on-surface-variant">Review Center</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text tracking-tight mb-2">Revisão de Conteúdo</h1>
+<p class="font-lead text-lead text-on-surface-variant max-w-2xl">Acompanhe e valide o material enviado pelas parceiras criativas em tempo real.</p>
+</div>
+<!-- Tabs/Filters -->
+<div class="flex items-center justify-between border-b border-outline-variant mb-8 overflow-x-auto">
+<div class="flex gap-8">
+<button class="pb-4 font-label text-label text-primary font-bold active-tab-indicator flex items-center gap-2">
+                        Pendentes <span class="bg-primary text-on-primary px-2 py-0.5 rounded-full text-[10px]">12</span>
+</button>
+<button class="pb-4 font-label text-label text-on-surface-variant hover:text-primary transition-all">Em Revisão</button>
+<button class="pb-4 font-label text-label text-on-surface-variant hover:text-primary transition-all">Aprovados</button>
+<button class="pb-4 font-label text-label text-on-surface-variant hover:text-primary transition-all">Recusados</button>
+</div>
+<div class="hidden md:flex items-center gap-2 pb-4">
+<span class="font-micro text-micro text-on-surface-variant">Filtrar por data:</span>
+<button class="flex items-center gap-1 font-label text-label text-on-surface border border-outline-variant px-3 py-1 rounded-full">
+                        Últimos 7 dias <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Content List (Asymmetric/Editorial Layout) -->
+<div class="space-y-12">
+<!-- Submission Item 1 -->
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant group hover:shadow-sm transition-all">
+<!-- Preview Section -->
+<div class="lg:col-span-5">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden bg-surface-variant border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-quality editorial lifestyle photo of a young woman in a sun-drenched, minimalist living room. She is holding a sleek, modern tech product with a serene expression. The lighting is soft and natural, emphasizing a clean, light-mode aesthetic with cream and beige tones. The composition is artistic and professional, suitable for a premium brand campaign." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPKtNQuMalox222LDPckBaDYJnqO2RuP30VLTVMQlxeho5yKRyPiHAbX65M651mW2UIkMhBNscmZfY-HFi-WXMzzId4-UO1dlaynVvWPYXG3TLa-i9EVRQ-kT2S3YOnl9H7NQNCK9I5HYUWNvwB5usohcKmGfLHt_Ie7B8q9DmEw-jUZCnuVtgKPw4kp1qSjosxNYZti1W9m9vN_MaKgbcTFQ7fygyb7HlHRKWPLDD3LqKdqC3aebC05AYZQ6ZLIgUWG5j_O0CGg">
+<div class="absolute top-4 left-4">
+<span class="bg-on-surface text-surface px-3 py-1 rounded-full font-micro text-micro uppercase tracking-wider">Video Reels</span>
+</div>
+<button class="absolute bottom-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-full flex items-center justify-center hover:bg-white/40 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Details Section -->
+<div class="lg:col-span-7 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a diverse female influencer with a bright, welcoming smile. She has styled hair and subtle makeup, looking directly at the camera. The background is a soft-focus studio setting with warm, golden-hour lighting that complements a premium creative agency branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy0wQ4psILjHQWB3HWVmubBM1BLgRG249QWrV2gzaPEs2i114m4zbcmMzBGbzsL1QP0EAZ-kkyplR_agcBN24crH9oMGPwxeYBXveK5kd4Ww_qOmlLBjmdwpwXqvE-MkW6tLws6c9W_ic2h4iEfz_AgWEZIgMpKm9NftMuH493cRwkf8r0mW909eL7KehpelpA2OmJRTZLVA5Q3hebxmItL6315IzVU7w3SG8bj0NZdTHyCw-1Y5VDP0wbLz1rEL12i06EtgBntg">
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text leading-tight">Juliana Mendes</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Campanha: <span class="text-primary font-bold">Verão Minimalista 2024</span></p>
+</div>
+</div>
+<div class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="font-label text-label text-on-surface-variant">Pendente</span>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-label text-label text-on-surface-variant uppercase tracking-widest mb-3">Legenda Proposta</h4>
+<p class="font-body text-body text-text leading-relaxed bg-surface p-4 rounded-xl border border-outline-variant italic">
+                                    "A simplicidade é o último grau da sofisticação. ✨ Descobrindo as novas texturas da coleção Criativo DODÔ para este verão. Menos é, definitivamente, mais. #Minimalismo #DODÔReview"
+                                </p>
+</div>
+<div class="flex flex-wrap gap-4 mb-8">
+<div class="flex items-center gap-2 px-3 py-2 bg-surface rounded-lg border border-outline-variant hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-primary">description</span>
+<span class="font-label text-label">roteiro_v1.pdf</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 bg-surface rounded-lg border border-outline-variant hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-primary">image</span>
+<span class="font-label text-label">moodboard.jpg</span>
+</div>
+</div>
+<!-- Feedback History -->
+<div class="bg-surface/50 p-4 rounded-xl border border-dashed border-outline-variant mb-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">history</span>
+<span class="font-micro text-micro uppercase tracking-widest text-on-surface-variant">Histórico de Alterações</span>
+</div>
+<div class="space-y-3">
+<div class="flex gap-3">
+<div class="w-1 h-auto bg-outline-variant rounded-full"></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-bold text-on-surface">Admin:</span> "A iluminação está ótima, mas a legenda precisa focar mais no benefício do tecido." <span class="text-micro opacity-60 ml-2">Há 2 dias</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-4 items-center">
+<button class="w-full sm:w-auto px-8 py-3 bg-primary text-on-primary rounded-xl font-button transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined">check_circle</span>
+                                Aprovar
+                            </button>
+<button class="w-full sm:w-auto px-8 py-3 bg-transparent text-secondary border border-secondary rounded-xl font-button transition-all hover:bg-secondary-container/10 active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">edit_note</span>
+                                Solicitar Ajustes
+                            </button>
+<button class="w-full sm:w-auto px-4 py-3 text-on-surface-variant hover:text-error font-button transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">close</span>
+                                Reprovar
+                            </button>
+</div>
+</div>
+</article>
+<!-- Submission Item 2 (Asymmetric Alternative) -->
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant group hover:shadow-sm transition-all">
+<!-- Preview Section -->
+<div class="lg:col-span-5 order-last lg:order-first">
+<div class="relative aspect-square rounded-full overflow-hidden bg-surface-variant border-4 border-white shadow-sm flex items-center justify-center p-4">
+<img class="w-full h-full object-cover rounded-full" data-alt="A professional aesthetic product photography shot of a sleek designer handbag. The bag is positioned off-center on a textured stone surface. The background is a clean, neutral cream color with elegant long shadows from a nearby tropical plant leaf. The lighting is sophisticated and editorial, using a light-mode color palette of beige, white, and soft charcoal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCttPjEP3ic-KfFeDqPauGat5bIZjvo63N47YEp6WTOL27cOdq77UonNljDtzobyGG6J8s8nGLCk8YZ4phe5izFAQeTnK6imxSo5ioeYlJ_RxqhmLHH-zvv67GX1yrsrTj1tUdzrRPO5mi6Wo1-AmvYtzRyCebtfSSxAdD3Ck59JS-58bNMiF6zuZC-ZymnIB7XHBl3PC3rX2UtyOd4EjzsvBs4WGfwSMQJIbhXxmispwKNgt5YXCMOt2pPnF0vcw3OMC4OLgyjPw">
+</div>
+</div>
+<!-- Details Section -->
+<div class="lg:col-span-7 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male lifestyle content creator with a sophisticated, urban style. He is wearing a minimalist linen shirt in a warm earth tone. The background is an architectural setting with clean lines and soft, natural daylight. The image has a calm, professional aesthetic with high-end editorial quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7UdRMyAf0Y3CoQueZbqv0Ffi1NlZwXHQlfcuud4qRHkJfwVx8XP6cviC7O0z8QtVf-kjdSe2nzHy1N-p0D4Dz7YPIvWXXxQb8VSlwc7Xkf5UQ3qk9r5PYQyIIVketfqIMFHUAJmdPgzAzWQJu9JwLHySthqwejHYgmIwOeo8YOQKrTT0pmxZ2C9ogys5soG-ccdqjImNFQ47hf87ID9wOVa2ceOaPq1vuHbfXp5Rjvm1PSurF69YDsVax5d-04BmsXrc5BKKTIQ">
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text leading-tight">Rodrigo Faro</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Campanha: <span class="text-primary font-bold">Urban Essentials</span></p>
+</div>
+</div>
+<div class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="font-label text-label text-on-surface-variant">Pendente</span>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-label text-label text-on-surface-variant uppercase tracking-widest mb-3">Legenda Proposta</h4>
+<p class="font-body text-body text-text leading-relaxed bg-surface p-4 rounded-xl border border-outline-variant italic">
+                                    "O cotidiano pede praticidade sem perder a elegância. Meu novo essencial para os dias de correria na cidade. 🏙️ #UrbanLife #DODÔ"
+                                </p>
+</div>
+<div class="flex gap-4 mb-8">
+<div class="flex items-center gap-2 px-3 py-2 bg-surface rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-primary">attach_file</span>
+<span class="font-label text-label">raw_content.mp4</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-4 items-center">
+<button class="w-full sm:w-auto px-8 py-3 bg-primary text-on-primary rounded-xl font-button transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">check_circle</span>
+                                Aprovar
+                            </button>
+<button class="w-full sm:w-auto px-8 py-3 bg-transparent text-secondary border border-secondary rounded-xl font-button transition-all hover:bg-secondary-container/10 active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">edit_note</span>
+                                Solicitar Ajustes
+                            </button>
+<button class="w-full sm:w-auto px-4 py-3 text-on-surface-variant hover:text-error font-button transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">close</span>
+                                Reprovar
+                            </button>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State / Footer Motif -->
+<div class="mt-24 pt-12 border-t border-outline-variant flex flex-col items-center text-center">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-4xl text-outline-variant">draw</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">Fim da lista de pendências. Tudo sob controle. ✨</p>
+<div class="mt-8">
+<div class="w-6 h-[1px] bg-outline-variant mx-auto mb-1"></div>
+<span class="font-display text-lg opacity-10">Ô</span>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant px-6 py-3 flex justify-around items-center z-50">
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label text-label">Início</span>
+</a>
+<a class="flex flex-col items-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label text-label">Jobs</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label text-label">Métricas</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-label">Perfil</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Hover effects on cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simple Tab Switcher Logic
+        const tabs = document.querySelectorAll('.flex.gap-8 button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active-tab-indicator', 'text-primary', 'font-bold');
+                    t.classList.add('text-on-surface-variant');
+                });
+                tab.classList.add('active-tab-indicator', 'text-primary', 'font-bold');
+                tab.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,21 @@
+{
+  "title": "Painel Administrativo",
+  "slug": "painel-administrativo",
+  "screenId": "6a2054cd790947b9820a4c0684866398",
+  "stitchResourceName": "projects/146458383206545482/screens/6a2054cd790947b9820a4c0684866398",
+  "device": "DESKTOP",
+  "width": 2560,
+  "height": 2048,
+  "screenshot": "design-system/images/painel-administrativo.jpg",
+  "html": "design-system/code/painel-administrativo.html",
+  "htmlSizeBytes": 23715,
+  "assetsAssociated": [
+    "design-system/assets/design-tokens-stitch.json"
+  ],
+  "componentsIdentified": [
+    "Table"
+  ],
+  "designSystemUsed": "Criativo DODÔ (assets/a45ed3305ad44bcf89616a913962d736)",
+  "exportDate": "2026-07-25",
+  "sourceProjectId": "146458383206545482"
+}
