@@ -3162,3 +3162,2317 @@ só por terem links apontando para eles.
   Suíte completa (`php artisan test` 208/208, `pint --test`, `tsc -b`,
   `vite build`, `oxlint`) validada antes do commit anterior (§43) e não
   afetada por esta rodada (só documentação).
+
+## 45. Arquitetura de comandos do Claude Code (Fases 1-2) + base de conhecimento de referências arquiteturais OSS (2026-07-23)
+
+- **Fase 1 — arquitetura de comandos definida e aprovada:**
+  `.claude/commands/<nome>.md` escolhido como mecanismo (não
+  `.claude/skills/`) — Claude Code 2.1.218 resolve ambos os formatos pelo
+  mesmo `/<nome>`, mas os comandos do projeto são workflows explícitos de
+  sessão sem necessidade de auto-trigger ou arquivos auxiliares, então
+  Commands é a forma correta (mais simples, já em uso por
+  `/comecar`/`/fim`). Critério de quando migrar um comando para Skill
+  (múltiplos arquivos de apoio) documentado em `CLAUDE.md` §Comandos
+  padrão, sem criar pasta `skills/` vazia. `/prompt-gpt` criado como
+  placeholder estrutural (frontmatter + escopo pretendido, sem lógica).
+- **Fase 2 — `/comecar` e `/fim` implementados e aprovados:** rotina
+  completa de leitura de documentos (condicional, só o relevante à
+  missão), checagem cruzada entre documentos + PR aberta via `gh pr
+  list`, estrutura de resposta fixa (6 headers), nunca corrige
+  automaticamente inconsistência encontrada — só avisa. `/fim`: releitura
+  rápida de `CLAUDE.md`/governança antes de escrever, só pergunta se
+  faltar informação crítica, atualização condicional de `TASK_ROUTER.md`
+  (decisão de arquitetura/domínio) vs. `handoff/README.md` (marco) como
+  gatilhos distintos, proibição explícita de alterar SPEC/ADR/PRD no
+  encerramento.
+- **Pesquisa de mercado OSS aprovada e consolidada:** levantamento de
+  projetos open source com funcionalidades análogas ao Influencia (CRM,
+  workflow/aprovação, contratos, upload, notificações, portais,
+  dashboards etc.) via GitHub Search API, publicado primeiro como artifact
+  e depois consolidado (sem métricas efêmeras — estrelas/atividade) em
+  `docs/knowledge/referencias-externas/REFERENCIAS_ARQUITETURAIS.md`.
+  `docs/knowledge/README.md` atualizado para descrever as duas categorias
+  hoje existentes (`sistema-b/` e `referencias-externas/`). 5 projetos
+  priorizados para estudo profundo: Payload, Medusa (motor de workflow),
+  Frappe (motor de workflow declarativo), Documenso, Atrium — justificativa
+  completa no documento.
+- **Achado de governança corrigido:** o commit `8060e18` ("establish Phase
+  2 governance model") havia gravado o conteúdo completo de
+  `GOVERNANCA_DO_PROJETO.md` e a entrada histórica que deveria estar em
+  `handoff/README.md` **dentro de `ESTADO_SESSAO.md`** (que chegou a 767
+  linhas), violando os próprios princípios de Fonte Única da Verdade /
+  Estado ≠ Histórico que a governança define — e deixando
+  `docs/handoff/README.md` real sem nenhuma entrada de histórico. Reportado
+  ao responsável do projeto nesta sessão; corrigido como efeito colateral
+  da reescrita completa de `ESTADO_SESSAO.md` pelo `/fim` desta sessão (a
+  duplicação não foi reintroduzida) e pelo registro da primeira entrada
+  real em `docs/handoff/README.md`.
+- **Não implementado ainda:** lógica de `/prompt-gpt` (Fase 3, aguardando
+  aprovação) e, mencionados pelo responsável do projeto para quando a
+  Fase 3 chegar, possíveis `/prompt-cursor`/`/prompt-codex` reaproveitando
+  lógica compartilhada em vez de duplicar.
+- **Não commitado nesta sessão:** todas as mudanças acima ficaram no
+  working tree (branch `docs/governance-phase2`) — ver `ESTADO_SESSAO.md`
+  §Pendências.
+- **Próxima sessão:** nova pesquisa de mercado focada em arquiteturas
+  modernas baseadas em MySQL (mesmo padrão: artifact primeiro, consolidar
+  em `docs/knowledge/` só se aprovado).
+
+## 46. Missão de documentação arquitetural — CLAUDE.md revisado, Etapa 2 bloqueada (2026-07-23)
+
+- **Contexto:** sessão recebeu missão de atuar como "Arquiteto de
+  Documentação" — revisar `CLAUDE.md` (Etapa 1) e os 4 documentos de
+  `docs/arquitetura/` (Etapa 2), validando contra `provisorios/` (legado)
+  e um artifact de pesquisa arquitetural consolidada.
+- **`/comecar` revelou divergência não documentada:** `docs/arquitetura/
+  {README,01,02,03}.md` já existiam no working tree com 513 linhas
+  não commitadas, sem nenhum registro em `ESTADO_SESSAO.md` ou aqui —
+  provável trabalho de sessão anterior nunca fechado por `/fim`. Commit
+  `cad13ac` havia criado esses 4 arquivos **vazios** (blob vazio); todo o
+  conteúdo estava só no working tree.
+- **Achado bloqueante (Etapa 2 não executada):** os 4 arquivos são
+  esqueletos de template, não conteúdo real — `02-arquitetura-alvo.md`
+  contém a instrução literal, nunca executada, "cole abaixo, sem
+  alterações, o documento arquitetural produzido pelo Codex";
+  `01-mineracao-do-legado.md` tem seções com `"..."` e `"Observações:
+  ..."` vazias; `03-plano-mestre-de-implementacao.md` começa na "Fase 3",
+  referenciando "Bootstrap"/"Autenticação" como dependências nunca
+  definidas no documento.
+- **Fontes candidatas descartadas após checagem:**
+  `provisorios/documento_de_arquitetura_influencia.md` propõe stack
+  **Next.js + Prisma + MySQL**, contradizendo a stack oficial (Laravel +
+  React + MySQL, confirmada por `backend/composer.json` e ADR-015) — não
+  serve como fonte de `02`. `provisorios/deep-research-report.md` é a
+  pesquisa OSS já consolidada em `docs/knowledge/referencias-externas/`
+  — não é mineração de legado, não serve como fonte de `01`. O artifact
+  de pesquisa arquitetural (URL fornecida pelo responsável) **não pôde
+  ser acessado** — erro de permissão de leitura pública.
+- **Achado de duplicação real, não resolvido:**
+  `docs/arquitetura/03-plano-mestre-de-implementacao.md` (esqueleto) e
+  `docs/planning/PLANO_MESTRE_ELA_INFLUENCIA.md` (real, vigente, v1.0,
+  2026-07-21, referenciado por este documento) cobrem o mesmo papel de
+  "plano mestre". Não decidido qual prevalece ou se têm escopos
+  distintos — registrado como nota em `CLAUDE.md`, não resolvido no
+  conteúdo.
+- **Achado lateral:** `provisorios/documento_de_arquitetura_influencia.md`
+  parece já ser um rascunho da "próxima pesquisa de mercado sobre
+  MySQL" recomendada na sessão anterior (título interno "MISSÃO 2",
+  foco em padrões MySQL 8+) — mas propõe stack divergente da oficial, e
+  não foi revisado nem aprovado. Não tratar como pesquisa concluída sem
+  decisão do responsável.
+- **Decisão do responsável durante a sessão:** diante do bloqueio,
+  perguntado como proceder; escolheu **"só CLAUDE.md por agora"** —
+  Etapa 2 (docs/arquitetura/01-03) explicitamente não executada,
+  aguardando uma de quatro opções levantadas (fornecer conteúdo real,
+  habilitar acesso ao artifact, autorizar rascunho do agente, ou manter
+  como está).
+- **Executado (Etapa 1):** `CLAUDE.md` revisado — adicionadas seções
+  `Projeto`, `Como entender este projeto` (com nota sobre o bloqueio
+  acima), `Documentação complementar` (mapa de responsabilidade única
+  das 12 pastas de `docs/`), `Convenções permanentes` (só regras
+  verificáveis em ADR/código: Policies em `backend/app/Policies/`,
+  Services em `backend/app/Services/`, ausência de classes `Generic*`,
+  frontend servido pelo Laravel via ADR-015) e `Fluxo de trabalho`
+  (pipeline de entrega macro, distinto do `Fluxo obrigatório` por
+  tarefa). Removidos dois stubs nunca preenchidos (`Leitura obrigatória
+  antes de alterar código`, `Regras de arquivos` — eram texto de
+  template, redundantes com seções já reais). Corrigido caminho de
+  `CONTRATO_SOBERANO.md` (apontava para a raiz; está em `docs/history/`).
+- **Não alterado:** os 4 documentos de `docs/arquitetura/`, `docs/
+  planning/PLANO_MESTRE_ELA_INFLUENCIA.md`, nenhum ADR/SPEC/PRD.
+- **Não commitado nesta sessão.** Nenhum push.
+- **Achado não relacionado a esta missão:** dois arquivos não rastreados
+  apareceram no working tree durante a sessão sem relação com o trabalho
+  realizado aqui — `backend/package-lock.json` e `dev.sh` (criados
+  2026-07-23 11:42 e 11:50). Origem desconhecida; não foram tocados.
+
+## 2026-07-23 — §47 Correção do ambiente de desenvolvimento local (composer dev)
+
+Sessão paralela à do §46, sem relação com a missão de documentação
+arquitetural. Resolve inclusive a origem "desconhecida" de
+`backend/package-lock.json`/`dev.sh` apontada no achado lateral do §46:
+eram produto desta sessão, rodando em paralelo.
+
+- **Sintoma relatado:** `composer dev` iniciava dois processos Vite
+  concorrentes na porta 5173; `http://localhost:5173` mostrava a tela
+  padrão "Laravel + Vite" em vez da aplicação React.
+- **Causa raiz:** `backend/composer.json` script `dev` rodava `npm run
+  dev` com `cwd` em `backend/` — disparava o Vite do scaffold padrão do
+  Laravel (`backend/resources/js/app.js`, `backend/vite.config.js`,
+  Tailwind), nunca referenciado por nenhuma view (`grep @vite` vazio),
+  competindo pela porta 5173 com o Vite real de `frontend/` (React).
+- **Corrigido:** `composer.json` (`dev` chama `npm --prefix ../frontend
+  run dev`; `setup` instala deps do frontend e copia `frontend/.env`);
+  `backend/package.json` reduzido a só `concurrently`; removidos
+  `backend/vite.config.js`, `backend/resources/js/app.js`,
+  `backend/resources/css/app.css`; removido script `dev:all` e dep
+  `concurrently` não usada de `frontend/package.json`; `dev.sh`
+  (script improvisado) apagado; `README.md`/`backend/README.md`
+  atualizados para `composer dev` como único fluxo.
+- **Validado por navegação real** (Chrome DevTools): `localhost:5173`
+  carrega a SPA (login, navegação client-side, `POST
+  localhost:8000/api/login` via CORS/Sanctum sem erro).
+- **Entrega:** PR #78 (branch `worktree-fix-dev-env`), draft. Mesmos
+  commits aplicados via `cherry-pick` em `docs/governance-phase2`
+  (checkout principal) para teste imediato — push/merge ainda pendente,
+  decisão do responsável do projeto.
+- Comando oficial: `cd backend && composer dev`. Aplicação:
+  `http://localhost:5173`. API: `http://localhost:8000/api`.
+
+## 2026-07-23 — §48 Ativação do Design System oficial como SSOT de UI/UX
+
+Sessão dedicada exclusivamente a auditoria — nenhum arquivo do repositório
+alterado, nenhum commit. Sem relação com §46/§47.
+
+- **Objetivo:** conectar ao Claude Design MCP, importar o projeto "Estúdio
+  Elã Design System" (`019e139d-3dee-7162-a2d8-6b19c32c0225`), comparar com
+  a cópia local em `est-dio-el-design-system/`, e confirmar se pode ser
+  adotado como Fonte Única da Verdade (SSOT) para UI/UX e documentação
+  visual — sem implementar nada.
+- **MCP vs. cópia local:** confirmados idênticos. 169 arquivos comparados
+  por caminho e tamanho; 167 batem exatamente; os 2 restantes
+  (`uploads/PIV - ELÃ.pdf` e a variante `-9ba0a379`) são o mesmo arquivo,
+  divergindo só na normalização Unicode do nome (NFC no MCP vs. NFD no
+  filesystem macOS local) — sem divergência de conteúdo.
+- **Achado — inconsistência interna no próprio Design System** (presente
+  igualmente no MCP e na cópia local, não é problema de sincronização):
+  `SKILL.md` cita bordô `#a1231f`, vinho `#6b1612` e tipografia "acumin
+  pro" como se fossem vigentes. `colors_and_type.css` (que se autodeclara
+  *"single source of truth"*) e `README.md` já corrigem isso — bordô
+  `#CD0005`, vinho `#791815`, body em Helvetica Neue (`README.md` seção
+  "known caveats": *"an earlier version of this system referenced acumin
+  pro — corrected; ignore the typekit acumin reference in the github
+  repo"*). `assets/styles.css` (CSS de produção herdado do site) também
+  carrega os valores antigos — é o legado minerado, não a fonte declarada.
+  `colors_and_type.css` mantém `--bordo-legacy: #a1231f` explicitamente
+  marcado *"do not use"*.
+- **Decisão do responsável do projeto (confirmada nesta sessão):**
+  `colors_and_type.css` + `README.md` prevalecem como SSOT para cores,
+  tipografia e tokens; `SKILL.md` e `assets/styles.css` são tratados como
+  conteúdo legado sempre que houver conflito nesses temas.
+- **Design System ativado** como referência visual oficial do projeto a
+  partir desta sessão, para decisões de UI, UX e documentação visual.
+  Não substitui AI Constitution, `CLAUDE.md` nem os documentos de
+  arquitetura — governa apenas interface e identidade visual.
+- **Não executado nesta sessão (fora de escopo, por instrução explícita):**
+  nenhuma implementação de componente, nenhuma atualização de
+  documentação (`docs/design/` não tocado), nenhum commit.
+- **Auditoria de conteúdo (resumo):** tokens/cores (trio de marca + 6
+  neutros), tipografia (IvyPrestoDisplay display + Helvetica Neue body +
+  Archivo secundário, regra de "vowel italic"), espaçamento (grid 8pt,
+  `--s-1` a `--s-10`), raios/bordas (raio 0 exceto pill CTA, só hairlines,
+  sem sombra), ícones (SVG de linha custom, stroke ~1.5, sem fonte de
+  ícone terceirizada), componentes catalogados em `_ds_manifest.json`
+  (accordion, CTA pill, nav link, section blocks, aplicações prontas, UI
+  kit completo do site), princípios ("quiet luxury", editorial europeu,
+  zero ornamento/gradiente/textura/blur).
+
+## 2026-07-23 — §49 Hardening de produção Laravel + decisão de migrar de hospedagem (rebranding "Criativo Dodô")
+
+Sessão com três blocos, todos sobre infraestrutura/produção. Sem relação
+com §46/§47/§48.
+
+- **Auditoria + hardening de config de produção Laravel:** auditoria
+  read-only de `.env`/`config/{app,session,sanctum,cors}.php` contra o
+  destino `https://portal.estudioela.com` identificou 8 itens a
+  corrigir. Plano de migração desses 8 itens registrado (dependência de
+  SSL, risco, reinício de serviço vs. `config:clear`/`config:cache`,
+  ordem de aplicação) — achado central: `SESSION_SECURE_COOKIE=true`
+  aplicado antes do SSL confirmado no host final causa lockout total de
+  autenticação, é o único item com dependência dura de certificado.
+  **Executado nesta sessão:** `APP_ENV` (`local`→`production`) e
+  `APP_DEBUG` (`true`→`false`) alterados no `backend/.env` local (backup
+  em `backend/.env.backup-20260723-185819`), validados via `php artisan
+  config:clear`/`config:cache`/`about` (`Environment: production`,
+  `Debug Mode: OFF` confirmados). Os outros 6 itens (`APP_URL`,
+  `FRONTEND_URL`, `APP_KEY` de produção, `SANCTUM_STATEFUL_DOMAINS`,
+  `SESSION_DOMAIN`, `SESSION_SECURE_COOKIE`) ficaram pendentes de
+  propósito — dependem de qual host final for escolhido no bloco
+  seguinte, então não fazia sentido fechá-los ainda na Locaweb.
+
+- **Decisão: migrar da Locaweb.** Avaliação comparativa e crítica de 12
+  provedores (Hostinger, Locaweb, HostGator, KingHost, UOL Host,
+  DigitalOcean, Hetzner, Vultr, Linode/Akamai, Contabo, Laravel
+  Forge/Ploi, Laravel Cloud), com pesquisa paralela de dados atuais
+  (2025/2026, não memória do modelo). Achado que fecha a decisão: o
+  problema de SSL em subdomínio sofrido com a Locaweb é documentado
+  (ReclameAqui + doc oficial da própria Locaweb) como falha estrutural
+  recorrente do produto, não incidente isolado — não se resolve subindo
+  de plano. **Recomendação entregue:** Laravel Forge (ou Ploi) sobre VPS
+  Vultr ou Linode/Akamai, região São Paulo, banco autogerenciado, dentro
+  de teto de R$200/mês informado pelo responsável do projeto nesta
+  sessão. Detalhe completo (notas por provedor, prós/contras, riscos)
+  só na conversa desta sessão — não persistido em arquivo à parte.
+
+- **Rebranding "Elã" → "Criativo Dodô" anunciado** pelo responsável do
+  projeto nesta sessão: nomes/docs/variáveis/projetos modificados a
+  partir de agora devem usar "Dodô"; identidade visual (cores, logo,
+  fontes, layout) **não** muda nesta etapa. Nenhum arquivo do repositório
+  foi renomeado ou alterado por causa disso nesta sessão — só o
+  planejamento de infraestrutura abaixo foi feito sob esse contexto.
+
+- **Auditoria de repositório para escolher domínio+hospedagem do projeto
+  renomeado (em andamento, interrompida pelo usuário antes da pesquisa de
+  preço):** extraído do código/docs, sem inventar valor nenhum —
+  PHP `^8.3` (`composer.json`) vs. `8.5-fpm-alpine` (Dockerfile de
+  produção); Laravel `^13.8`; Node 26 só usado no build (roda no CI, não
+  no host); extensões PHP reais confirmadas via Dockerfile (`pdo`,
+  `pdo_pgsql`, `pdo_mysql`, `mbstring`, `bcmath`, `zip`, `intl`,
+  `opcache` — lista mais longa de `ext-*` encontrada via grep bruto no
+  `composer.lock` descartada por ser provavelmente `suggest`/`provide`
+  de dependências, não requisito real); fila `database` sem worker
+  persistente (via Crontab, `queue:work --stop-when-empty`); cache
+  `database`; sem `config/broadcasting.php` nem pacote de websockets;
+  frontend com build estático (`npm run build:locaweb`) plugado em
+  `public/build` do Laravel.
+  - **Achado crítico — divergência não resolvida:** `CLAUDE.md` descreve
+    a stack como "Laravel + React + MySQL", mas toda a documentação de
+    deploy real (`docs/deployment/ARQUITETURA_PRODUCAO.md`,
+    `CONFIGURACAO_PRODUCAO.md`, `IMPLEMENTACAO_TECNICA.md`,
+    `PLANO_DE_IMPLANTACAO.md`) e o `docker-compose.yml`
+    (`db: image: postgres:16-alpine`) confirmam **PostgreSQL 16** como
+    decisão já fechada. `config/database.php` usa `sqlite` só como
+    default de dev. Relevante porque a maioria dos hosts brasileiros
+    baratos só oferece MySQL nativo — filtro obrigatório na próxima
+    pesquisa de hospedagem.
+  - **Achado:** uploads de material das influenciadoras já vão direto
+    para o Google Drive via OAuth (`ARQUITETURA_PRODUCAO.md` §"Estratégia
+    para Google Drive") — não usa disco local nem S3/Spaces, reduzindo o
+    porte de storage necessário no host novo.
+  - **Achado:** existe uma decisão soberana registrada e marcada como
+    "Aprovada e definitiva" em `ARQUITETURA_PRODUCAO.md` (2026-07-21):
+    *"zero custo recorrente adicional, zero serviço contratado novo"* —
+    justificava ficar 100% na Locaweb. Está em conflito direto com a
+    decisão de migrar desta mesma sessão. Precisa de novo registro
+    formal (fora do escopo do `/fim`) quando a migração for confirmada.
+  - **Ambiguidade não resolvida:** o repositório documenta dois caminhos
+    de deploy — build estático dentro do `public/` do Laravel (origem
+    única, conforme ADR-015) vs. `docker-compose.yml` com o frontend
+    rodando num container Nginx separado, porta própria (5173). Uma nota
+    em `PLANO_DE_IMPLANTACAO.md` chama o caminho Docker de "arquitetura
+    anterior", sugerindo que o primeiro é o vigente, mas isso não foi
+    confirmado com o responsável do projeto antes da interrupção.
+  - **Entregue ao usuário:** blocos 1 (stack/runtime) e 2 (recursos/porte,
+    como estimativa qualificada, não número documentado) completos, com
+    fonte de cada afirmação. Blocos 3-6 (tráfego/dados, requisitos que
+    pesam no preço, domínio, restrições) entregues como perguntas
+    objetivas em aberto — sessão interrompida pelo usuário antes da
+    pesquisa de preço e da tabela comparativa final.
+  - **Pendente para a próxima sessão:** respostas do usuário aos blocos
+    3-6, confirmação da topologia de deploy (origem única vs.
+    docker-compose) e confirmação do teto de orçamento válido
+    especificamente para domínio+hospedagem (o R$200/mês desta sessão
+    foi dado no contexto da avaliação de múltiplos projetos + SaaS
+    futuro, não necessariamente o mesmo número aqui) — só depois disso
+    pesquisar preços atuais e montar a tabela comparativa de 3+ opções
+    pedida pelo usuário.
+
+## 2026-07-23 — §50 Decisão de hospedagem (Locaweb Hospedagem II), rebranding "Criativo Dodô" e virada para fase de implantação
+
+Sessão de continuação direta do §49 (mesmo dia). Sem relação com §46/§47/§48.
+
+- **Mudança de premissa:** PostgreSQL deixou de ser requisito obrigatório
+  — MySQL aceito como motor de banco, decisão do responsável do projeto,
+  porque praticamente nenhuma hospedagem compartilhada considerada
+  oferece Postgres. VPS e Forge/Ploi/Laravel Cloud explicitamente
+  descartados para esta fase — só hospedagem compartilhada/gerenciada.
+- **Novo ranking, restrito aos provedores já analisados no §49** (VPS/
+  Forge fora de escopo agora): KingHost (1º, nota 8 — SSH incluso desde
+  o plano de entrada, MySQL ilimitado em todos os planos, sem falha
+  estrutural documentada), Hostinger (2º, nota 7,5 — melhor stack técnico
+  do grupo, mas armadilha de preço de renovação), HostGator (3º, nota 6
+  — mais barato, mas a própria empresa recomenda minimizar uso de cron,
+  o que conflita com o scheduler do Laravel). Locaweb e UOL Host
+  mantidos fora do top 3 por motivos **não relacionados a Postgres/
+  MySQL** (Locaweb: SSL em subdomínio, achado do §49; UOL Host: MySQL
+  5.6 EOL como padrão do plano compartilhado). Preços confirmados via
+  fetch nas páginas oficiais nesta sessão (Hostinger, KingHost), não
+  inventados. Resposta direta dada quando perguntado "se fosse seu
+  dinheiro": KingHost, plano Hospedagem III (R$19,99/mês, 5 sites).
+
+- **Decisão real do responsável do projeto, contrária à recomendação
+  técnica dada:** contratada **Locaweb Hospedagem II Linux** (status
+  ativa) + domínio **`criativododo.com.br`** (registrado 2026-07-23,
+  `provider: LOCAWEB (2)` confirmado via whois). Justificativa do
+  responsável: melhor custo-benefício dentro do orçamento atual,
+  objetivo de colocar o sistema em produção imediatamente, contrato
+  deliberadamente curto para reduzir risco e permitir reavaliação
+  futura. **Decisão aceita sem propor reversão — não reabrir a
+  discussão de hospedagem durante esta fase.**
+
+- **Rebranding efetivado: "Estúdio Elã" → "Criativo Dodô".** A partir
+  desta sessão, todo código/documentação/texto/variável/URL/exemplo
+  **novo** deve usar "Dodô"/`criativododo.com.br`. Identidade visual
+  (logo, cores, tipografia) **não muda** nesta etapa — só o nome
+  institucional. Nada foi renomeado retroativamente nesta sessão.
+
+- **Separação de ambientes declarada pelo responsável:** ambiente legado
+  (`estudioela.com`, `elafashionmkt.com.br`) **congelado** — só
+  referência/migração, sem novas dependências, sem diagnóstico adicional
+  salvo pedido explícito. Ambiente novo (`criativododo.com.br`) passa a
+  ser produção principal a partir de agora. Preferência declarada:
+  "configurar corretamente do zero" > "adaptar legado", quando houver
+  escolha.
+
+- **Correção factual registrada (não uma reversão de decisão):** o
+  responsável do projeto pediu para tratar o achado de SSL em subdomínio
+  da Locaweb (§49) como "hipótese sem evidência, derivada da bagunça do
+  ambiente legado" (duas hospedagens, dois domínios, DNS distribuído).
+  Corrigido nesta sessão: a evidência original veio de reclamações de
+  **outros clientes** da Locaweb no ReclameAqui e da **documentação
+  oficial da própria Locaweb** sobre o funcionamento do emissor Let's
+  Encrypt deles (exige DNS apontado exatamente para eles, trata bloqueio
+  de rate-limit do ACME como esperado) — não do ambiente legado deste
+  projeto. Concordado, na prática, em validar tudo do zero no ambiente
+  novo, sem pré-julgar nem bloquear nada antecipadamente — mas o achado
+  não foi descartado como "sem evidência", porque tem evidência real. A
+  ser validado explicitamente quando a etapa de SSL da implantação for
+  executada.
+
+- **Virada de fase formal:** investigação do ambiente legado encerrada.
+  Foco passa a ser implantação do TEAR no ambiente novo. O agente assume
+  o papel de **Lead DevOps / Arquiteto de Implantação**. Regra de
+  trabalho explícita do responsável: nunca entregar lista grande de
+  tarefas — um passo por vez (objetivo → validar estado atual com
+  evidência observável → executar só o próximo passo → confirmar
+  resultado → avançar), sem reutilizar procedimentos do ambiente legado
+  nem presumir que problemas antigos vão se repetir.
+
+- **Primeiro passo de implantação executado:** verificação read-only de
+  DNS de `criativododo.com.br` (`dig` + `whois`, sem necessidade de
+  credenciais). Achado: domínio registrado hoje (2026-07-23) via Locaweb
+  como registrar, status `active`, mas **sem nenhum nameserver
+  configurado e sem registro A — ainda não resolve**. Interpretado como
+  provável propagação normal de registro no mesmo dia, não confirmado
+  como problema. **Bloqueado ao final da sessão** esperando o
+  responsável do projeto confirmar, no painel da Locaweb, se o domínio
+  já está vinculado à Hospedagem II contratada — próximo passo da
+  implantação depende dessa confirmação, e dos dados de acesso ao
+  painel/SSH/status do MySQL, que só o responsável tem.
+
+- **Nota de obsolescência:** a tarefa "pesquisar preços atuais e montar
+  tabela comparativa de domínio+hospedagem", registrada como próxima
+  tarefa recomendada ao final do §49, está **superada** — o responsável
+  do projeto decidiu e contratou diretamente antes dessa pesquisa
+  acontecer. Não retomar.
+
+## 2026-07-23 — §51 Migração de domínio na documentação de deploy (reconciliação pós-rebranding)
+
+Sessão de continuação (mesmo dia), sem trabalho de infraestrutura real —
+só documentação. Consequência direta do rebranding/migração de domínio
+registrados em §50.
+
+- **Pedido do responsável do projeto:** migrar referências ao domínio
+  institucional antigo (`estudioela.com`) para o novo
+  (`criativododo.com.br`, aplicação em `portal.criativododo.com.br`) em
+  todo o repositório, por processo controlado — auditoria e
+  classificação antes de qualquer edição, não substituição cega de
+  texto.
+- **Auditoria executada:** grep completo de `estudioela\.com` no
+  repositório (excluindo `.git`/`node_modules`/`vendor`/worktrees),
+  classificação em três grupos — **alterar** (config/template/checklist/
+  placeholders de UI), **não alterar** (ADRs, `TASK_ROUTER.md`,
+  `AUDITORIA_LOCAWEB.md`, `docs/PRD.md`, Design System da marca antiga,
+  worktrees de outras sessões) e um **bucket ambíguo**: 5 documentos de
+  deploy/arquitetura (`ARQUITETURA_PRODUCAO.md`, `PLANO_DE_IMPLANTACAO.md`,
+  `IMPLEMENTACAO_TECNICA.md`, `RUNBOOK_DEPLOY_E_ROLLBACK.md`,
+  `CHECKLIST_GO_LIVE.md`) cuja decisão "zero custo recorrente adicional"
+  (`ARQUITETURA_PRODUCAO.md`, 2026-07-21, "aprovada e definitiva") é
+  diretamente contradita pela contratação real de domínio novo +
+  Hospedagem II. Relatório entregue ao responsável **antes** de qualquer
+  edição, conforme Fluxo obrigatório do `CLAUDE.md`.
+- **Decisão do responsável sobre o bucket ambíguo:** reconciliar de
+  verdade, não só trocar a string — refletir a infraestrutura
+  efetivamente adotada (domínio `criativododo.com.br`, app
+  `portal.criativododo.com.br`, Locaweb Hospedagem II Linux),
+  substituindo a estratégia de "zero custo recorrente adicional"
+  (inválida desde a contratação do novo domínio/hospedagem), preservando
+  a decisão de 2026-07-21 como nota de revisão histórica em vez de
+  apagá-la, e **sem** registrar valores financeiros novos (fora de
+  escopo).
+- **Executado — 9 arquivos:**
+  - `backend/.env.production.example`: `APP_URL`/`SESSION_DOMAIN`/
+    `FRONTEND_URL`/`SANCTUM_STATEFUL_DOMAINS` → `portal.criativododo.com.br`
+    (template de produção; `.env` real do host não existe ainda).
+  - `frontend/src/pages/Login.tsx`, `ForgotPasswordPage.tsx`: placeholder
+    de e-mail de exemplo.
+  - `docs/release/GATE_FINAL_GO_LIVE.md`,
+    `docs/deployment/CHECKLIST_GO_LIVE.md`: item de checklist de DNS.
+  - `docs/deployment/ARQUITETURA_PRODUCAO.md`, `PLANO_DE_IMPLANTACAO.md`,
+    `IMPLEMENTACAO_TECNICA.md`, `RUNBOOK_DEPLOY_E_ROLLBACK.md`: nota de
+    revisão datada 2026-07-23 no topo + seções operacionais (hospedagem,
+    domínio, diagrama, tabela-resumo, comandos de exemplo, variáveis)
+    atualizadas para o ambiente novo; decisão original de 2026-07-21/22
+    preservada como histórico, com a supersessão explicitada em cada
+    ponto relevante (inclusive a auditoria de hospedagem legada citada em
+    `PLANO_DE_IMPLANTACAO.md` Etapa 2, marcada como não reconfirmada para
+    a Hospedagem II).
+- **Deliberadamente não tocado** (com justificativa registrada no
+  relatório ao responsável): `docs/adrs/ADR-015-*.md` (ADR — nunca
+  reaberto sem novo ADR); `docs/deployment/AUDITORIA_LOCAWEB.md`
+  (relatório de auditoria pontual do ambiente legado, fato histórico);
+  `docs/_workspace/TASK_ROUTER.md`/`ESTADO_SESSAO*.md` (histórico/
+  snapshot); `docs/PRD.md` (URL real do formulário externo do sistema
+  legado, ainda em produção); `est-dio-el-design-system/**` (ativo de
+  marca "Estúdio Elã" — identidade visual não muda nesta etapa, por
+  regra já registrada em §50); `.claude/worktrees/**` (ambientes
+  isolados de outras sessões, fora de escopo).
+- **Verificação final:** grep pós-edição confirmou que as únicas
+  ocorrências remanescentes de `estudioela.com` no repositório são
+  intencionais — contexto histórico/explicativo dentro dos próprios
+  documentos reconciliados, ou nos arquivos da categoria "não alterado"
+  acima.
+- **Fora de escopo, não corrigido nesta sessão:** a divergência
+  MySQL/PostgreSQL nos mesmos 5 documentos (§49/§50 já registravam essa
+  pendência) segue sem correção — os documentos reconciliados ainda
+  descrevem PostgreSQL gerenciado da Locaweb, não MySQL. Nenhuma
+  infraestrutura real foi tocada ou validada nesta sessão — só
+  documentação.
+
+## 2026-07-23 — §52 Fechamento da migração de domínio (`elafashionmkt`/`DEPLOY.md`) e resolução MySQL/PostgreSQL
+
+Sessão de continuação (mesmo dia, após `/clear`), sem trabalho de
+infraestrutura real — só documentação. Pedido do responsável: preparar o
+projeto para o primeiro deploy assumindo (sem saber que já estava em
+andamento) o mesmo rebranding/domínio/hospedagem de §50/§51. Auditoria
+inicial identificou que a sprint pedida já estava quase inteiramente
+executada em §51; responsável confirmou continuar fechando gaps em vez de
+criar documento novo (rejeitou explicitamente criar `DEPLOY_LOCAWEB.md` —
+"não crie documentação duplicada... utilize apenas a documentação
+existente como fonte canônica").
+
+- **Gap 1 fechado — `elafashionmkt` nunca tinha sido auditado** (§51 só
+  cobriu `estudioela.com`). Grep completo (41 ocorrências) classificado:
+  **nenhuma é referência institucional de marca/domínio a migrar** — são
+  todas referências factuais e ainda vigentes à conta/organização Google
+  real usada no OAuth do Google Drive (`elafashionmkt@gmail.com`,
+  `elafashionmkt-org`, ver `ADR-017`), preservadas em `GoogleDriveService.php`,
+  `.env.production.example`, `ADR-017`, e nos documentos de deploy — ou
+  fatos históricos em `AUDITORIA_LOCAWEB.md`/`TASK_ROUTER.md`. Rebranding
+  institucional não afeta essa conta Google. **Nenhuma alteração
+  necessária** nesse grupo. `portal.estudioela` (padrão citado pelo
+  responsável): 0 ocorrências — nunca existiu, só `influencia.estudioela.com`.
+- **Gap 2 fechado — `docs/deployment/DEPLOY.md` nunca reconciliado em
+  §51** (não estava na lista dos 9 arquivos daquela sessão). Adicionada
+  nota de revisão datada (mesmo padrão dos outros 4 documentos) + 4
+  correções pontuais: domínio/hospedagem no §1 (Pré-requisitos), e-mail de
+  exemplo do admin (`admin@estudioela.com` → `admin@criativododo.com.br`),
+  decisão de domínio no §9 (estava descrita como "a decidir", já está
+  decidida desde §50). `CONFIGURACAO_PRODUCAO.md` e `MONITORING.md`
+  revisados e **não precisaram de alteração** (o primeiro usa domínio
+  genérico de exemplo por design; o segundo não menciona domínio/
+  hospedagem). `docs/release/TEAR_V2.5_GO_LIVE_CHECKLIST.md` e
+  `TEAR_V2.5_RELEASE_READINESS.md` revisados — já se declaram histórico
+  preservado, com nota apontando para `ARQUITETURA_PRODUCAO.md` como
+  decisão vigente; nenhuma alteração necessária.
+- **Gap 3 fechado — divergência MySQL/PostgreSQL (`CLAUDE.md`), pendência
+  aberta desde §49/§51.** Investigação por evidência (não presunção):
+  `docker-compose.yml` (`postgres:16-alpine`), `Dockerfile`
+  (`pdo_pgsql`/`postgresql-dev`), `backend/.env.production.example`
+  (`DB_CONNECTION=pgsql`) e a decisão explícita e motivada em
+  `ARQUITETURA_PRODUCAO.md` §2 ("Decisão: PostgreSQL gerenciado... sem
+  esforço de portar para MySQL") convergem: **PostgreSQL permanece como
+  decisão arquitetural do projeto** — isso é uma afirmação sobre a
+  arquitetura, não sobre o ambiente de produção. A disponibilidade
+  efetiva de PostgreSQL no ambiente contratado (Hospedagem II) é
+  provisionamento, não arquitetura, e só será confirmada depois do
+  provisionamento completo (painel/suporte, ver alerta abaixo) — as duas
+  coisas não devem ser tratadas como a mesma pergunta. A nota "MySQL
+  aceito" de §50 era condicionada a hospedagens compartilhadas específicas
+  (KingHost/Hostinger/HostGator) que **não** foram as contratadas — a
+  Locaweb Hospedagem II efetivamente contratada, segundo o responsável do
+  projeto nesta sessão, suporta PostgreSQL. `CLAUDE.md` linha 13 (só doc,
+  sem ADR por trás) corrigida de "MySQL" para "PostgreSQL" para refletir a
+  decisão arquitetural real. **Alerta adicionado em
+  `ARQUITETURA_PRODUCAO.md` §2**, não decisão nova: no plano
+  anterior (Hospedagem I) o painel também listava PostgreSQL como
+  disponível, mas o suporte oficial da Locaweb confirmou depois que o
+  plano contratado não habilitava de fato (§27) — a mesma armadilha pode
+  se repetir na Hospedagem II; não tratar disponibilidade como fato até
+  confirmação real no painel/suporte.
+- **Config Laravel (`config/cors.php`, `sanctum.php`, `session.php`,
+  `cache.php`, `filesystems.php`, `queue.php`, `mail.php`, `app.php`,
+  `bootstrap/app.php`, `composer.json`) reauditados:** nenhum hardcode de
+  domínio/host legado encontrado — `cors.php` e `sanctum.php` usam
+  `env('FRONTEND_URL')`/`env('SANCTUM_STATEFUL_DOMAINS')`, sem literal.
+  Confirma que `backend/.env.production.example` (já correto desde §51)
+  é o único lugar que precisa do valor real.
+- **Achado novo, não corrigido (fora do escopo desta sessão, só
+  reportado):** `CLAUDE.md` linha 5 ainda descreve o projeto como
+  "Estúdio Elã, produto 'ELÃ | influência'" — não reconciliado com o
+  rebranding institucional "Criativo Dodô" de §50. Decisão de negócio do
+  responsável (aplicar retroativamente à descrição do projeto ou manter,
+  já que §50 disse "não retroativo"), não decisão técnica — não alterado
+  sem confirmação explícita.
+- **Achado novo, não corrigido (pré-existente, fora do escopo):**
+  triplicação de checklists de Go-Live (`docs/deployment/CHECKLIST_GO_LIVE.md`,
+  `docs/release/GATE_FINAL_GO_LIVE.md`, `docs/release/TEAR_V2.5_GO_LIVE_CHECKLIST.md`)
+  com escopos parcialmente sobrepostos — cada um já se declara com um
+  papel distinto (execução atual / gate de autorização / histórico
+  preservado), então não é duplicação cega, mas vale revisão dedicada
+  futura se confundir execução real.
+- **Nenhuma infraestrutura real foi tocada.** Sem SSH, sem `.env` real,
+  sem alteração de banco/DNS — só documentação/config-template, como
+  pedido explicitamente pelo responsável. Nada commitado nesta sessão.
+
+## 2026-07-24 — §53 Migração visual completa para o Design System "criativo DODÔ" (`ADR-019`) + tentativa de retomada da implantação (bloqueada)
+
+Sessão de continuação. Duas frentes, a segunda interrompida por bloqueio externo e
+formalmente pausada a pedido do responsável.
+
+### Frente 1 — Implantação (Locaweb Hospedagem II): bloqueada, pausada
+
+- Responsável confirmou infraestrutura provisionada: domínio principal
+  ativo, subdomínio `portal.criativododo.com.br` criado, SSL do domínio
+  principal ativo (Let's Encrypt, confirmado por evidência de rede —
+  `openssl`/`curl`), FTP provisionado (porta 21 confirmada aberta por
+  `nc`, múltiplas vezes, múltiplas redes de origem), PostgreSQL disponível
+  para criação (ainda não criado).
+- SSH: habilitado no painel pelo responsável, mas a porta 22 nunca
+  completa handshake TCP — testado em 2 hostnames oficiais
+  (`ftp.criativododo.com.br`, `ftp.criativododo2.hospedagemdesites.ws`),
+  por `nc` e por `ssh -vvv`, de **3 redes de origem independentes** (a do
+  agente, duas do responsável) — sempre o mesmo sintoma, enquanto a porta
+  21 (FTP) responde normalmente nos mesmos hosts. Causa isolada para o
+  lado do servidor/firewall da Locaweb, não há mais diagnóstico possível
+  do lado cliente.
+- Chamado aberto pelo responsável com o suporte da Locaweb. **Frente
+  pausada por decisão do responsável até haver retorno** — não retomar
+  sem resposta da Locaweb ou evidência nova.
+- Nenhuma infraestrutura real foi alterada (achado read-only via `dig`/
+  `curl`/`openssl`/`nc`/`ssh`). Estratégia de deploy (SSH vs. FTP) segue
+  **em aberto**, não decidida — dependia da confirmação de SSH.
+
+### Frente 2 — Migração visual para o Design System "criativo DODÔ" — concluída (código); validação visual parcial
+
+- **Achado que abriu a frente:** `est-dio-el-design-system/` (raiz, não
+  `_legacy-ela/`) é um Design System completo e novo (tokens de cor/
+  tipografia/espaçamento/raio, fontes self-hosted Elms Sans/Work Sans,
+  logos oficiais), nunca antes adotado como fonte de verdade do frontend
+  React — o frontend rodava com o sistema "TEAR Editorial" (vermelho
+  `#9f0003`, Noto Serif/Hanken Grotesk/Archivo Narrow via Google Fonts).
+- **`ADR-019` criada e aceita** (`docs/adrs/ADR-019-design-system-dodo-como-ssot-visual.md`):
+  formaliza `est-dio-el-design-system/` como SSOT visual. Corrige achado
+  factual: o comentário "`ADR-002: Absolute Flatness`" em
+  `frontend/src/index.css` referenciava uma ADR que **nunca existiu**
+  nesta branch — só como rascunho "Proposed" (nunca aceito) em worktrees
+  de sessões paralelas já encerradas, descrevendo uma arquitetura Apps
+  Script já abandonada. `docs/design/DESIGN_SYSTEM.md` já apontava
+  corretamente para o novo Design System (não precisou de correção);
+  `docs/design/UI_RULES.md` é comportamental/UX, sem valor de marca, segue
+  válido sem alteração.
+- **Correção de hierarquia de cor durante a execução:** laranja é a
+  cor-assinatura (31% de proporção oficial, "sempre a maior mancha de
+  cor" — `README.md` do Design System), não o roxo — corrigido no painel
+  do `AuthSplitLayout` e documentado com citação direta da fonte, não por
+  escolha estética própria.
+- **Assets oficiais aplicados:** logo `elã-*.svg` (legado) substituído por
+  `brand/logos/horizontal-preto.svg` (self-hosted em
+  `frontend/public/horizontal-preto.svg`) em `AuthSplitLayout`, `AppShell`
+  e `PortalShell` — zero referência a asset legado restante no projeto,
+  confirmado por grep.
+- **Escopo deliberadamente reduzido, a pedido do responsável** (sprint de
+  velocidade, não de refinamento): `Table`/`Pagination`/`Modal` como
+  componentes compartilhados **não foram criados** — tabelas cruas (7
+  páginas) já herdam tokens corretos, extrair componente foi julgado
+  refatoração desnecessária para esta sprint. `PlaceholderPage` não teve
+  decisão de manter/remover (fora de escopo desta frente).
+- **Camada de compatibilidade (bridge) criada e depois removida por
+  completo na mesma sessão:** Task inicial introduziu aliases de nomes
+  antigos (`--color-primary`, `--space-N` etc.) apontando para os tokens
+  novos, para não quebrar ~27 arquivos de uma vez. Depois, com o projeto
+  já migrado, os aliases foram renomeados para os nomes nativos do Dodô
+  em todos os arquivos e a camada de bridge foi apagada de `index.css`.
+  **Bug real encontrado e corrigido durante essa limpeza** (não
+  cosmético): o bridge sobrescrevia `--color-surface` inteiro para
+  `--color-bg`, fazendo cards/badges/avatar renderizarem com a mesma cor
+  do fundo (invisíveis). Corrigido removendo a sobrescrita e fixando
+  `AuthSplitLayout.contentPanel` explicitamente em `--color-bg` (único
+  caso que de fato queria o tom de página, não de cartão).
+- **Tokens de erro/sucesso são extensão própria, não oficial do Design
+  System** — `tokens.json` não define essas cores; os valores em
+  `frontend/src/theme/tokens.css` foram inferidos do padrão já usado em
+  `DESIGN_SYSTEM.html` (`.field.err`), documentados como tal em
+  comentário no próprio arquivo. Se o Design System formalizar valores
+  oficiais no futuro, revisar.
+- **Estado final confirmado por grep:** zero referência a qualquer nome
+  de token antigo ("TEAR Editorial") em todo `frontend/src`. Build e
+  lint limpos.
+- **Validação visual real:** só as 3 rotas públicas (`/login`,
+  `/cadastro`, `/`) foram vistas ao vivo (Chrome DevTools, screenshot).
+  As 21 páginas autenticadas restantes foram migradas e verificadas só
+  por análise estática de código (grep/build) — **não há confirmação
+  visual delas**, por falta de backend rodando e credencial de teste
+  nesta sessão. Tratar como pendência real, não como concluído, até
+  alguém logar e olhar.
+- Nenhuma rota, controller, model, policy ou regra de negócio foi
+  tocada — confirmado, escopo estritamente visual/frontend.
+- **Nada commitado nesta sessão** — todas as mudanças de código
+  (tokens, componentes, páginas, assets) seguem no working tree.
+
+## 2026-07-24 — §54 Diagnóstico read-only do sintoma "resposta incorreta do Host" em `portal.criativododo.com.br`
+
+Sessão de continuação, 100% investigativa. **Nenhum arquivo alterado,
+nenhuma configuração de infraestrutura tocada, nenhum comando executado
+contra o ambiente real** — só raciocínio e preparação de verificação.
+
+### Fatos confirmados pelo responsável do projeto (tratados como dados)
+
+- Domínio principal: `criativododo.com.br`.
+- Subdomínio `portal.criativododo.com.br` **já existe**, está **Ativo**,
+  tipo **Subdomínio → Apontamento**.
+- SSL do subdomínio: **Let's Encrypt, renovação automática**, confirmado
+  funcionando.
+- Hospedagem confirmada correta: usuário FTP `criativododo2`, raiz
+  `/home/criativododo2/`.
+- Laravel responde corretamente (dado mantido de turnos anteriores da
+  sessão; **origem exata do teste que gerou essa afirmação não foi
+  confirmada** — gap de evidência registrado, não presumir que foi
+  testado especificamente contra `criativododo.com.br`).
+- A partir desses fatos, três hipóteses foram **descartadas
+  definitivamente**: criar domínio, emitir SSL, hospedagem errada.
+
+### Achado técnico verificado de forma independente
+
+O responsável colou um trecho com formato de citação automática do
+ChatGPT (`oai_citation:0‡Locaweb`, `utm_source=chatgpt.com`) afirmando
+uma distinção entre os tipos de subdomínio da Locaweb. Em vez de aceitar
+a citação de segunda mão, busquei a página oficial de ajuda da Locaweb
+diretamente via `WebFetch` e **confirmei o texto literal**:
+
+- **Apontamento:** "domínios com essa configuração apresentam o mesmo
+  conteúdo do site principal, funcionando como espelho."
+- **Conteúdo da pasta:** "em sub-domínios, é possível setar que o
+  endereço exiba um conteúdo específico de uma pasta do servidor."
+
+**Conclusão doc-confirmed (não é hipótese):** o tipo Apontamento é
+estruturalmente incompatível com servir uma aplicação Laravel a partir de
+um diretório próprio (`public/`) — ele só espelha o que o domínio
+principal já serve, sem nenhum mecanismo de seleção de pasta.
+
+### Hipóteses remanescentes (replanejadas do zero, ranqueadas por probabilidade)
+
+A pergunta deixou de ser "para onde o subdomínio aponta" (resolvida acima)
+e passou a ser "o que o domínio principal está de fato servindo", já que
+o Apontamento só espelha isso:
+
+1. **H1 (maior probabilidade):** raiz da hospedagem (`/home/criativododo2/`)
+   nunca foi configurada para servir o `public/` do Laravel — serve
+   placeholder, pasta vazia ou site antigo.
+2. **H2:** raiz aponta para o projeto Laravel inteiro (não para `public/`),
+   expondo o projeto "cru" (`app/`, `vendor/`, `.env`, ou erro de
+   bootstrap).
+3. **H3:** cache/proxy retendo resposta antiga em um dos dois hosts.
+4. **H4 (menor probabilidade):** exceção de comportamento não documentada
+   — roteamento por Host header/SNI divergente do espelhamento puro
+   descrito na documentação oficial.
+
+Para cada uma, evidências a favor/contra e a verificação de menor custo
+foram detalhadas na conversa (não duplicadas aqui — ver transcript da
+sessão se necessário; o essencial está no plano de verificação abaixo).
+
+### Árvore de decisão construída
+
+```
+Sonda única: comparar corpo/cabeçalhos de resposta entre
+  https://criativododo.com.br  (raiz)
+  https://portal.criativododo.com.br  (subdomínio)
+  no mesmo instante
+│
+├─ IDÊNTICAS (confirma espelhamento documentado)
+│   ├─ Conteúdo NÃO é o Laravel → H1
+│   ├─ Conteúdo é o Laravel "cru" → H2
+│   └─ Conteúdo é o Laravel funcionando → contradiz a queixa original,
+│       reabre a pergunta sobre como ela foi observada
+│
+└─ DIFERENTES entre si → H4 ganha força; H1/H2 tornam-se irrelevantes
+    (verificação seguinte: HTTP puro + cabeçalhos de cache, para separar
+    H3 de H4 dentro desse ramo)
+```
+
+### Plano de verificação — pronto, **ainda não executado**
+
+Comandos completos, read-only, entregues ao responsável para rodar no
+terminal dele (nenhum foi executado por mim contra o ambiente real):
+
+```bash
+# Passo 0 — obter o IP real (única consulta DNS; a partir daqui o DNS
+# deixa de ser usado nas requisições)
+IP=$(dig +short criativododo.com.br | tail -n1)
+
+# Passo 1 — HTTP puro, direto no IP, Host = domínio principal
+curl -s -D - -o /tmp/root_http.html \
+  -H "Host: criativododo.com.br" \
+  -H "Cache-Control: no-cache" -H "Pragma: no-cache" \
+  "http://$IP/"
+
+# Passo 2 — mesma conexão/IP, só troca o Host para o subdomínio
+curl -s -D - -o /tmp/portal_http.html \
+  -H "Host: portal.criativododo.com.br" \
+  -H "Cache-Control: no-cache" -H "Pragma: no-cache" \
+  "http://$IP/"
+
+diff /tmp/root_http.html /tmp/portal_http.html && echo "IDÊNTICOS" || echo "DIFERENTES"
+
+# Passo 3 — só se 1/2 retornou redirect para HTTPS (fallback, DNS
+# continua pinado no IP via --resolve)
+curl -sk -D - -o /tmp/root_https.html \
+  --resolve criativododo.com.br:443:$IP \
+  -H "Cache-Control: no-cache" -H "Pragma: no-cache" \
+  "https://criativododo.com.br/"
+
+curl -sk -D - -o /tmp/portal_https.html \
+  --resolve portal.criativododo.com.br:443:$IP \
+  -H "Cache-Control: no-cache" -H "Pragma: no-cache" \
+  "https://portal.criativododo.com.br/"
+
+diff /tmp/root_https.html /tmp/portal_https.html && echo "IDÊNTICOS" || echo "DIFERENTES"
+```
+
+**Por que Host header direto no IP em vez de comparar as duas URLs
+públicas:** a comparação ingênua mistura quatro variáveis (DNS de cada
+nome, seleção de certificado/vhost por SNI, cache entre cliente e origem,
+e o roteamento real por Host). Fazer o request direto no IP, em HTTP puro,
+com `Host:` setado manualmente, isola uma única variável — como o
+servidor decide o que servir a partir do Host header — eliminando DNS e
+TLS/SNI da equação.
+
+### Refinamento metodológico acordado (aplicar à interpretação do resultado)
+
+Antes de concluir qual hipótese se confirma a partir de uma diferença
+observada, **atribuir a camada exata** onde ela surgiu, nesta ordem, só
+usando os dados já capturados pelos comandos acima (status, headers,
+corpo — sem comandos novos):
+
+1. **DNS** — já eliminada pelo desenho do teste (mesmo IP fixado nas duas
+   chamadas); só checar se o mesmo `$IP` foi de fato usado nas duas.
+2. **TLS/SNI** — só relevante no Passo 3; sinal: a diferença já existia em
+   HTTP puro (Passo 1/2) ou só aparece em HTTPS?
+3. **Virtual Host (Apache/Nginx)** — candidata se a diferença já aparece
+   em HTTP puro; sinal: `Server`/`X-Powered-By`/`Via` diferentes entre as
+   duas respostas.
+4. **Proxy/Cache** — candidata se os headers de backend batem mas o corpo
+   ainda difere, ou se aparecem `Age`/`X-Cache`/`ETag` só em uma resposta,
+   ou se repetir o mesmo comando produz respostas diferentes entre si.
+5. **Aplicação (Laravel)** — só depois de 1-4 descartadas; sinal:
+   artefato específico do framework (redirect por `APP_URL`/
+   `SESSION_DOMAIN`, stack trace, cookie de sessão) presente em uma
+   resposta e não na outra.
+6. **Outro componente** — catch-all, ex.: WAF (risco genérico já
+   documentado para o ambiente legado em `AUDITORIA_LOCAWEB.md` §4.4,
+   plausível aqui também) respondendo com página de bloqueio.
+
+Só depois dessa atribuição de camada, mapear para a hipótese correta —
+diferença em VHost ou TLS/SNI sustenta H4; diferença em Proxy/Cache
+sustenta H3, não H4; nenhuma diferença descarta H4 e devolve a decisão
+para interpretação de conteúdo (H1 vs H2).
+
+### Estado ao final da sessão
+
+- Nenhuma alteração de ambiente, painel ou código foi feita ou proposta.
+- Comandos entregues ao responsável; resultado ainda não reportado.
+- Próximo passo: executar os comandos, aplicar o protocolo de atribuição
+  de camada ao resultado, e só então — com autorização explícita —
+  discutir se o tipo do subdomínio precisa mudar para "Conteúdo da
+  pasta" no painel Locaweb.
+- Sem relação com o bloqueio de SSH porta 22 (§53) — sintomas
+  independentes na mesma frente de implantação.
+
+## 2026-07-24 — §55 Aprofundamento do diagnóstico SSH porta 22 (Locaweb) — descarte da hipótese de expiração de 3h, escalonamento para suporte
+
+Continuação do diagnóstico registrado em §53 (bloqueio de SSH porta 22).
+Sessão 100% investigativa/read-only, sem qualquer alteração de ambiente,
+painel ou código — nenhum arquivo do repositório foi tocado.
+
+### Evidência nova confirmada por teste direto nesta sessão
+
+- Reconstruiu-se o diagnóstico do zero (DNS, TCP, camadas de rede,
+  handshake SSH), sem reaproveitar a conclusão de §53 sem reverificar:
+  DNS de `ftp.criativododo.com.br` e `ftp.criativododo2.hospedagemdesites.ws`
+  resolvem para o mesmo IP (`179.188.55.25`); portas de controle no mesmo
+  IP (80, 21, 443) abrem instantaneamente; porta 22 nunca responde (nem
+  RST, nem SYN-ACK) em nenhum dos três alvos; três pontos de rede
+  externos independentes (Alemanha, Irã, Japão, via `check-host.net`)
+  confirmam o mesmo timeout, descartando definitivamente causa do lado
+  do cliente/ISP; `ssh -vvv` falha no `connect()` TCP, antes de qualquer
+  troca de banner SSH — não é problema de autenticação/config do `sshd`
+  visível de fora.
+- **Achado novo, doc-confirmed** (página oficial de ajuda da Locaweb):
+  SSH habilitado pelo painel de Hospedagem de Sites expira automaticamente
+  após 3h. Essa hipótese foi levantada como possível causa.
+- **Hipótese de expiração de 3h descartada pelo responsável do projeto**:
+  reabilitou o SSH no painel e testou imediatamente em seguida — o
+  sintoma persistiu de forma idêntica. Reconfirmado pelo agente às
+  2026-07-24 03:40 UTC (`nc` na porta 22 do IP direto: sem resposta;
+  porta 80 no mesmo IP, mesmo instante: conecta normalmente).
+- Verificação adicional: varredura de portas SSH alternativas comuns
+  (22022, 2222, 2200, 2022, 22222) no IP direto — todas sem resposta
+  (inconclusivo isoladamente, mas descarta a hipótese de a porta ter
+  sido simplesmente movida). Status oficial da Locaweb
+  (`statusblog.locaweb.com.br`) consultado — nenhum incidente ativo de
+  rede/firewall/SSH/hospedagem reportado, o que aponta para causa
+  específica desta conta, não instabilidade geral da plataforma.
+- **Pista não verificada, tratada como inferência, não fato**: reclamação
+  de terceiro no Reclame Aqui ("Acesso via SSH bloqueado") sugere, pelo
+  resumo do buscador (texto completo não pôde ser lido — a página
+  bloqueou o fetch com HTTP 403), que a Locaweb já removeu/bloqueou SSH
+  de contas de hospedagem por decisão de segurança, independente do
+  estado exibido no painel. Não confirmado diretamente na fonte.
+
+### Estado ao final da sessão
+
+- Toda a superfície verificável do lado do cliente foi esgotada: DNS,
+  rede local, três origens externas, camada de handshake SSH, hipótese
+  de expiração de 3h, porta alternativa, e status de instabilidade geral
+  — todas descartadas ou sem sustentação. A causa remanescente (regra de
+  firewall aplicada de fato ao IP, NAT, estado real do `sshd`,
+  inconsistência de provisionamento, ou trava de segurança fora do
+  painel) só pode ser confirmada pela Locaweb internamente.
+- Texto de chamado de suporte, já redigido e entregue ao responsável duas
+  vezes nesta sessão (versão inicial + complemento com a reconfirmação
+  das 03:40 UTC e o achado do status page), pronto para envio.
+- **Bloqueio:** depende do responsável abrir o chamado com a Locaweb (ação
+  que exige credenciais da conta) e da resposta do suporte deles — sem
+  ETA, fora do controle do projeto.
+- Sem relação com o diagnóstico de `portal.criativododo.com.br` (§54) —
+  sintomas independentes na mesma frente de implantação.
+
+## 2026-07-24 — §56 Conclusão do diagnóstico "resposta incorreta do Host" (§54) + confirmação de que o Laravel nunca foi implantado em `criativododo2`
+
+Continuação do diagnóstico registrado em §54. Sessão 100% read-only contra
+o ambiente Locaweb — nenhuma configuração real foi alterada.
+
+### Execução do plano de verificação já preparado
+
+- `IP=$(dig +short criativododo.com.br)` → `179.188.55.25`.
+- `curl` HTTP puro, direto nesse IP, `Host: criativododo.com.br` e depois
+  `Host: portal.criativododo.com.br` (mesma conexão/IP, só o Host muda):
+  ambas retornaram `403 Forbidden`, `Server: nginx/1.22.1`,
+  `Content-Length: 1097`, corpo **byte-a-byte idêntico** (`diff` →
+  `IDÊNTICOS`).
+- Corpo inspecionado: é a **página de erro padrão da própria Locaweb**
+  (`<title>Hospedagem Locaweb</title>`, `lwerror/css/dominio.css`,
+  `"Página não existente ou em construção..."`) — não é Laravel, não é o
+  projeto exposto cru.
+
+### Protocolo de atribuição de camada aplicado (definido em §54)
+
+DNS eliminado (mesmo IP fixado nas duas chamadas); TLS/SNI não se aplica
+(HTTP puro); Virtual Host idêntico entre os dois Host headers (mesmo
+`Server`, mesmo `Content-Length`, corpo idêntico); nenhum header de
+cache/proxy; nenhum artefato de aplicação Laravel presente. **Conclusão:
+H1 confirmada** (raiz da hospedagem nunca configurada para servir o
+`public/` do Laravel — serve o placeholder padrão da Locaweb); **H2, H3 e
+H4 descartadas** por esta rodada de evidência.
+
+### Pergunta de acompanhamento do responsável: o Laravel já foi de fato migrado para essa hospedagem?
+
+Verificado com evidência adicional, não suposição:
+
+- `curl` no mesmo IP/Host para `/up`, `/api/health`, `/build/manifest.json`,
+  `/robots.txt` → todos `404`, mesma página padrão da Locaweb.
+- `curl` para `/index.php` → **`404` vindo do próprio PHP-FPM**
+  (`X-Powered-By: PHP/8.5.7`, corpo literal `File not found.`) — prova que
+  PHP está ativo e funcional no host, mas **não existe `index.php` no
+  document root atual**.
+- Cruzado com evidência documental já existente: `docs/deployment/
+  CHECKLIST_GO_LIVE.md` tem **100% dos itens de deploy não marcados**,
+  incluindo "Document root configurado para `current/public`" e
+  "`vendor/` e `public/build/` constam na release nova"; `TASK_ROUTER.md`
+  §51/§53 já registravam "nenhuma infraestrutura real foi tocada, sem
+  SSH, sem `.env` real".
+
+**Conclusão (code-confirmed + doc-confirmed convergentes): o Laravel
+nunca foi implantado na hospedagem `criativododo2`.** Não é (só) um
+problema de tipo de subdomínio — é ausência total de arquivos de
+aplicação no servidor. A causa completa da "resposta incorreta do Host"
+é dupla: (a) Apontamento é estruturalmente incompatível com servir pasta
+própria (§54), e (b) mesmo corrigindo (a), hoje não há nada para servir.
+
+**Limite da evidência:** sem acesso FTP/SSH nesta sessão, não é possível
+confirmar por listagem direta que a conta está 100% vazia — só que o
+document root configurado não tem `index.php` funcional. Only FTP/SSH
+listing fecharia essa lacuna por completo.
+
+### Estado ao final
+
+- Nenhuma configuração alterada, nenhuma correção implementada ou
+  proposta como decisão fechada.
+- **Decisão do responsável ao final desta frente: pausar totalmente a
+  infraestrutura** (Locaweb/SSH/deploy) para focar em refinamento de
+  frontend. Frente de implantação fica parada até retomada explícita —
+  quando retomada, a ordem lógica já estabelecida é: 1) enviar os
+  arquivos do Laravel ao servidor; 2) só depois configurar document
+  root/tipo de subdomínio.
+
+## 2026-07-24 — §57 Auditoria visual/UX completa do frontend (sem implementação)
+
+Sessão de análise pura, read-only, zero arquivo de código alterado.
+Escopo pedido pelo responsável: auditoria completa do frontend React
+(`frontend/src/components` + `frontend/src/pages`) contra o Design System
+já adotado (`ADR-019`, `est-dio-el-design-system`), cobrindo 11 eixos:
+ruído visual, hierarquia, sensação premium, espaçamento, alinhamento,
+tipografia, grid, componentes, estados (hover/loading/disabled/empty),
+responsividade, inconsistências.
+
+**Restrição de governança aplicada:** a auditoria foi feita
+deliberadamente *contra o sistema já adotado*, nunca propondo nova
+paleta/tipografia/identidade — isso reabriria uma decisão de arquitetura
+visual sem novo ADR, proibido por `CLAUDE.md`. Toda proposta de melhoria
+listada usa só tokens/componentes que já existem.
+
+### Metodologia
+
+Leitura completa de tokens/fonte de verdade (`tokens.json`,
+`frontend/src/theme/tokens.css`, `docs/design/DESIGN_SYSTEM.md`,
+`docs/design/UI_RULES.md`) e de todos os componentes/páginas, mais grep
+quantitativo em todos os `.css`/`.tsx` de `pages`/`components` para medir
+consistência real (contagem de `font-size`, `letter-spacing`,
+`max-width`, uso de `--color-highlight` vs `--color-action`). Camada
+adicional pedida durante a execução: leitura em nível de Diretor de
+Produto/Diretor de Arte (pergunta central: "sem o logo, isso teria
+identidade própria?").
+
+### Achados Crítica
+
+1. **Cor-assinatura oficial (laranja) quase ausente:** `--color-highlight`
+   usado em 1 única declaração de todo o frontend
+   (`AuthSplitLayout.module.css:17`) vs `--color-action` (roxo) usado 28x.
+   Inverte a regra oficial do próprio Design System ("laranja é sempre a
+   maior mancha de cor", 31% oficial). Fora do login/cadastro, a
+   cor-assinatura da marca não aparece em nenhuma tela autenticada.
+2. **Marca legada "ELÃ | influência" hardcoded** em `Dashboard.tsx:51` e
+   `PortalDashboardPage.tsx:64` — sobrevive à migração visual completa
+   para "criativo DODÔ" (depende da decisão de negócio já pendente em
+   `CLAUDE.md`).
+3. **`outline:none` sem `:focus-visible`** em `TextField.module.css:52-55`
+   (herdado por `SelectField`/`TextareaField`) — zero uso de
+   `:focus-visible` em toda a base; atinge todo formulário do sistema.
+4. **Estados de erro de carregamento removem toda a navegação da página**
+   em ~9 páginas (`MateriaisPage`, `CampanhaDetailPage`,
+   `CampanhaFormPage`, `BriefingFormPage`, `EnvioPage`, `MarcaFormPage`,
+   `PagamentoPage`, `ParceiraFormPage`, `ParceiraProfilePage`) — header,
+   título e link de "voltar" desaparecem, usuário fica sem saída visível.
+5. **Falha de contraste WCAG calculada** no eyebrow/tagline do
+   `AuthSplitLayout` sobre fundo laranja: `rgba(29,28,26,0.62)` sobre
+   `#f85919` ≈ **2.95:1**, abaixo do mínimo AA (4.5:1) — na primeira tela
+   que qualquer usuário vê.
+
+### Achados Alta (resumo)
+
+11 valores distintos de `font-size` hardcoded contra escala oficial de 5;
+3 valores de `letter-spacing`, nenhum batendo com o token oficial de
+label (`0.08em`); navegação primária com 8 de 13 itens permanentemente
+"(em breve)" (`AppShell.tsx:13-27`); Dashboard com 2 de 4 KPI cards
+placeholder; padrão de loading/erro duplicado manualmente em ~9 páginas
+em vez de componentizado; `Badge`/`StatusBadge` são o mesmo componente
+duplicado.
+
+### Achado positivo
+
+Espaçamento (`var(--sp-N)`) é o eixo mais disciplinado do sistema — 217
+usos consistentes contra 2 valores cravados em px. Não precisa correção.
+
+### Camada de marca (Diretor de Produto/Diretor de Arte)
+
+Fora do login/cadastro, o produto não teria identidade própria
+reconhecível sem o logo — personalidade documentada ("confiante,
+brincalhona, ousadia controlada") não corresponde à implementação
+(neutra, silenciosa, sem bagunça mas também sem energia); apenas 3
+declarações de movimento/transição em toda a base de código; composição
+100% simétrica/centralizada, contrariando a diretriz do próprio Design
+System ("assimetria e escala, não simetria e moldura"). 5 sugestões
+atemporais propostas — todas dentro do sistema já adotado, nenhuma nova
+identidade: (1) laranja como superfície real no produto autenticado, (2)
+repetir a estrela do login como elemento-assinatura recorrente, (3) usar
+a escala display (64px) em ao menos um número por página, (4) quebrar
+simetria em 1 ponto por tela, (5) dar peso tátil a hover/foco
+(escala/sombra, não só cor).
+
+### Priorização entregue (impacto × esforço)
+
+- **Quick wins:** texto de marca legada (2 telas), contraste
+  eyebrow/tagline, `max-width` cravado → `var(--content-max)`, foco
+  visível no `TextField`, unificar `letter-spacing` de label.
+- **Grandes apostas:** laranja como superfície real, componente
+  `PageState`/`ErrorState` compartilhado (resolve ~9 duplicações),
+  classes de escala tipográfica derivadas do token, foco visível
+  sistêmico.
+- **Preencher tempo:** unificar `Badge`/`StatusBadge`, variante `danger`
+  de `Button`, distinguir estados `loading`/`zero`/`erro` no Dashboard.
+- **Questionável:** grid CSS real 12/4 colunas, breakpoints adicionais —
+  dependem de decisão de composição ainda não tomada, ou de validação
+  visual ainda pendente (21 páginas autenticadas nunca vistas ao vivo).
+
+### Estado ao final
+
+Nenhuma implementação feita, nenhuma decisão de correção tomada. Relatório
+completo entregue ao responsável na conversa da sessão. Responsável ainda
+não escolheu por onde começar — próxima etapa ("Plano" do Fluxo
+Obrigatório) depende dessa decisão.
+
+## 2026-07-24 — §58 Sprint 01 (quick wins de frontend) executado + decisão de rebranding "roxo assume o papel do laranja" (ADR-019 substituída)
+
+Sessão de execução (não mais só análise). Duas frentes, nenhum commit
+feito — ambas aguardando aprovação explícita do responsável antes de
+commitar (working tree acumula as duas).
+
+### Frente 1 — Sprint 01: quick wins da auditoria de frontend (§57)
+
+Escopo fechado pelo responsável (explicitamente sem reabrir paleta/
+tipografia, sem componente novo, sem refatoração). Executados os 5 itens:
+
+1. Marca legada "ELÃ | influência" removida — `Dashboard.tsx:51`,
+   `portal/PortalDashboardPage.tsx:64`.
+2. Contraste eyebrow/tagline do `AuthSplitLayout` corrigido — cor trocada
+   de `--color-text-muted` (rgba 0.62, ~2.95:1) para `--color-text`
+   sólido (~5.2:1 calculado, acima do mínimo AA).
+3. `max-width` cravado do `AppShell.content` (1026px) trocado por
+   `var(--content-max)` (1120px) — token já existia em `tokens.css` e
+   nunca tinha sido referenciado em lugar nenhum.
+4. `:focus-visible` adicionado em `TextField.module.css` (`.input`) —
+   cobre `TextField`/`SelectField`/`TextareaField` (compartilham o CSS).
+   Antes, `outline: none` no `:focus` deixava zero indicador de foco por
+   teclado em todo formulário do sistema (achado crítico do §57).
+5. `letter-spacing` da classe `.label` unificado em `0.08em` (valor
+   oficial de "label" em `tokens.json`) nas 4 ocorrências que usavam
+   `0.18em` por engano (herdado do valor de "eyebrow") —
+   `TextField.module.css`, `PagamentoPage.module.css`,
+   `MateriaisPage.module.css`, `CampanhaDetailPage.module.css`.
+
+Validado visualmente via `chrome-devtools` (login: contraste e foco
+confirmados por screenshot) e `tsc --noEmit` limpo. Itens 1 e 3 (telas
+autenticadas) não puderam ser validados ao vivo — sem credencial de
+teste disponível (limitação já conhecida).
+
+### Frente 2 — Decisão de rebranding: roxo assume o papel semântico do laranja (ADR-019 substituída)
+
+Durante a execução do Sprint 01, o responsável enviou instrução nova
+pedindo migração completa de identidade visual (laranja → roxo em toda
+função semântica de marca: primary/CTA/highlight/focus/badges/links/
+estados positivos). **Parei e pedi confirmação explícita antes de
+executar**, por dois motivos: (a) contradizia as próprias instruções do
+Sprint 01 em andamento ("não reabrir ADR-019", "não trabalhar em
+múltiplas frentes"); (b) `CLAUDE.md` proíbe alterar arquitetura sem ADR,
+e `ADR-019` documenta laranja como cor-assinatura oficial (31%,
+"sempre a maior mancha de cor").
+
+**Responsável confirmou** de forma explícita e deliberada: é decisão de
+rebranding, "a identidade visual do Estúdio Elã deixa de ser a
+referência", "considere o ADR-019 substituído por esta decisão", e
+**dispensou expressamente a criação de um novo ADR antes da
+implementação**. Implementei a pedido, sem alterar o arquivo do
+`ADR-019` em si (nenhuma mudança em `docs/adrs/` nesta sessão — por
+instrução de `/fim`, ADR não se altera no encerramento; a atualização
+formal do documento continua pendente, ver Pendências).
+
+**Achado que viabilizou a migração ser pequena:** grep confirmou que
+laranja (`--color-highlight`) já era consumido em **uma única
+declaração** em todo o frontend (`AuthSplitLayout.module.css`, painel de
+marca do login/cadastro/recuperação de senha) — o resto do app já usava
+roxo (`--color-action`) para CTA/link/ação. A migração não foi um
+redesign, foi um remapeamento pontual:
+
+- `tokens.css`: `--color-highlight` (`var(--dodo-laranja)` →
+  `var(--dodo-roxo)`), `--color-highlight-hover` (hex de laranja
+  escurecido → reaproveita `var(--color-action-hover)`). `--dodo-laranja`
+  continua definido na paleta física, só não é mais referenciado por
+  nenhum token semântico.
+- `AuthSplitLayout.module.css`: `.brandPanel`/`.eyebrow`/`.tagline`
+  trocados de `--color-text` (preto) para `--color-action-contrast`
+  (branco) — ajuste necessário porque preto sobre roxo dava ~2.4:1
+  (falha AA); branco dá ~7.1:1. Comentário do arquivo atualizado (não
+  documenta mais o par laranja+preto).
+- Logo: `horizontal-preto.svg` tinha `fill` fixo no SVG (não
+  `currentColor`), então não herdava a nova cor de texto. Criado
+  `horizontal-branco.svg` (mesmo path, fill branco) e trocado o `src` em
+  `AuthSplitLayout.tsx`. `AppShell`/`PortalShell` continuam com o logo
+  preto — correto, sidebar deles tem fundo claro, não muda.
+- `--color-error`/`--color-success` (estados) não foram tocados —
+  não fazem parte do papel de marca.
+
+Validado visualmente (login, "esqueci minha senha", "cadastro de
+parceira" — todas herdam `AuthSplitLayout`) e `tsc --noEmit` limpo.
+
+### Estado ao final
+
+Nenhum commit feito em nenhuma das duas frentes — aguardando aprovação
+explícita do responsável (pedida ao final da sessão). Achado colateral:
+a recomendação "laranja como superfície real no produto autenticado"
+("grandes apostas" do §57) fica **obsoleta** pela decisão de rebranding
+desta sessão — laranja não é mais a cor-assinatura a reforçar.
+
+## 2026-07-24 — §59 Design System "criativo DODÔ" v2.0 (roxo primário) formalizado como versão final + commit + publicação no Claude Design
+
+Sessão paralela à do §58, iniciada a partir de um pedido de auditoria do
+Design System (`est-dio-el-design-system/`) para trocar laranja por roxo
+como cor primária. Antes de qualquer edição, a auditoria já identificou
+que a troca não podia ser um swap literal de hex: laranja (`#f85919`) e
+roxo (`#564f94`) têm luminâncias muito diferentes, então preto sobre
+roxo reprova contraste (2,4:1) e branco sobre laranja também (3,3:1,
+só serve para título grande). A migração certa é de **papel semântico**
+— cada cor mantém o próprio pareamento de texto já validado (laranja
+sempre com preto, AA 5,2:1; roxo sempre com branco, AAA 7,1:1) — e só
+a proporção/protagonismo de cada uma muda.
+
+**Decisão final do responsável, obtida em duas etapas nesta sessão:**
+primeiro autorização para migração semântica completa (roxo assume
+todas as funções de cor primária: identidade, CTA, foco, links, 34% da
+paleta; laranja vira secundária/apoio, 14%, nunca dominante). Depois,
+ao consolidar a versão oficial, a auditoria encontrou
+`docs/handoff/README.md` afirmando o oposto — que uma sessão anterior
+no mesmo dia já tinha "corrigido" o Design System de volta para laranja
+dominante, revertendo uma tentativa anterior de roxo. Question feita ao
+responsável antes de prosseguir; **confirmação explícita de que esta é
+a decisão final e definitiva**, revertendo aquela correção.
+
+**Implementado em `est-dio-el-design-system/` (agora a SSOT visual
+canônica do projeto, `ADR-019`):**
+
+- `DESIGN_SYSTEM.html` (fonte canônica) e `DESIGN_SYSTEM.standalone.html`
+  (export portátil, fontes/logos em base64) — paleta, propbar, swatches,
+  tabela de contraste, exemplos certo/errado, tudo reescrito para v2.0.
+- `design-tokens.css`/`tokens.json` — papéis semânticos renomeados
+  (`--color-action`→`--color-primary`, `--color-highlight`→
+  `--color-secondary`) para não carregar mais o mapeamento antigo.
+- `horizontal-branco.svg` sincronizado de `frontend/public/` para
+  `brand/logos/` — é a combinação de maior contraste sobre fundo roxo
+  (7,1:1 AAA) e já estava em uso em produção; o Design System não tinha
+  essa variante antes.
+- Removidos: `_legacy-ela/` (protótipos antigos, já documentados como
+  "não usar"), `.DS_Store` (2x), 1 `.tmp` órfão de 696KB do Illustrator.
+- `docs/handoff/README.md`: bullet que afirmava laranja dominante
+  corrigido com nota de correção explícita (histórico da reversão
+  preservado, não apagado — ver arquivo).
+- `frontend/src/theme/tokens.css`: só comentários atualizados para v2.0
+  — a mecânica de cor (`--color-highlight: var(--dodo-roxo)`) já estava
+  correta, herdada da sessão do §58; nenhuma variável CSS foi renomeada
+  aqui (evitar tocar em arquivo que pertence à outra frente ainda sem
+  aprovação de commit).
+- Validado visualmente via Playwright: `DESIGN_SYSTEM.html` isolado
+  (hero, paleta, contraste) e a tela de login real do app (`/login`) —
+  roxo dominante, logo branco, botão primário roxo, tudo consistente.
+
+**Commit `eed42be`** — escopo restrito a `est-dio-el-design-system/`
+(71 arquivos, todo o diretório estava não rastreado). Deliberadamente
+**não inclui** `frontend/src/theme/tokens.css` nem `docs/handoff/README.md`
+(ambos entrelaçados com a frente do §58, ainda sem aprovação de commit)
+nem o arquivo sensível não rastreado na raiz do repo
+(`IMPORTANTE Webmail_Codigos_de_backup.txt`).
+
+**Publicado no Claude Design:** projeto "Design System — Criativo Dodô"
+(13 arquivos: `DESIGN_SYSTEM.html`, 9 SVGs de `brand/logos/`,
+`design-tokens.css`, `tokens.json`, `README.md`). Fontes (`.ttf`, ~550KB
+combinado) não foram embutidas no preview publicado — grandes demais
+para inline sem estourar contexto; conteúdo e cores são fiéis, só a
+tipografia do preview usa fallback do sistema.
+
+### Gap identificado, não corrigido
+
+Não existe `stack-branco.svg` (versão empilhada branca do logo) —
+`brand/logos/` tem `horizontal-branco.svg` mas não o equivalente
+empilhado. Sinalizado em `tokens.json` → `logos.note` como pendência.
+
+### Diagnóstico de ambiente (`/doctor`), mesma sessão
+
+Rodado como tarefa separada, sem relação com o Design System:
+
+- Instalação `npm` global duplicada/desatualizada do Claude Code
+  (`2.1.209`) removida — só resta a nativa, atualizada para `2.1.219`.
+- Modo automático de permissões (`auto`) ativado em
+  `~/.claude/settings.json` (escopo usuário).
+- 3 extensões sem uso identificadas (`skill-creator`, `context7`,
+  `notebooklm-mcp`) — responsável optou por **não** remover agora.
+- Nenhuma mudança em arquivo do projeto; escopo de máquina/usuário.
+
+### Estado ao final
+
+Design System v2.0 commitado e publicado — concluído. Frente do §58
+(Sprint 01 + rebranding em `frontend/`) segue **sem commit**, não foi
+tocada por esta sessão, continua aguardando aprovação separada. Nenhum
+push feito. Nenhum ADR novo criado — `ADR-019` não precisou de edição
+(não hardcoda cor, só aponta para a pasta como SSOT); a decisão final
+roxo-primário em si não tem registro formal em `docs/adrs/`, só em
+`docs/handoff/README.md` e `tokens.json` → `migrationNote` — considerar
+formalizar em ADR próprio se o histórico de reversões se repetir.
+
+## 2026-07-24 — §60 Diagnóstico SSH Locaweb (bloqueado) + auditoria/atualização de cobertura de ativos no Design System (commit `d3dba5a`)
+
+Sessão nova, duas frentes sequenciais.
+
+**Frente 1 — Investigação SSH read-only em `criativododo2` (Locaweb).**
+Responsável habilitou SSH no painel e forneceu credenciais
+(`criativododo2` / porta 22 / `ftp.criativododo.com.br`,
+`ftp.criativododo2.hospedagemdesites.ws`, IP `179.188.55.25`). Testado
+`whoami` via `sshpass` nos 3 endereços: **timeout nos três** (não é
+recusa de senha, é ausência de resposta TCP). Diagnóstico de descarte:
+controle contra `github.com:22` teve sucesso (rede local não é o
+problema); `nc` no IP alvo confirmou porta 80 respondendo normalmente e
+porta 22 em timeout — servidor está de pé, só a porta SSH não aceita
+conexão externa. Consistente com o achado já registrado em `§55`
+("porta 22 bloqueada do lado do servidor") — a habilitação no painel
+não resolveu por si só. **Nenhuma alteração feita** (investigação
+somente leitura). Bloqueado, sem ETA — depende de confirmação do
+suporte Locaweb ou de propagação adicional. Retomar testando
+`nc -zv 179.188.55.25 22` antes de nova tentativa de SSH.
+
+**Frente 2 — Design System: plano de migração de marca + atualização
+de cobertura (escopo revisado a meio da sessão).**
+
+Responsável pediu para o agente assumir papel de "Design System
+Architect" e evoluir `est-dio-el-design-system/` para novos ativos de
+marca a serem enviados em etapas (logos, paleta, tipografia). Auditoria
+completa da arquitetura do `DESIGN_SYSTEM.html` foi apresentada e
+aprovada (camada estrutural em variáveis CSS vs. camada de conteúdo
+específica da marca) e um plano técnico de migração em 6 fases foi
+produzido e apresentado (não persistido em arquivo, só na conversa,
+por decisão de aguardar antes de formalizar).
+
+**Achado relevante, sem ação:** existe uma pasta `skills-dodo/` — skill
+pessoal do responsável para toda a agência (Meta Ads, outros clientes),
+**fora deste repositório** (untracked, não é o produto Influencia/TEAR).
+`skills-dodo/dodo/SKILL.md` ainda carrega paleta e tipografia da
+identidade antiga "Estúdio Elã" (bege `#f4e9e6`, bordô `#791815`,
+fonte "Ivy Journal" com itálico decorativo), apenas com o nome trocado
+por find-replace (confirmado pelo próprio `skills-dodo/REINSTALL.md`).
+**Não é o SSOT do produto e não foi alterada** — registrado aqui só
+porque é a origem provável de uma memória equivocada de que o Design
+System oficial ainda teria regras antigas da Elã (não tem — auditoria
+não achou nenhum resíduo em `est-dio-el-design-system/`).
+
+**Mudança de escopo, decisão do responsável:** a meio da sessão, uma
+tentativa de importar o mesmo projeto já publicado no Claude Design
+(`70c9e69f-24cc-4dd0-a720-8909a6c31ee0` — confirmado via MCP como sendo
+exatamente o mesmo bundle de 13 arquivos já commitado, nenhum ativo
+novo) pediu edição imediata usando só os logos já existentes — em
+conflito direto com o "aguardar todos os ativos" combinado minutos
+antes. Agente parou e perguntou antes de agir (`AskUserQuestion`).
+Resposta do responsável: **revogou explicitamente a instrução de
+esperar** — "não estamos mais aguardando novos ativos para iniciar";
+o diretório local passa a ser tratado como a versão oficial e atual da
+marca; escopo vira auditoria + correção fundamentada nos ativos já
+presentes, sem inventar conteúdo, só registrando o que faltar.
+
+**Executado e commitado (`d3dba5a`, escopo restrito a
+`est-dio-el-design-system/DESIGN_SYSTEM.html`, 1 arquivo, 5 inserções/2
+deleções):**
+
+- Adicionados 2 tiles à grade "Versões de cor" (`stack-roxo.svg`,
+  `stack-laranja.svg`) — únicos 2 dos 9 assets de `brand/logos/` que
+  nunca haviam sido referenciados no documento.
+- Nota de contraste adicionada: laranja sobre fundo claro (2,8:1) fica
+  abaixo do mínimo não-textual — fundamentada na tabela já existente na
+  seção Acessibilidade, que classificava a combinação como `fail-text`
+  sem que a seção de Logotipo refletisse isso.
+- Ícones `star`/`heart`: hex hardcoded (`#f85919`/`#564f94`) trocado por
+  `var(--laranja)`/`var(--roxo)` — mesma cor visual, agora acompanha
+  token.
+- Validado antes do commit: `git status` restrito ao arquivo esperado;
+  renderização via Playwright (servidor HTTP local, `file://` bloqueado
+  pelo navegador) — 16/16 imagens carregadas (`naturalWidth` > 0), 2
+  fontes `loaded`, único console error foi favicon 404 (irrelevante).
+
+**Gap registrado, não corrigido (ativo realmente ausente, não
+inventado):** `stack-branco.svg` continua não existindo — mesmo gap já
+documentado em `tokens.json` → `logos.note` desde a v2.0.
+`DESIGN_SYSTEM.standalone.html` **não foi tocado** nesta etapa (fora do
+escopo pedido) — fica dessincronizado dos 2 tiles novos e da troca de
+ícones para `var()`; regenerar numa etapa futura.
+
+### Estado ao final
+
+Frente SSH: bloqueada, sem ETA, nenhuma mudança de arquivo. Frente
+Design System: commitado (`d3dba5a`), não pushado. Plano completo de
+migração para os *novos* ativos de marca (ainda não entregues) segue
+válido para quando o responsável decidir retomá-lo — não foi descartado,
+só a ordem de execução mudou (auditoria do estado atual primeiro,
+migração de marca nova depois, quando o material chegar). Frente `§58`
+segue sem commit, não tocada por esta sessão.
+
+## 2026-07-24 — §61 "DODÔ" como nome oficial do projeto — aposentadoria do codinome técnico "TEAR" (`ADR-020`)
+
+Mesma sessão do §60, terceira frente. Responsável enviou instrução de
+"atualização obrigatória de contexto" pedindo para tratar "TEAR",
+"Estúdio Elã", "estudioela", "ela-influencia", "elafashionmkt" e domínios
+antigos como nomenclatura legada, com "DODÔ" exclusivo em conteúdo novo.
+
+**Conflito identificado antes de agir:** a marca comercial (Estúdio Elã →
+Criativo Dodô) já era decisão vigente (`ADR-019`), mas "TEAR" nunca foi a
+marca — é o codinome técnico/interno do projeto, usado em `CLAUDE.md`,
+`docs/history/CONTRATO_SOBERANO.md`, SPECs e em todo o histórico deste
+roteador. Aposentar "TEAR" é uma decisão de domínio/vocabulário nova, que o
+próprio `CLAUDE.md` diz que nunca deve ser tomada sem ADR. Agente parou e
+perguntou antes de aplicar qualquer mudança (`AskUserQuestion`, duas
+rodadas — a primeira rejeitada pelo responsável para adicionar contexto
+antes de responder).
+
+**Decisão final do responsável, confirmada:**
+
+- "TEAR" também é aposentado (não só a marca comercial); "DODÔ" passa a ser
+  o nome oficial do projeto, técnico e comercial.
+- "TEAR" continua correto em documentação histórica/legada — nenhuma
+  reescrita retroativa de SPECs, ADRs antigos ou histórico deste roteador.
+- Nenhuma mudança física: diretório `ela-influencia/`, repositório Git,
+  remotes, branches e scripts permanecem inalterados — eventual renomeação
+  física é migração técnica separada, futura, fora de escopo.
+- "Influencia" (nome da plataforma) **não** entra nesta aposentadoria — só
+  "TEAR" e "Estúdio Elã"/"ELÃ" viram legado por esta decisão.
+- Documentação nova, ADRs, SPECs, commits e prompts usam exclusivamente
+  "DODÔ" daqui em diante.
+
+**Executado, não commitado ainda:**
+
+- `docs/adrs/ADR-020-dodo-como-nome-oficial-do-projeto.md` — ADR novo,
+  formalizando a decisão acima.
+- `CLAUDE.md` — `## Projeto` e `## Papel do agente` atualizados: "Projeto
+  TEAR" → "Projeto DODÔ", com nota inline explicando os nomes anteriores
+  (TEAR, Estúdio Elã, "ELÃ | influência") e referência a `ADR-020`. Nenhuma
+  outra ocorrência de "TEAR"/"Elã" em `CLAUDE.md` (checado com grep, só
+  essas duas).
+- `docs/governanca/GOVERNANCA_DO_PROJETO.md` — checado, não tinha nenhuma
+  ocorrência de "TEAR"; nenhuma mudança necessária.
+
+### Estado ao final
+
+Decisão formalizada em ADR, documentos centrais (`CLAUDE.md`) atualizados.
+Nenhum commit feito ainda — fica para o responsável revisar junto com o
+restante do trabalho desta sessão. `docs/handoff/README.md` não recebeu
+entrada — decisão de nomenclatura/governança, não um marco de fase/
+migração/release concluído, avaliação do próprio agente, não confirmada
+com o responsável.
+
+---
+
+## 2026-07-24 — §62 Novo teste de SSH (pedido da Locaweb) + classificação FTP×Painel×SSH do pipeline de deploy + plano de contingência FTP (sessão paralela ao §60/§61)
+
+Sessão distinta das de `§60`/`§61` (mesmo dia, mesmo responsável, conversa
+separada — dispatch inicial "Agente B — validação de SSH", depois estendida
+por pedidos diretos do responsável na mesma conversa). **100% read-only
+quanto ao repositório — nenhuma alteração de arquivo, nenhum commit feito
+por este agente.**
+
+### Frente 1 — Reteste de SSH, a pedido explícito da Locaweb
+- Reteste da porta 22 nos mesmos 3 alvos de `§55`/`§56`/`§60`:
+  `criativododo.com.br`, `ftp.criativododo2.hospedagemdesites.ws`, IP direto
+  `179.188.55.25` — `nc -zv -w 10` em todos: **timeout nos três** (sem
+  SYN-ACK, sem RST).
+- Controle: porta 80 no mesmo IP conectou instantaneamente no mesmo
+  instante — descarta problema de rede local, isola o sintoma à porta 22
+  do servidor.
+- **Resultado idêntico ao já registrado em `§55`/`§56`/`§60` — nenhuma
+  mudança de estado.** Reportado como resposta ao pedido de novo teste da
+  Locaweb: a correção anunciada por eles ainda não teve efeito observável
+  do lado do cliente.
+
+### Frente 2 — Classificação FTP × Painel Locaweb × SSH de cada etapa do pipeline de deploy
+A pedido do responsável, o pipeline completo (`PLANO_DE_IMPLANTACAO.md`
+Etapas 1-17 + `DEPLOY.md` §2-8) foi reclassificado etapa a etapa por
+dependência real de protocolo — não pela convenção atual do pipeline, que
+usa SSH/rsync para tudo por decisão de implementação (`ADR-016`). Critério:
+SSH só é obrigatório quando a etapa executa algo no host; transferência ou
+criação de arquivo/diretório é FTP-viável.
+- **SSH obrigatório (sem alternativa):** symlink de `.env`/`current`,
+  `migrate --force`, `config:cache`/`route:cache`/`view:cache`,
+  `admin:create`, `migrate:status`, `crontab -e`, rodar `backup-db.sh`
+  manualmente, rollback.
+- **FTP-viável hoje:** envio de código/`vendor/`/build do frontend, criação
+  de diretórios (`releases/`, `shared/storage/...`), upload do `.env`.
+- **Painel Locaweb:** provisionar Postgres gerenciado, DNS, SSL, SMTP,
+  habilitar SSH.
+- **Fora do host:** build do frontend e `composer install` (já rodam só no
+  runner do CI, `ADR-016`), `key:generate`, secrets do GitHub, OAuth do
+  Google Drive.
+- **Entregue só na conversa — não persistido em arquivo.** Retoma e detalha
+  a recomendação já registrada em `AUDITORIA_LOCAWEB.md` §5.1 (opção B,
+  descartada em favor de SSH puro quando a porta 22 ainda respondia — hoje
+  volta a ser relevante como plano de contingência).
+
+### Frente 3 — Plano de contingência: deploy via FTP enquanto o SSH não volta
+A pedido do responsável, produzido um runbook operacional (Fases 0-6) para
+chegar a ~95% do deploy usando só FTP + Painel Locaweb, partindo do fato já
+confirmado em `§56` de que a conta `criativododo2` está hoje vazia — o que
+permite abandonar o padrão `releases/`+symlink `current` (exige SSH) e
+publicar direto num diretório fixo (`~/tear/`, path técnico já usado no
+resto da documentação — não é nomenclatura nova, ver `§61`).
+- Fases 0-4: preparar pacote localmente (build + `vendor/` + `APP_KEY`),
+  provisionar recursos no Painel, upload por FTP na ordem
+  código → `vendor/` → build → `.env` (por último, de propósito — evita
+  servir a app com config incompleta), apontar document root para
+  `~/tear/public`, validação possível só com HTTP/FTP.
+- **Ponto exato de espera por SSH, marcado explicitamente no plano:** depois
+  da Fase 4, restam só os 6 itens da lista "SSH obrigatório" da Frente 2
+  (`migrate`, caches, `admin:create`, crontab, backup manual, smoke test
+  final) — nada mais tem alternativa por FTP.
+- **Entregue só na conversa — não persistido em `docs/deployment/`.**
+  Instrução explícita do responsável nesta sessão: não alterar código, não
+  executar deploy — é só o plano. Formalizar como runbook oficial fica para
+  quando (e se) o responsável decidir de fato usar essa contingência.
+
+### Frente 4 — Nome do projeto (TEAR → DODÔ), confirmado nesta conversa também
+O responsável comunicou a mesma decisão de `§61` (aposentadoria de "TEAR"
+como codinome técnico, "DODÔ" como nome oficial) diretamente nesta conversa
+também, em mensagens sucessivas — sem passar por `AskUserQuestion` aqui,
+porque a decisão já veio formulada como regra operacional de 4 pontos
+(conteúdo novo em DODÔ; nomenclatura corrigida ao tocar arquivo legado;
+identificador técnico não é renomeado sem tarefa específica; não perguntar
+de novo). Nenhum arquivo do repositório foi alterado por esta frente — a
+formalização real (`ADR-020`, `CLAUDE.md`) é a de `§61`. A regra foi
+registrada em memória própria deste agente (fora do repositório), para
+aplicar automaticamente em sessões futuras sem precisar reperguntar.
+
+### Estado ao final
+Nenhuma alteração de arquivo do repositório feita por este agente — `git
+status`/`git diff` no início e no fim da sessão idênticos, exceto pelas
+mudanças de `§61` (`CLAUDE.md`/`ADR-020`), feitas pela sessão paralela, não
+por esta. Nenhum commit. Frentes 2 e 3 (classificação de deploy e plano de
+contingência FTP) existem só nesta conversa — se o responsável quiser
+preservá-las além do histórico de chat, próximo passo é decidir onde
+persistir (ex.: novo runbook em `docs/deployment/`, fora do escopo desta
+sessão sem pedido explícito).
+
+## 2026-07-24 — §63 Commit de `ADR-020` + consolidação de `CLAUDE.md` como documento de governança completo (Fase 2), em 3 commits separados por natureza
+
+Continuação da sessão do `§60`/`§61` (mesma conversa, retomada após o
+`/fim` que gerou o snapshot descrito em `§62`). Responsável pediu análise
+do diff pré-existente de `CLAUDE.md` (140 linhas, não relacionado à
+decisão de nome) antes de autorizar qualquer commit.
+
+**Auditoria do diff pré-existente, apresentada e validada:** comparação
+entre `HEAD` (94 linhas, 3 seções reduzidas a frase-placeholder — "Como o
+agente deve atuar no Projeto Tear.", "Lista curta de documentos
+oficiais.", bullets genéricos em "Regras de arquivos") e o working tree
+(224 linhas, conteúdo completo). Busca por marcadores de incompletude
+(`TODO`, `TBD`, `placeholder`, `FIXME` etc.) nas linhas adicionadas: zero
+ocorrências reais. Os 9 caminhos citados no conteúdo novo (`docs/_workspace/
+TASK_ROUTER.md`, `docs/history/CONTRATO_SOBERANO.md`, `docs/adrs`,
+`docs/specs`, `docs/knowledge/referencias-externas/...`, `docs/planning/
+PLANO_MESTRE_ELA_INFLUENCIA.md`, `docs/arquitetura/03-...md`,
+`.claude/commands/prompt-gpt.md`, `backend/app/Policies`,
+`backend/app/Services`) verificados como existentes. Conclusão: diff
+corresponde à pauta da própria branch/PR #77 ("establish Phase 2
+governance model"), estruturalmente completo, sem placeholders.
+
+**Responsável autorizou o commit, pedindo separação de responsabilidades
+em 2 commits** (governança vs. nomenclatura). Como as duas mudanças
+estavam fisicamente entrelaçadas no mesmo arquivo (a edição TEAR→DODÔ
+caía dentro do diff de 140 linhas), a separação foi feita revertendo
+temporariamente as 2 linhas de nomenclatura, commitando o restante, e só
+então reaplicando e commitando a nomenclatura à parte:
+
+1. **Commit `a368857`** — consolidação de governança pura (138
+   inserções/10 deleções): substitui as 3 seções-esqueleto por conteúdo
+   completo (`## Projeto`, `## Como entender este projeto`, `## Fluxo de
+   trabalho`, `### Arquitetura de comandos do Claude Code`, `##
+   Documentação complementar`, `## Convenções permanentes`) + correções
+   de caminho em "Documentos oficiais"/"Fonte de decisão". Texto ainda
+   usa "TEAR" (fiel ao conteúdo original, sem antecipar `ADR-020`).
+2. **Commit `786a259`** — aplica `ADR-020` isoladamente (5 inserções/3
+   deleções): "Projeto TEAR" → "Projeto DODÔ" em `## Projeto` e `##
+   Papel do agente`, com nota inline sobre nomes legados.
+
+**Escopo deliberadamente restrito a `CLAUDE.md`:** `docs/_workspace/
+TASK_ROUTER.md` e `docs/_workspace/ESTADO_SESSAO.md` foram checados antes
+de qualquer commit e mostravam diffs muito maiores que o esperado (860 e
+1467 linhas) — sinal de que a sessão paralela do `§62` estava ativa
+neles ao mesmo tempo. Nenhum dos dois foi tocado por este commit, para
+não misturar trabalho de outra sessão em progresso.
+
+### Estado ao final
+
+`CLAUDE.md` 100% commitado (`a368857` + `786a259`), sem nenhuma pendência
+de commit restante para ele. `ADR-020` já estava commitado (`8a0f505`,
+`§61`). 4 commits locais desta linha de trabalho no total
+(`8a0f505`→`a368857`→`786a259`, mais `d3dba5a` de antes), nenhum
+pushado. Frente `§58` segue sem commit, não tocada. Frentes 2 e 3 do
+`§62` (classificação FTP×SSH, plano de contingência) seguem só na
+conversa daquela sessão paralela, não persistidas em arquivo.
+
+## 2026-07-24 — §64 Formalização do plano de contingência FTP (`§62` Frente 3) em `docs/deployment/`
+
+Responsável redirecionou a prioridade operacional: em vez da frente `§58`
+(ainda pendente de aprovação, não tocada), preparar a implantação do DODÔ
+enquanto o SSH segue bloqueado. Escopo explícito do pedido: só
+documentação operacional, checklist de deploy, validação da estrutura
+Laravel, configuração por FTP e preparação de ambiente — sem deploy real,
+sem alteração de código de aplicação.
+
+**Achado de auditoria, sinalizado antes de escrever:** os 6 arquivos de
+`docs/deployment/` (`ARQUITETURA_PRODUCAO.md`, `CHECKLIST_GO_LIVE.md`,
+`DEPLOY.md`, `IMPLEMENTACAO_TECNICA.md`, `PLANO_DE_IMPLANTACAO.md`,
+`RUNBOOK_DEPLOY_E_ROLLBACK.md`) e `backend/.env.production.example` já
+estavam modificados e não commitados desde 2026-07-23 (rebranding de
+domínio/hospedagem — `criativododo.com.br`/Hospedagem II substituindo
+`influencia.estudioela.com`/Hospedagem Linux), agrupados incorretamente
+por `ESTADO_SESSAO.md` dentro do inventário genérico da frente `§58` —
+que, pelo texto deste próprio arquivo, cobre só `frontend/` (Sprint 01 +
+rebranding de cor), não deployment. Conteúdo revisado, coerente, datado,
+sem placeholders. Decisão: construir em cima dele (é a direção correta e
+pré-requisito para o resto do trabalho pedido), sem commitá-lo — segue
+pendente de aprovação junto com o resto do working tree.
+
+**Trabalho feito (só documentação, nenhum código/script tocado):**
+
+- `docs/deployment/RUNBOOK_DEPLOY_E_ROLLBACK.md` — nova seção
+  "Contingência: deploy manual via FTP (SSH indisponível)", formalizando
+  o plano de `§62` Frente 3 (Fases 0-6, ponto exato de espera por SSH
+  depois da Fase 4) + ponteiro na seção "Deploy" existente.
+- `docs/deployment/AUDITORIA_LOCAWEB.md` §5.1 — nota de atualização: SSH
+  bloqueado de novo desde 2026-07-24 (bloqueio distinto do original que
+  motivou a análise histórica), contingência formalizada, `ADR-016` não
+  reaberto.
+- `docs/deployment/CHECKLIST_GO_LIVE.md` §3 — nota apontando para a
+  contingência quando SSH seguir bloqueado.
+
+**Não persistido/não feito, deliberadamente:** validação real da conta
+FTP (`criativododo2`) ou do painel — nenhum acesso à Locaweb nesta sessão,
+achados citados são os já confirmados em `§56`/`§62`. Nenhum deploy
+executado. Nenhum commit.
+
+### Estado ao final
+
+3 arquivos de `docs/deployment/` com conteúdo novo, empilhado sobre o
+diff pré-existente não commitado do dia anterior (ver achado acima). Nada
+commitado. Pendências: aprovação do responsável para commit (junto com o
+resto do working tree, ou em unidade separada, a decidir), e confirmação
+real do painel/FTP quando a contingência for de fato executada.
+
+## 2026-07-24 — §65 Criação de `docs/infrastructure/INFRAESTRUTURA.md` — fonte oficial de dados de infraestrutura
+
+Responsável pediu, antes de continuar qualquer preparação de deploy, uma
+nova regra de trabalho: um documento único com os dados **estáveis e
+verificados** do ambiente (provedor, domínios, hospedagem, FTP, SSH,
+PHP, banco, DNS, SSL), cada campo classificado como Confirmado/Pendente
+de confirmação/Não identificado, **sem inventar nem inferir** — só o que
+já estava registrado em documentação/evidência anterior. Objetivo:
+nenhum agente futuro precisar reinvestigar ou perguntar de novo. Só
+leitura/escrita de documentação — nenhum acesso a FTP/SSH, nenhum
+deploy, nenhum código tocado.
+
+**Levantamento feito (só leitura):** `AUDITORIA_LOCAWEB.md` completo
+(§1-§5), `ARQUITETURA_PRODUCAO.md` (§1-§3, §6, §7, §14),
+`TASK_ROUTER.md` §27/§51/§53/§54/§55/§56/§60/§62, `ADR-016`/`ADR-017`,
+`backend/.env.production.example`, e as 7 capturas de tela em
+`docs/infrastructure/assets/` (2 delas abertas e inspecionadas
+visualmente).
+
+**Achado crítico, sinalizado no documento novo:** as capturas de tela em
+`docs/infrastructure/assets/` (datadas 2026-07-23) são **todas do painel
+de `elafashionmkt.com.br`** (Hospedagem I, ambiente antigo) — confirmado
+pelo breadcrumb visível em cada imagem — **não** do ambiente atual
+(`criativododo2`/Hospedagem II), apesar de estarem na pasta
+`docs/infrastructure/`. Registrado explicitamente para não serem usadas
+por engano como evidência do ambiente vigente.
+
+**Outro achado relevante:** `AUDITORIA_LOCAWEB.md` (2026-07-22) audita só
+o plano antigo — nunca foi repetida para a Hospedagem II. Vários campos
+"✅ Confirmado" daquele documento (PHP 8.3, Rocky Linux 8, comportamento
+do SSH de 3h) foram marcados no novo documento como **Pendente de
+confirmação** para o ambiente atual, com a ressalva explícita de que não
+devem ser presumidos válidos para `criativododo2` só por analogia — em
+contraste, o PHP realmente ativo em `criativododo2` já está confirmado
+por evidência de rede real (8.5.7, header HTTP, `§56`), diferente do 8.3
+do plano antigo.
+
+**Divergência entre fontes preservada, não resolvida:** disponibilidade
+real de PostgreSQL na Hospedagem II — painel do plano antigo listava
+como disponível, mas suporte oficial da Locaweb desmentiu depois (`§27`);
+mesmo risco não descartado para o plano atual, apesar de o responsável
+ter afirmado verbalmente (não por evidência técnica) que a Hospedagem II
+suporta PostgreSQL (`§51`). Documentado como Pendente de confirmação,
+não como Confirmado.
+
+### Estado ao final
+
+`docs/infrastructure/INFRAESTRUTURA.md` criado (arquivo novo, não
+commitado — pasta `docs/infrastructure/` já era untracked antes desta
+sessão, só com `assets/`). Nenhum outro arquivo tocado nesta frente.
+Nenhum deploy, nenhum acesso a FTP/SSH, nenhum código alterado. Passa a
+ser a referência a consultar antes de qualquer nova investigação de
+infraestrutura, por pedido explícito do responsável.
+
+## 2026-07-24 — §66 Briefing de arquitetura de telas e componentes (`docs/_workspace/UX/BRIEFING_TELAS_E_COMPONENTES_DODO.md`)
+
+Sessão isolada, sem relação com a frente de deploy (`§62`/`§64`/`§65`) —
+pedido explícito do responsável: um documento de especificação de UX
+(não um prompt para o Google Stitch) cobrindo a arquitetura de telas e
+componentes de todo o sistema, priorizando a menor quantidade possível
+de telas e a máxima reutilização de componentes. Só leitura de
+código/documentação + escrita de 1 documento novo; nenhum código de
+aplicação alterado; **instrução explícita do responsável de não
+commitar**.
+
+**Método:** auditoria em 4 camadas antes de propor qualquer tela —
+negócio (`PRD.md`, RN-01 a RN-18), estado real de implementação
+(`TASK_ROUTER.md` §3, todas as SPECs 001–035 `[x]`), rotas e código real
+(`App.tsx` + leitura completa de todas as páginas/componentes de
+`frontend/src/`, via dois agentes Explore em paralelo — um para o lado
+admin, outro para o Portal da Influenciadora + Models/Policies do
+backend Laravel), e o Design System vigente (`design-tokens.css`,
+`UI_RULES.md`). Nenhuma funcionalidade foi inventada — cada tela e cada
+fusão proposta no documento está amarrada a uma SPEC/regra já existente.
+
+**Achado central:** o sistema audita em 27 rotas distintas hoje
+(5 públicas/auth + 17 admin, sendo 3 `PlaceholderPage` + 5 itens de menu
+já desabilitados/dormentes em `AppShell` — Colaborações, Briefings,
+Materiais, Aprovações, Pagamentos — sinalizando intenção de virarem mais
+5 telas cheias + 5 do Portal), com risco real de crescer para ~32+ se
+esses 8 conceitos forem implementados 1-para-1, como o próprio código já
+está sinalizando. O documento propõe **19 telas**, via fusões que não
+removem nenhuma funcionalidade, só reorganizam navegação:
+- `BriefingFormPage`+`MateriaisPage`+`PagamentoPage`+`EnvioPage` (admin,
+  hoje 4 rotas para a mesma `ParticipacaoNaCampanha`) → 1 tela
+  "Participação — Detalhe" com abas, no mesmo padrão que
+  `PortalParticipacaoPage` (Portal) já usa com sucesso hoje.
+- `LogisticaPage` + os 5 itens de menu dormentes → 1 tela "Fila de
+  Trabalho" com abas (Envios/Materiais/Pagamentos pendentes).
+- Os 3 `PlaceholderPage` (`/documentos`, `/historico`, `/perfil` admin)
+  viram, respectivamente: ação contextual (gerar documento a partir de
+  Parceira/Participação), filtro de status já existente em
+  Campanhas — Lista, e um `Drawer` a partir do header — nenhum vira rota
+  nova.
+- Portal: `PortalCampanhasListPage` + `PortalHistoricoPage` (hoje quase
+  código duplicado) → 1 tela com seletor Ativas/Histórico, reduzindo a
+  navegação principal do Portal (mobile) de 4 para 3 itens.
+
+**Também documentado:** inventário completo de componentes existentes
+(9 mantidos sem mudança, 1 a consolidar — `StatusBadge` é redundante com
+`Badge` e deve ser aposentado), 10 componentes novos com uso comprovado
+na arquitetura proposta (`Tabs`, `Table`, `Pagination`, `Avatar`,
+`Drawer`, `Upload`, `Toast`, `Skeleton`, `Timeline`, `Progress Bar`) e 4
+componentes deliberadamente descartados (`Modal` genérico, filtros
+avançados, `DatePicker` customizado, `Data Grid`) por não terem
+necessidade comprovada no domínio. 10 achados de inconsistência/
+duplicação de código real (não hipotéticos) registrados como
+"oportunidades de simplificação" no próprio documento, cada um com
+recomendação objetiva — ex.: `getInitials()` duplicado literalmente
+entre `AppShell.tsx` e `PortalShell.tsx`; `EnvioPage` importa o CSS
+module de `PagamentoPage`; toda lista do sistema reimplementa sua
+própria tabela/paginação; upload de material no Portal é um
+`<input type="file">` cru, sem drag & drop nem barra de progresso —
+maior risco de UX mobile do sistema, dado o requisito "Mobile First
+obrigatório" da Influenciadora.
+
+**Estado ao final:** `docs/_workspace/UX/BRIEFING_TELAS_E_COMPONENTES_DODO.md`
+criado (arquivo novo, ~52KB, pasta `docs/_workspace/UX/` nova) e cópia
+salva em `~/Downloads/BRIEFING_TELAS_E_COMPONENTES_DODO.md`, por pedido
+explícito do responsável. **Nada commitado, por instrução explícita.**
+Nenhuma tela, componente ou fusão proposta no documento foi implementada
+nesta sessão — é só a especificação, sujeita a aprovação do responsável
+antes de virar trabalho de implementação (o próprio documento diz isso
+explicitamente em sua seção final).
+
+## 2026-07-24/25 — §67 Reteste de SSH Locaweb (retomada exata de `§62`) — bloqueio confirmado, achado novo no document root
+
+Pedido explícito do responsável: retomar a investigação de conexão com a
+Locaweb exatamente de onde parou em `§62`, sem reiniciar do zero, e
+verificar se o bloqueio de SSH foi normalizado. **100% read-only quanto
+a código de aplicação — só teste de rede e atualização de documentação.**
+
+**Metodologia:** réplica exata dos testes de `§55`/`§56`/`§60`/`§62` —
+mesmos 3 alvos (`criativododo.com.br`, `ftp.criativododo2.hospedagemdesites.ws`,
+IP `179.188.55.25`), mesmas 5 portas SSH alternativas de `§55` (22022,
+2222, 2200, 2022, 22222), mesmos controles (porta 80 e porta 21 no IP
+direto). `nc -zv -w` não respeitou o timeout nesta sessão (hang além do
+`-w`, sem `timeout`/`gtimeout` disponíveis no shell) — substituído por
+socket Python com `settimeout(8)`, mesma semântica de teste.
+
+**Resultado — porta 22 continua bloqueada, sem nenhuma mudança de
+estado:**
+- Os 3 alvos: timeout em todos (8s), nenhuma resposta SYN-ACK/RST.
+- As 5 portas alternativas: timeout em todas.
+- Controles (porta 80 e porta 21 no IP direto): conectaram
+  instantaneamente (~0.03s) — confirma que o bloqueio é isolado à porta
+  22 do servidor, não à rede local do agente.
+- **Chamado aberto na Locaweb segue sem efeito observável sobre a porta
+  22.**
+
+**Achado novo, fora do escopo do reteste de SSH:** o document root de
+`portal.criativododo.com.br` mudou desde `§56`. Antes, `/` e
+`/index.php` retornavam 404 (página padrão de erro Locaweb). Agora
+retornam **200**, servindo um script de teste PHP básico ("Teste Básico
+de Recursos do PHP") com escrita em disco confirmada (`teste.txt`
+gravado com sucesso) — **ainda não é o Laravel**: `/up`, `/api/health`
+e `/build/manifest.json` continuam 404. Perguntado ao responsável via
+`AskUserQuestion` quem fez esse teste — **confirmado que foi o suporte
+da Locaweb**, provavelmente como parte da investigação do chamado de
+SSH em aberto. Não é evidência de que a porta 22 vá abrir em breve, só
+sinal de que o chamado tem atividade do lado da Locaweb.
+
+**Estado ao final:** nenhuma mudança de estado no bloqueio de SSH — a
+contingência de deploy via FTP (`RUNBOOK_DEPLOY_E_ROLLBACK.md`, plano de
+`§64`) continua sendo o caminho viável até a porta 22 responder.
+`docs/infrastructure/INFRAESTRUTURA.md` §5 (chamado Locaweb) e §8
+(document root) atualizados com as evidências desta sessão. **Nada
+commitado** — só atualização de documentação de investigação, seguindo
+o mesmo padrão de `§55`/`§60`/`§62`.
+
+## 2026-07-24/25 — §68 Instalação e configuração do Google Stitch MCP — conectado, ferramentas ainda não confirmadas na sessão viva
+
+Pedido explícito do responsável, em duas etapas: (1) instalar e
+configurar o MCP do Google Stitch no Claude Code, sem tocar no
+repositório, como pré-requisito para uma importação futura do projeto
+Stitch "Criativo DODÔ Design System" (`project_id 146458383206545482`,
+13 telas nomeadas com IDs); (2) só depois da confirmação de que o MCP
+está operacional, avançar para a importação em si — **a importação não
+foi iniciada nesta sessão**, por instrução explícita. **100%
+infraestrutura de tooling do agente — nenhum arquivo do repositório foi
+lido para escrita nem alterado.**
+
+Antes de qualquer ação, o responsável definiu uma "REGRA SOBERANA":
+`~/Downloads/DESIGN DODÔ.md` (fora do repositório) é a Constituição
+Visual do projeto e prevalece sobre qualquer decisão futura de design —
+lido nesta sessão só para confirmar que existe (8.5KB), conteúdo ainda
+não incorporado a nenhum documento do repositório. Registrar aqui para
+que a próxima sessão saiba que esse documento existe e tem prioridade
+declarada, mesmo estando fora de `docs/`.
+
+**Trajeto até a configuração funcional (relevante para não repetir
+becos sem saída em sessões futuras):**
+
+1. Pacote `@_davideast/stitch-mcp@0.9.0` (Node/npx) — `doctor` passou em
+   todos os checks usando o `gcloud` do sistema já autenticado
+   (`elafashionmkt@gmail.com`, projeto `projeto-influenciadora`). Isso
+   **não** foi suficiente: o servidor MCP real (subcomando `proxy`) exige
+   `STITCH_API_KEY` ou `STITCH_ACCESS_TOKEN` explícitos — confirmado lendo
+   o bundle fonte do pacote (`StitchProxy` em `core.js`); a variável
+   `STITCH_USE_SYSTEM_GCLOUD` documentada no README não é consumida por
+   esse componente nesta versão.
+2. O wizard `init` tenta abrir OAuth via navegador; ambiente headless
+   ("No display detected"). Forçar a seleção de opções via teclas
+   ANSI (`\x1b[B`) por stdin pipado funcionou parcialmente mas é frágil
+   e ilegítimo como método de autenticação — abandonado.
+3. Parado e perguntado ao responsável (`AskUserQuestion`) — decidiu por
+   API Key. Gerou a própria chave na página de Settings do app Stitch e
+   forneceu o comando `claude mcp add stitch --transport http --header
+   "X-Goog-Api-Key: ..." https://stitch.googleapis.com/mcp`.
+4. Esse endpoint HTTP direto autentica com sucesso, mas o
+   `tools/list` falha no cliente MCP do Claude Code com
+   `can't resolve reference #/$defs/ScreenInstance from id #`.
+   Diagnosticado via `curl` bruto ao endpoint: **bug real do lado do
+   servidor do Google** — 3 das 15 ferramentas
+   (`upload_design_md`, `create_design_system_from_design_md`,
+   `apply_design_system`) têm `$ref` para `#/$defs/ScreenInstance` sem
+   essa definição existir dentro do próprio schema da ferramenta. Não é
+   algo corrigível do lado do cliente/projeto.
+5. Contorno: trocado o endpoint HTTP direto pelo proxy local do próprio
+   pacote (`npx @_davideast/stitch-mcp proxy`, transporte stdio) com
+   `STITCH_API_KEY` como variável de ambiente. O proxy local não faz a
+   mesma resolução estrita de schema e descobre as 15 ferramentas sem
+   erro (confirmado rodando manualmente: "Connected to Stitch,
+   discovered 15 tools"). `claude mcp get stitch`/`claude mcp list`
+   confirmam `✔ Connected`.
+
+**Onde ficou registrada a configuração:** `claude mcp add`, escopo
+`local` (arquivo `~/.claude.json`, seção do projeto — **fora do
+repositório git**, nada em `.mcp.json` nem em nenhum arquivo versionado).
+Consistente com a instrução explícita do responsável de não alterar o
+repositório nesta etapa.
+
+**Estado ao final — não 100% fechado:** a CLI (`claude mcp get`/`list`)
+confirma o servidor `stitch` conectado, mas nesta sessão viva do Claude
+Code as ferramentas `mcp__stitch__*` **não apareceram** via `ToolSearch`
+— servidores MCP adicionados no meio de uma sessão só entram no índice
+de ferramentas após reload/reinício, isso é comportamento do harness, não
+da configuração do Stitch em si. O responsável abriu o diálogo `/mcp` e
+o dispensou (`"MCP dialog dismissed"`) logo antes de chamar `/fim`, sem
+confirmação explícita de que isso recarregou os servidores. **A
+importação do projeto Stitch (13 telas listadas pelo responsável) segue
+não iniciada** — só volta à mesa depois que uma sessão nova confirmar
+que as ferramentas do Stitch aparecem de fato.
+
+**Nota de segurança:** a API Key do Stitch está em texto plano em
+`~/.claude.json` (escopo local, fora do repositório) — local esperado
+para credenciais de MCP no Claude Code, não é um vazamento no
+repositório, mas vale que a próxima sessão evite reexibir o valor da
+chave em texto nas respostas sem necessidade.
+
+## 2026-07-25 — §69 Importação fiel do Stitch + equivalência semântica do Design System DODÔ (`design-system/`, fora de `src/` de produção)
+
+Continuação direta do `§68` (Stitch MCP confirmado `Connected` e com
+ferramentas disponíveis nesta sessão). Três pedidos sequenciais do
+responsável, cada um só iniciado após o anterior estar concluído e
+reportado:
+
+**1. Importação fiel (sem alteração visual).** Todas as 13 telas do
+projeto Stitch `146458383206545482` ("Criativo DODÔ Design System")
+baixadas para `design-system/{screens,images,code,assets,design}`
+(screenshot + HTML + metadados por tela). `~/Downloads/DESIGN DODÔ.md`
+copiado byte-a-byte (`diff` confirmou identidade) para
+`design-system/design/DESIGN_DODO.md` — esta cópia dentro do repositório
+passa a ser a Regra Soberana operacional; o arquivo em `~/Downloads`
+deixou de ser a única fonte. Gerados também `SCREENS_INVENTORY.md`
+(inventário por tela: ID, device, dimensões, componentes identificados
+por varredura de palavras-chave, design system usado) e
+`PROJECT_MANIFEST.json` (metadados brutos do Stitch: `list_screens`,
+`get_project`, `list_design_systems`).
+
+**Achados de auditoria da importação (registrados, não corrigidos nesta
+etapa):**
+- O tema do Stitch usa `headlineFont: BE_VIETNAM_PRO` para títulos —
+  diverge do DESIGN_DODO.md, que exige Elms Sans. Motivo provável:
+  "Elms Sans" não existe no enum de fontes do Stitch (não confirmado).
+- Das 19 rotas do inventário do DESIGN_DODO.md §4, o Stitch só cobre 13
+  telas — 4 delas (Calendário, Pagamentos, Configurações, Fashion
+  Journal) não constam no inventário de 19 rotas; várias rotas do
+  inventário (Landing, Esqueci/Definir Senha, Cadastro, Marcas,
+  Pendências, Detalhe da Participação, Perfil do Portal) não têm tela
+  correspondente no Stitch. Decisão de produto/arquitetura pendente do
+  responsável — nenhuma tela foi criada/removida para reconciliar.
+- Um dos 13 arquivos (`briefing-da-campanha.html`) veio do Stitch **sem**
+  o bloco `tailwind.config` que as outras 12 telas têm — bug pré-existente
+  do export do Stitch (as classes semânticas já escritas pelo próprio
+  Stitch nesse arquivo não tinham de onde herdar cor). Corrigido na etapa
+  3 abaixo, reconstruindo a mesma infraestrutura das telas irmãs.
+
+**2. Revisão do DESIGN_DODO.md (Regra Soberana v2).** O responsável
+apontou que o documento estava desatualizado em relação à direção de
+arte atual e pediu atualização formal antes de qualquer aplicação de
+tokens. Editado `design-system/design/DESIGN_DODO.md` (não o arquivo em
+`~/Downloads`, que segue intocado):
+- `color-background`: `#EFE7DC` → `#F1ECE5`; descrição "Creme" → "Off-White
+  Quente" em todo o documento (zero referência residual, confirmado via
+  grep).
+- Nova §1.6 "Superfícies e Hierarquia de Fundo": encerra a lógica
+  automática "fundo → card branco → sidebar branca". Sidebar e Topbar
+  passam a usar o mesmo tom do background (deixam de parecer card);
+  branco vira exceção para destacar conteúdo, não padrão.
+- §1.1 precisada: `color-primary` exclusivo para CTA dominante da tela
+  (nunca navegação); `color-secondary` (roxo) explicitamente para
+  navegação/links/estado ativo/seleção — `Navigation Active` passa a ser
+  roxo, nunca laranja.
+- Nova §2.4 "Hierarquia Visual e Método de Equivalência": composição >
+  tipografia > cor; proíbe explicitamente substituição de HEX em massa;
+  exige equivalência por papel semântico.
+
+**3. Aplicação semântica dos tokens às 13 telas (não uma equivalência
+página-a-página — por componente/papel, como pedido explicitamente).**
+Antes de qualquer troca de valor, cada papel visual (Background, Sidebar,
+Topbar, Card, Primary/Secondary CTA, Navigation, Navigation Active,
+Links, Inputs, Borders, Dividers, Badges, Success, Error, Typography)
+foi auditado por leitura real do HTML (grep com contexto, não suposição
+por nome de token Material) para descobrir a que elemento cada token do
+Stitch estava de fato vinculado — ex.: descoberto que Sidebar usa
+`bg-surface` e Card usa `bg-surface-container-lowest`, tokens
+**diferentes**, o que permitiu aplicar a nova filosofia de superfície só
+editando valores de config, sem tocar em nenhuma classe HTML na maior
+parte dos casos.
+
+Uma tentativa anterior nesta mesma sessão, feita por substituição
+direta de HEX (tabela hex-antigo→hex-novo), foi **revertida a pedido do
+responsável** por descaracterizar a direção de arte do Stitch (colapsava
+papéis funcionais distintos na mesma cor). A versão final documentada
+aqui é a segunda tentativa, por papel semântico.
+
+**Resultado aplicado (todas as 13 telas, verificado estruturalmente —
+contagem de tags HTML idêntica antes/depois, exceto adições
+explicitamente justificadas):**
+- Mapa de ~49 chaves de cor do `tailwind.config` reatribuído por papel
+  (não por hex antigo) em 12 telas; a 13ª (`briefing-da-campanha.html`)
+  recebeu o bloco `tailwind.config` reconstruído (ausente na origem, ver
+  achado acima) com o mesmo mapa.
+- `border-radius`: 4/8/12px → 8/12/20px (chip/padrão/grande), pill
+  (999px) inalterado.
+- Tipografia: "Be Vietnam Pro" substituída pela **fonte real Elms Sans**
+  (`frontend/src/assets/fonts/ElmsSans.ttf`, já usada em produção —
+  copiada para `design-system/assets/fonts/`, referenciada via
+  `@font-face` local nas 13 telas).
+- **Navigation Active / Tab Active**: única correção que trocou nome de
+  classe (não só valor de token) — `text-primary/border-primary` →
+  `text-secondary/border-secondary`, em 11 telas (as 2 restantes: uma
+  não tem elemento de navegação — tela de auth — e a outra já resolvia
+  corretamente via token, `primary-container` reatribuído a roxo).
+  Justificativa: o Stitch vinculou "primary" a esse papel; a Regra
+  Soberana v2 explicitamente reatribui esse papel a "secondary".
+- Secondary CTA (botão suave/outline) reatribuído à família roxo, para
+  não competir com o CTA primário laranja único por tela (regra 3.1 do
+  DESIGN_DODO.md) — inclui 2 botões escritos com classes literais fora
+  do sistema de tokens, corrigidos manualmente após leitura de contexto.
+- 3 casos de HEX hardcoded fora do sistema de tokens, cada um
+  identificado e corrigido individualmente por papel (não por busca
+  cega de hex): topbar de `painel-administrativo.html`; painel "Cores da
+  Marca" de `configuracoes.html` (cor **e legenda de texto visível**
+  corrigidas juntas, porque a legenda antiga passaria a exibir um hex
+  factualmente errado se só a cor mudasse).
+- Verificação visual real via Playwright (servidor HTTP local
+  temporário) em 2 telas, incluindo checagem de `getComputedStyle` para
+  confirmar os valores renderizados (não só o texto-fonte).
+
+**Pendências explícitas, sinalizadas ao responsável, valores provisórios
+aplicados só para não quebrar contraste/hierarquia (não são literais do
+DESIGN_DODO.md):**
+- `outline-variant` (borda padrão/divisor, 264 usos no projeto): `#E4DED2`
+- `outline` (borda forte/ícone mudo): `#B9AF9E`
+- `on-surface-variant` (texto de apoio/legenda, **418 usos — maior volume
+  do projeto**): `#6B655C`
+- `surface-container-low` (fundo de hover/ativo da navegação, agora que
+  a sidebar usa o tom de background): `#E7DED2`
+- Hover do botão "Solicitar Acesso" em `login-refinado.html` ficou com
+  tom levemente inconsistente (laranja-claro sob texto/borda roxo) —
+  cosmético, baixo impacto, não ajustado.
+
+**Nenhum commit feito nesta sessão.** Todo o trabalho está em
+`design-system/` (diretório novo, não rastreado pelo git). Backup
+completo do estado pré-aplicação preservado fora do repositório
+(scratchpad da sessão), não crítico para continuidade.
+
+**Não confundir com `est-dio-el-design-system/`** — pasta legada
+diferente, com deleções pendentes não relacionadas nesta mesma branch
+(`docs/governance-phase2`), não tocada nesta sessão.
+
+**Atualização (2026-07-25, mesmo dia): aprovação dos 4 tokens inferidos
+e commit de `design-system/`.** Responsável revisou os 4 valores um a
+um (não em bloco) e aprovou todos sem alteração: `outline-variant`
+`#E4DED2`, `outline` `#B9AF9E`, `on-surface-variant` `#6B655C`,
+`surface-container-low` `#E7DED2`. Deixaram de ser provisórios —
+formalizados em `design-system/design/DESIGN_DODO.md` §1.7 ("Tokens
+Estruturais Derivados"), nova seção que documenta a origem (tokens
+estruturais exigidos pelo Stitch, sem literal próprio na paleta de
+marca §1.1, derivados como neutros quentes entre `color-background` e
+`color-text`, sem introduzir matiz novo). Responsável também aprovou o
+commit de `design-system/`, feito isoladamente, sem relação com as
+outras frentes não commitadas do working tree. A divergência de
+inventário (13 telas Stitch × 19 rotas do DESIGN_DODO.md) permanece
+não tratada, a pedido explícito do responsável.
+
+## 2026-07-25 — §70 Protótipo navegável do Design System + achado de conflito ADR-019 x DESIGN_DODO.md v2
+
+Continuação da mesma sessão do §69 (aprovação de tokens + commit), com dois
+pedidos novos e distintos do responsável.
+
+**1. Shell de navegação para design-system/code/.** Pedido: transformar as 13
+telas estáticas num protótipo navegável por menu, sem abrir HTML isolado, sem
+alterar nenhum layout existente. Criado `design-system/index.html` (novo,
+ainda NÃO commitado — decisão pendente, ver abaixo): sidebar permanente +
+topbar, CSS/JS embutidos (sem depender de build), consumindo diretamente os 4
+tokens estruturais aprovados no §69 mais a paleta oficial do DESIGN_DODO.md
+§1.1. Arquitetura: os 13 arquivos de code/ continuam 100% intocados; a
+navegação carrega cada tela dentro de um iframe, com roteamento por
+location.hash (sem servidor/backend). Menu agrupado conforme DESIGN_DODO.md
+§4 (Autenticação / Administração / Portal da Influenciadora); Home =
+painel-administrativo.html (mapeado para "/" no inventário de 19 rotas,
+único candidato natural a "Home").
+
+Verificado servindo design-system/ via `python3 -m http.server 8971`
+(processo temporário desta sessão, encerrado ao final — não persiste entre
+sessões, precisa ser reiniciado) e dirigindo com Playwright real: os 13
+arquivos retornam 200, fonte Elms Sans local resolve, navegação por clique
+funciona (hashchange troca o iframe.src e destaca o item ativo em roxo,
+conforme regra "Navigation Active" do DESIGN_DODO.md), console sem erros
+após adicionar `<link rel="icon" href="data:,">` (suprime 404 de favicon
+implícito do browser — não é erro de fonte/css/js/asset do próprio Design
+System, mas foi corrigido mesmo assim por estar no escopo "eliminar 404").
+
+**Pendência nova:** commitar design-system/index.html — mesma frente do
+§69, mas é uma decisão separada (não foi pedida explicitamente no pedido de
+commit anterior, que cobria só os 44 arquivos originais da importação).
+
+**2. Diagnóstico do estado do frontend React vs. Design System (somente
+leitura, sem alterações — pedido explícito do responsável).** Motivado por
+localhost:5173 (Vite) ainda mostrar o layout antigo. Achados:
+
+- Entry point do Vite: frontend/index.html -> frontend/src/main.tsx.
+  localhost:5173 é o dev server puro do Vite sobre frontend/src, NÃO passa
+  pelo Laravel — só o build de produção (VITE_BUILD_TARGET=locaweb) vai
+  para backend/public/build, servido pelo Laravel (ADR-015).
+- design-system/ está totalmente isolado: nenhuma referência real a ele em
+  frontend/ (confirmado por grep — o único hit é coincidência de substring
+  com o nome da pasta legada est-dio-el-design-system/).
+- **Achado importante, não corrigido nesta sessão:** existem hoje dois
+  Design Systems DODÔ com papéis de cor opostos para roxo/laranja, nenhum
+  supersedendo o outro formalmente:
+  - frontend/src/theme/tokens.css (não commitado, frente §58, ADR-019,
+    2026-07-24) — --color-action (primária/CTA) = ROXO #564f94; laranja =
+    secundária.
+  - design-system/design/DESIGN_DODO.md §1.1 (Regra Soberana v2, revisada
+    nesta mesma sessão de hoje) — color-primary (CTA dominante) = LARANJA
+    #F14F28; color-secondary/roxo = navegação. Papel invertido em relação
+    ao tokens.css.
+  - docs/handoff/README.md (entrada de 2026-07-24) registra "roxo é a
+    cor-assinatura/primária... decisão final e definitiva do responsável",
+    já observando "idas e vindas" no mesmo dia sobre essa mesma decisão.
+  - **Achado adicional (inferência por timestamp, não confirmado por
+    conversa):** ~/Downloads/DESIGN DODÔ.md (arquivo de origem, intocado)
+    tem mtime 2026-07-24 23:02 — posterior ao registro do handoff — e já
+    traz laranja como color-primary. É plausível que o responsável tenha
+    revertido a decisão de novo, depois do handoff/ADR-019, só que dessa
+    vez no documento de design, não em ADR novo. Isso explicaria por que
+    DESIGN_DODO.md (herdado desse arquivo, inclusive antes da revisão v2
+    desta sessão) sempre teve laranja como primária, enquanto
+    ADR-019/tokens.css ainda documentam roxo.
+  - ADR-019 cita est-dio-el-design-system/ como SSOT visual do frontend —
+    mas essa pasta tem arquivos pendentes de deleção não commitados nesta
+    mesma working tree (DESIGN_SYSTEM.standalone.html, toda a subpasta
+    marca dodo/), sinal de que já não é tratada como fonte viva por quem
+    fez essas deleções.
+
+  Nenhuma correção foi feita — é achado de diagnóstico, reportado ao
+  responsável. Decisão pendente: qual documento é a fonte de verdade atual
+  para o papel de roxo/laranja (ADR-019+tokens.css vs. DESIGN_DODO.md v2),
+  e se isso exige um ADR novo formalizando a reversão (CLAUDE.md: "Não
+  alterar arquitetura sem ADR" — o próprio agente não deve decidir isso
+  sozinho).
+- Integração do Design System ao frontend React exigiria, além da decisão
+  de paleta acima: portar as telas Tailwind estáticas de design-system/code/
+  para componentes React em frontend/src/components//pages/ (trabalho de
+  implementação novo, não existe hoje); e resolver a aprovação pendente da
+  frente §58 (commit do rebranding do frontend), que segue bloqueada.
+
+## 2026-07-25 — §71 Resolução do conflito de paleta roxo/laranja (`§70` item 2) + exclusão completa de `design-system/` + início de redesign incremental do frontend React
+
+Sessão nova (pós-`/clear`), iniciada com dois diagnósticos só-leitura a
+pedido do responsável (produção e ambiente local — sem alterações), seguidos
+de três decisões diretas do responsável em sequência na mesma conversa.
+
+**1. Diagnóstico de produção (só leitura).** Respondido com base apenas no
+que já estava carregado em contexto (`CLAUDE.md`, `git status`/log) —
+sinalizado explicitamente ao responsável que, sem ler `TASK_ROUTER.md`
+(proibido pelo pedido "modo turbo" daquele turno), o diagnóstico de SPECs
+prontas/faltando não tinha confiabilidade real. Sem alterações.
+
+**2. Diagnóstico do ambiente local (só leitura).** Confirmou os achados do
+`§70` item 2 com leitura direta de código: `frontend/src/theme/tokens.css`
+já tinha paleta "DODÔ v2.0" (`ADR-019`, roxo primária) hardcoded; `design-system/`
+continuava puramente estático (grep em `frontend/src` = zero referência);
+`frontend/index.html` ainda com `<title>ELÃ | influência</title>`; e
+`backend/routes/web.php` só serve `/api/*` em dev (`localhost:8000` não
+renderiza a SPA nesse modo — só `/api/*` — por não existir
+`backend/public/build`; a "interface antiga" do responsável só existe de
+fato em `localhost:5173`, servido puro pelo Vite).
+
+**3. Decisão do responsável: fonte oficial de paleta = `design-system/`
+(Stitch).** Resolve a pendência do `§70` item 2. Implementado com o menor
+esforço pedido: `frontend/src/theme/tokens.css` teve os valores de cor/
+tipografia substituídos pelos lidos de `design-system/code/*.html`
+(consistentes nas 13 telas — não pelo `design-tokens-stitch.json` bruto,
+que diverge dos HTMLs em alguns valores por ajuste manual documentado num
+comentário do próprio HTML: "Adjusted to Roxo from user prompt while
+respecting system logic"). Resultado: `--color-action` (primária/CTA) =
+laranja `#f14f28`; `--color-highlight` (secundária) = roxo `#504ea1`;
+accent = lima `#daea49`. Nomes das variáveis CSS preservados — nenhum
+componente React precisou mudar (todo consumo é via `--color-*`
+semântico, nenhum componente referenciava `--dodo-*` diretamente).
+`frontend/index.html` `<title>` trocado para "Criativo DODÔ | Admin Panel".
+Validado visualmente via HMR do Vite.
+
+**4. Mudança de direção do responsável, no turno seguinte: `design-system/`
+deixa de ser usado como fonte — apagar a pasta inteira e qualquer
+referência a ela; a aplicação React em `localhost:5173`/`127.0.0.1:8000`
+passa a ser a base oficial do produto, a evoluir por redesign incremental
+(não substituição) com a identidade DODÔ, na ordem AppShell → Sidebar →
+Topbar → Dashboard → componentes globais → demais telas, validando
+visualmente a cada etapa.**
+
+Executado nesta sessão:
+
+- `design-system/` removida por completo — `git rm -r` para os 44 arquivos
+  rastreados (import original do `§69`) + `rm -rf` para
+  `design-system/index.html`, o protótipo navegável criado no `§70` que
+  nunca chegou a ser commitado (não rastreado, sobreviveu ao primeiro
+  `git rm`). **Pendência do `§70` ("commitar `design-system/index.html`?")
+  fica resolvida por obsolescência** — o arquivo não existe mais, a
+  decisão virou "não".
+- Grep de confirmação: nenhuma referência a `design-system/` sobrevive em
+  código executável (`frontend/src`, `backend/routes`, `backend/resources`)
+  — só em documentação (`docs/adrs/ADR-019-...`, `docs/design/
+  DESIGN_SYSTEM.md`, `docs/handoff/README.md`, entradas históricas deste
+  próprio `TASK_ROUTER.md`). Documentação **deliberadamente não tocada**
+  — CLAUDE.md proíbe alterar ADR/arquitetura fora de fluxo próprio, e o
+  `/fim` que fechou esta sessão reforça a mesma proibição para o
+  encerramento. Fica pendência explícita abaixo.
+- Comentário de cabeçalho de `frontend/src/theme/tokens.css` (que citava
+  `design-system/code/*.html` e `design-tokens-stitch.json` como fonte)
+  reescrito para não referenciar mais a pasta excluída.
+- Carregada a skill `frontend-design` (guidance de design, não plano
+  aprovado — nenhuma diretriz de conteúdo foi imposta ao responsável).
+- Abertas 3 tarefas de acompanhamento (task tool): redesign do AppShell
+  (sidebar+topbar), do Dashboard, dos componentes globais — todas
+  **pendentes, nenhuma iniciada**.
+- Ambiente de dev confirmado no ar (processos do próprio responsável,
+  não iniciados nem encerrados por esta sessão): `php artisan serve`
+  (PID 15903, `:8000`) + Vite (PID 15776, `:5173`), ambos via `composer
+  dev`. Login funcional confirmado via `admin@tear.test` / `password`
+  (`DevUserSeeder`, guardado por `app()->environment('local','testing')`).
+  Screenshots de baseline capturados (landing pública já refletindo a
+  paleta nova; Dashboard/AppShell autenticado no estado **anterior** ao
+  redesign — sidebar sem cor de fundo, itens "(em breve)" quebrando em
+  duas linhas, topbar plano).
+- Lidos por completo `AppShell.tsx`/`.module.css` e `Dashboard.tsx`/
+  `.module.css` para planejar o redesign: confirmado que todo componente
+  consome só variáveis semânticas (`--color-*`, `--font-*`, `--sp-*`,
+  `--radius-*`) — nenhum precisa de mudança estrutural só por causa da
+  paleta. Checados os ativos disponíveis em `frontend/public/`
+  (`horizontal-preto.svg`/`horizontal-branco.svg` da marca DODÔ já em
+  uso; `elã-*.svg` são resquício da marca antiga, não usados, fora de
+  escopo desta sessão; `icons.svg` é o sprite genérico padrão do template
+  Vite, sem ícones de marca aproveitáveis) e confirmado que
+  `frontend/package.json` não tem biblioteca de ícones instalada (só
+  `react`/`react-dom`/`react-router-dom`/`axios`) — decisão em aberto para
+  quem continuar o redesign.
+
+**Sessão interrompida pelo `/fim` antes de qualquer edição visual real**
+— nenhuma linha de `AppShell.module.css`/`Dashboard.module.css`/
+componentes globais foi alterada ainda. O trabalho desta sessão foi só
+a resolução da paleta + limpeza de `design-system/` + preparação
+(pesquisa, ambiente, baseline) para o redesign, não o redesign em si.
+
+**Pendência nova, importante:** `ADR-019` (registrado, não tocado nesta
+sessão) ainda documenta roxo como cor primária — o código
+(`tokens.css`) já reflete a decisão oposta (laranja primária) por
+instrução direta do responsável nesta conversa, mas essa decisão **não
+foi formalizada em ADR novo**. Mesmo padrão de risco que o `§70` já
+sinalizava: enquanto não houver ADR novo (ou emenda formal a `ADR-019`),
+existe divergência entre doc-fonte-de-verdade e código rodando. Não é
+ao agente decidir isso sozinho (`CLAUDE.md`: "Não alterar arquitetura
+sem ADR") — só registrar e sinalizar, o que este parágrafo faz.
+
+Referências completas: diagnóstico de produção e do ambiente local, e a
+implementação da paleta, aconteceram todos nesta mesma sessão/turno
+(`§71`); histórico anterior do Design System em `§69`/`§70`.
+
+## 2026-07-25 — §72 Plano técnico de redesign do frontend (preparação de execução do `§71`) + correção de defasagem do `ESTADO_SESSAO.md`
+
+Sessão nova, iniciada com `/comecar`. Dois blocos de trabalho:
+
+**1. Cross-check de `/comecar` encontrou defasagem real.** `ESTADO_SESSAO.md`
+ainda descrevia o fechamento do `§70`, mas `§71` (sessão anterior, mesmo
+dia) já tinha resolvido o conflito de paleta roxo/laranja e apagado
+`design-system/` por completo — mudança de estado real do repositório não
+refletida no snapshot. Reportado ao responsável no relatório de abertura,
+**não corrigido automaticamente** (regra do `/comecar`: avisar, nunca
+corrigir sozinho). A correção do snapshot foi feita só agora, neste
+`/fim`, reescrevendo `ESTADO_SESSAO.md` com o estado real pós-`§71`.
+
+**2. Plano técnico de implementação do redesign, a pedido do responsável
+("modo turbo"), só leitura do frontend atual — nenhuma linha de código
+alterada.** Escopo: para cada tela/componente principal, o que permanece,
+o que muda visualmente, o que é reutilizável, quais tokens usar, quais
+arquivos mexer — na ordem já decidida no `§71` (AppShell → Sidebar →
+Topbar → Dashboard → componentes globais → demais telas).
+
+Achados da análise (lida diretamente do código em `frontend/src/`, sem
+qualquer alteração):
+
+- `tokens.css` já está com a paleta DODÔ v2 aplicada (laranja
+  `--color-action` primária, roxo `--color-highlight` secundária, fontes
+  Elms Sans/Work Sans carregadas) — a base de cor **já está pronta**; o
+  gap real é geometria (raio/superfície), não cor. `--radius-card` e
+  `--radius-block` existem no token mas só são consumidos em
+  `EmptyState.module.css` — o resto do app, Dashboard incluso, ainda usa o
+  tratamento "flat"/hairline herdado do sistema visual anterior.
+- `AppShell.tsx` e `PortalShell.tsx` são quase idênticos (mesmo CSS module
+  importado por ambos) — oportunidade clara de parametrizar `AppShell`
+  (props `navItems`/`tagline`) e reduzir `PortalShell` a wrapper, o que
+  cascateia qualquer mudança visual do shell para admin e portal ao mesmo
+  tempo.
+- `StatusBadge.module.css` é CSS 100% duplicado de `Badge.module.css` —
+  candidato a virar wrapper fino de `Badge`.
+- Não existe componente `Card` nem `Modal` em nenhum lugar do código hoje
+  (confirmado por grep) — `Card` é extração de um padrão já duplicado
+  (`.card` em `Dashboard.module.css`, reimportado direto por
+  `PortalDashboardPage.tsx`); `Modal` é componente **novo**, sem nenhum
+  consumidor real hoje — decisão de construir agora ou só especificar
+  fica em aberto para o responsável, para não nascer código morto
+  (`CLAUDE.md`: não adicionar funcionalidade além do necessário).
+- `AuthSplitLayout.module.css` tem um comentário desatualizado ("roxo é a
+  nova cor-assinatura, substitui o laranja") que contradiz a decisão atual
+  do `tokens.css` (laranja é primária) — mesmo padrão de resíduo de
+  decisão revertida já visto no `§70`/`§71`, aqui em escala de comentário
+  de código, não de arquitetura.
+- Confirmado que ~8 primitivos compartilhados (`TextField`/`SelectField`/
+  `TextareaField`, `EmptyState`, `Badge`/`StatusBadge`, `AuthSplitLayout`,
+  padrão `<table>` inline, `Button`) cobrem quase 100% das ~25 telas —
+  redesenhar os primitivos cascateia para quase todo o app com pouco
+  trabalho por tela.
+
+**Entregável: `docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md`** (novo,
+único arquivo criado/alterado nesta sessão, a pedido explícito do
+responsável). Contém a análise completa por tela/componente e uma
+checklist de implementação de 33 tarefas pequenas e independentes,
+organizadas em 5 fases (A: fundação de componentes — `Card`,
+`StatusBadge`; B: shell — sidebar/topbar/avatar; C: Dashboard; D:
+componentes globais restantes + decisão do `Modal`; E: as ~20 telas
+restantes, agrupadas por padrão estrutural).
+
+**Nenhuma linha de código foi alterada, nenhum commit foi feito, nenhum
+teste foi rodado** — sessão inteiramente de planejamento, conforme pedido
+explícito ("não implemente", "não altere nenhum arquivo" além do plano em
+si).
+
+Pendências deixadas em aberto no próprio plano, para não decidir sozinho:
+(a) extrair `Sidebar`/`Topbar` como componentes próprios ou manter dentro
+de `AppShell.tsx` — decisão de engenharia de baixo risco, não bloqueante;
+(b) construir `Modal` agora sem consumidor real ou só especificar e
+adiar até haver uma tela que precise — decisão do responsável antes da
+Fase D item 13 do plano.
+
+**Pendência herdada, sem mudança nesta sessão:** `ADR-019` ainda documenta
+roxo como primária, código já reflete laranja — ver `§71` para o detalhe
+completo; não tratado aqui por não ser o escopo desta sessão.
+
+Referências completas: plano em `docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md`;
+decisão que originou o plano em `§71`; achado de defasagem do
+`ESTADO_SESSAO.md` registrado aqui e corrigido no `/fim` desta mesma
+sessão.
+
+## 2026-07-25 — §73 Reorganização documental de `ESTADO_SESSAO.md` — snapshot enxuto + `docs/_workspace/logs/` + nova política de manutenção (decisão explícita do responsável)
+
+A pedido explícito do responsável ("modo manutenção"), mudança na forma
+de manter `ESTADO_SESSAO.md`, para reduzir consumo de contexto e
+acelerar novas sessões. Escopo puramente documental — **nenhum código de
+aplicação alterado, nenhuma refatoração, nenhuma funcionalidade nova**.
+
+**Problema:** `ESTADO_SESSAO.md` vinha crescendo a cada `/fim` (chegou a
+384 linhas) porque acumulava narrativa completa de sessão, checklists
+detalhados, riscos e um bloco de "prompt de handoff" inteiro — em vez de
+ser só um snapshot do estado atual. Isso inflava o contexto lido em todo
+`/comecar`.
+
+**Mudança estrutural:**
+
+- Criada a pasta `docs/_workspace/logs/`, com o primeiro arquivo de fase
+  `docs/_workspace/logs/2026-Rebranding-DODO.md` — recebeu, **sem
+  nenhuma perda de conteúdo**, tudo que foi retirado do
+  `ESTADO_SESSAO.md` anterior: a seção "Última sessão concluída" (§72),
+  "Riscos ativos", "IA recomendada", "Prompt de handoff" e o "Checklist"
+  completo com todas as sub-checklists (plano de redesign, paleta/
+  `design-system/`, SSH, briefing de UX, deploy, Sprint 01, arquitetura
+  de comandos).
+- `ESTADO_SESSAO.md` reescrito do zero com só 7 seções fixas: Situação
+  atual, Objetivos, Próxima missão, Pendências, Últimos commits
+  relevantes, Arquivos importantes, Links para logs relacionados. Caiu
+  de 384 para ~165 linhas.
+
+**Nova política de manutenção (permanente, vale a partir de agora):**
+
+1. `ESTADO_SESSAO.md` deixa de ser um arquivo com qualquer traço
+   histórico — é sempre **reescrito por completo**, nunca acrescentado.
+   Isso já era a regra formal do `/fim` antigo, mas na prática o arquivo
+   vinha sendo tratado como diário de bordo (seções "Última sessão
+   concluída"/checklist acumulando detalhe). Fica proibido a partir de
+   agora.
+2. Antes de sobrescrever `ESTADO_SESSAO.md`, qualquer informação
+   histórica ainda relevante deve ser movida para o arquivo de log da
+   fase corrente em `docs/_workspace/logs/` (não descartada).
+3. Ao concluir uma fase importante (Sprint, Rebranding, Go-Live,
+   Refactor etc.), o arquivo de log correspondente deve ser encerrado
+   com: Resumo da fase, Resultado, Decisões tomadas, Commits relevantes,
+   Próxima fase — antes de abrir o arquivo de log da fase seguinte.
+4. Cada arquivo de log, ao ultrapassar ~1500 linhas, é encerrado e um
+   novo arquivo é aberto para a fase corrente/seguinte — o anterior é
+   preservado como histórico imutável, nunca reescrito.
+5. Ordem de leitura no início de sessão: `ESTADO_SESSAO.md` primeiro;
+   `docs/_workspace/logs/` só quando a missão exigir contexto histórico
+   específico que o snapshot não cobre. `TASK_ROUTER.md` continua sendo
+   a fonte única de estado e dependências entre SPECs — não é
+   substituído por `logs/`, que cobre a narrativa de sessão que antes
+   inflava o `ESTADO_SESSAO.md`.
+
+Comandos `.claude/commands/fim.md` e `.claude/commands/comecar.md`
+atualizados na mesma sessão para refletir essa política (ver diff dos
+próprios arquivos). `CLAUDE.md` §"Documentação complementar" também
+atualizado para citar `docs/_workspace/logs/` no mapa de pastas de
+`docs/`.
+
+**Nenhum código de aplicação, SPEC, ADR ou domínio foi alterado.** Escopo
+estritamente de organização documental operacional, autorizado
+diretamente pelo responsável nesta sessão.

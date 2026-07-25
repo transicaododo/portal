@@ -2,18 +2,29 @@
 description: Inicia a sessão — lê o protocolo do projeto e reporta estado, próxima tarefa, pendências, riscos e IA recomendada.
 ---
 
-Leia `docs/_workspace/ESTADO_SESSAO.md` (fonte única deste briefing) e, se precisar de mais profundidade em algum ponto, `CLAUDE.md` §Documentos oficiais e `docs/_workspace/TASK_ROUTER.md`.
+Leia `docs/_workspace/ESTADO_SESSAO.md` (fonte única deste briefing — é sempre um snapshot enxuto, nunca um diário de bordo). Quando existirem e forem relevantes para a missão atual, complemente — sem reler o que já é redundante com `ESTADO_SESSAO.md` — com `CLAUDE.md` §Documentos oficiais, `docs/governanca/GOVERNANCA_DO_PROJETO.md`, `docs/handoff/README.md`, `docs/_workspace/TASK_ROUTER.md` e a(s) SPEC(s) ligada(s) à missão atual.
 
-Rode rapidamente `git status --short` e `git log --oneline -5` para confirmar que o estado descrito em `ESTADO_SESSAO.md` ainda bate com a realidade do repositório; se houver divergência óbvia (commits novos não refletidos, working tree sujo de forma inesperada), avise antes de prosseguir.
+Só abra os arquivos em `docs/_workspace/logs/` (linkados na seção "Links para logs relacionados" do `ESTADO_SESSAO.md`) se a missão atual exigir contexto histórico específico que o snapshot não cobre — nunca como leitura de rotina do `/comecar`. Eles guardam a narrativa detalhada de sessões passadas (achados, riscos extensos, checklists granulares, prompts de handoff anteriores) que deixou de viver no snapshot.
 
-Reporte ao usuário, em formato compacto:
+Rode rapidamente `git status --short`, `git log --oneline -5` e `gh pr list --head "$(git branch --show-current)"` para confirmar que o estado descrito em `ESTADO_SESSAO.md` ainda bate com a realidade do repositório. Cruze o que os documentos dizem entre si (não apenas repita `ESTADO_SESSAO.md` — se um documento contradisser outro, por exemplo fase/missão vs. dependências em `TASK_ROUTER.md`), e se houver divergência, mudanças não commitadas, ou PR aberta para a branch atual: **avise no relatório, nunca corrija automaticamente**.
 
-1. **Estado atual** (fase, branch, sistema em foco).
-2. **Próxima tarefa recomendada.**
-3. **Pendências/bloqueios** (o que depende de decisão do responsável do projeto).
-4. **Riscos ativos.**
-5. **Documentos obrigatórios** para a tarefa recomendada (citar a lista de `CLAUDE.md` §Documentos oficiais, sem duplicá-la).
-6. **IA recomendada** para a próxima tarefa, seguindo a regra já registrada em `ESTADO_SESSAO.md` §6 (ChatGPT para engenharia/terminal por padrão, Claude para planejamento/auditoria, salvo instrução em contrário do usuário nesta sessão).
-7. **Prompt de handoff pronto** — preencha o modelo de `ESTADO_SESSAO.md` §7 com a tarefa real recomendada, para o usuário copiar e colar em outra IA se for o caso.
+Responda usando exatamente esta estrutura (alvo: 2 a 5 minutos de leitura, sem detalhes redundantes com os documentos já lidos):
+
+```
+# Resumo Executivo
+
+# Estado Atual
+(fase, sprint, missão, branch, status do Git, bloqueios, última atualização)
+
+# Próxima Missão Recomendada
+
+# Documentos Importantes
+(citar a lista de `CLAUDE.md` §Documentos oficiais relevante à missão, sem duplicá-la)
+
+# Riscos
+
+# Próximos Passos
+(inclua, quando aplicável: IA recomendada — regra de `ESTADO_SESSAO.md` §6 — e o prompt de handoff pronto de `ESTADO_SESSAO.md` §7, preenchido com a missão real recomendada)
+```
 
 Não releia o projeto inteiro nem reabra auditorias já concluídas — este comando é um briefing rápido, não uma nova investigação.
