@@ -1,4 +1,10 @@
-# DESIGN.md — Criativo DODÔ
+# DESIGN.md — Criativo DODÔ [ARQUIVADO]
+
+> **Arquivado em 2026-07-25.** Os valores de cor deste documento foram a
+> fonte direta dos tokens hoje em produção (`frontend/src/theme/tokens.css`)
+> e a base do capítulo de paleta do **Manual de Design DODÔ v1.0**, que é
+> a referência oficial vigente — consulte-o em vez deste arquivo. Preservado
+> por rastreabilidade histórica.
 
 Este documento define o Design System e as regras de interface para a plataforma **Criativo DODÔ**. Ele foi estruturado especificamente para orientar o Google Stitch e outros agentes de IA na geração de interfaces consistentes, sofisticadas e fiéis à marca.
 

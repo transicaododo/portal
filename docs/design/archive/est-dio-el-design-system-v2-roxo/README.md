@@ -1,4 +1,11 @@
-# Design System — criativo DODÔ.
+# Design System — criativo DODÔ. [ARQUIVADO]
+
+> **Arquivado em 2026-07-25.** Este documento não é mais normativo. A
+> paleta roxo-primária descrita aqui foi revertida no mesmo dia em que
+> este bundle foi aprovado, a favor de laranja-primária/roxo-secundária
+> (a paleta hoje em produção). A fonte oficial vigente é o
+> [Manual de Design DODÔ v1.0](../../manual/index.html). Preservado só
+> por rastreabilidade histórica — ver `docs/design/archive/README.md`.
 
 **Fonte única de verdade (SSOT) da identidade visual do projeto Influencia
 (`ADR-019`).** Este bundle substitui integralmente a identidade antiga
