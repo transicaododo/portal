@@ -6,22 +6,27 @@
 }
 
 .brandPanel {
+  /*
+    Rebranding Criativo Dodô: roxo é a nova cor-assinatura (substitui o
+    laranja, ver tokens.css). Branco é o par de contraste sobre roxo
+    (mesmo token usado como --color-action-contrast em botões roxos).
+  */
   position: relative;
   overflow: hidden;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  padding: var(--space-6);
+  background: var(--color-highlight);
+  color: var(--color-action-contrast);
+  padding: var(--sp-6);
   min-height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--space-2);
+  gap: var(--sp-2);
 }
 
 .star {
   position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
+  top: var(--sp-6);
+  right: var(--sp-6);
   width: 96px;
   height: 96px;
   opacity: 0.18;
@@ -35,26 +40,26 @@
 }
 
 .eyebrow {
-  font-family: var(--font-body);
+  font-family: var(--font-text);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-action-contrast);
 }
 
 .wordmark {
   display: block;
-  height: 40px;
-  width: auto;
+  width: 180px;
+  height: auto;
 }
 
 .tagline {
-  font-family: var(--font-caption);
+  font-family: var(--font-text);
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-action-contrast);
 }
 
 .contentPanel {
@@ -62,8 +67,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-6);
-  background: var(--color-surface);
+  padding: var(--sp-6);
+  background: var(--color-bg);
 }
 
 .contentInner {
@@ -79,23 +84,23 @@
   .brandPanel {
     width: 420px;
     min-height: 100svh;
-    padding: var(--space-9);
+    padding: var(--sp-9);
     flex-shrink: 0;
     justify-content: space-between;
   }
 
   .star {
-    top: var(--space-9);
-    right: var(--space-9);
+    top: var(--sp-9);
+    right: var(--sp-9);
     width: 120px;
     height: 120px;
   }
 
   .wordmark {
-    height: 64px;
+    width: 240px;
   }
 
   .contentPanel {
-    padding: var(--space-9);
+    padding: var(--sp-9);
   }
 }
