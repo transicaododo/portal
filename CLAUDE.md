@@ -100,9 +100,15 @@ Comandos permitidos e fluxo Git.
 **Protocolo de sessão:** `/comecar` no início de qualquer sessão (lê
 `docs/_workspace/ESTADO_SESSAO.md` e reporta fase, próxima tarefa,
 pendências, riscos e IA recomendada); `/fim` ao encerrar (reescreve
-`ESTADO_SESSAO.md` com o que mudou). `ESTADO_SESSAO.md` é o snapshot
-rápido; `docs/_workspace/TASK_ROUTER.md` continua sendo o histórico
-completo e a fonte única de estado de longo prazo.
+`ESTADO_SESSAO.md` com o que mudou). `ESTADO_SESSAO.md` é sempre um
+snapshot enxuto (~300 linhas no máximo), **sempre reescrito por
+completo, nunca acrescentado** (política de 2026-07-25,
+`TASK_ROUTER.md` §73) — nunca um diário de bordo. Histórico narrativo
+detalhado de sessão (achados, riscos extensos, checklists granulares,
+prompts de handoff anteriores) vive em `docs/_workspace/logs/`, um
+arquivo por fase, sempre por acréscimo, rotacionado a cada ~1500
+linhas. `docs/_workspace/TASK_ROUTER.md` continua sendo o histórico
+completo e a fonte única de estado de longo prazo entre SPECs.
 
 ### Arquitetura de comandos do Claude Code (Fase 1, 2026-07-23)
 
@@ -162,8 +168,12 @@ Mapa de responsabilidade única por pasta em `docs/` — não copiar conteúdo
 entre elas, cada uma cobre um assunto:
 
 - `docs/_workspace/` — estado operacional de sessão (`ESTADO_SESSAO.md`
-  é o snapshot rápido; `TASK_ROUTER.md` é a fonte única de estado e
-  dependências entre SPECs).
+  é o snapshot rápido, sempre reescrito por completo, nunca
+  acrescentado; `TASK_ROUTER.md` é a fonte única de estado e
+  dependências entre SPECs; `logs/` guarda o histórico narrativo
+  detalhado de sessão por fase, um arquivo por fase, rotacionado a cada
+  ~1500 linhas — só consultar quando a missão exigir contexto histórico
+  específico, nunca como leitura de rotina).
 - `docs/adrs/` — Architecture Decision Records (decisões arquiteturais
   históricas, nunca reabertas sem novo ADR).
 - `docs/arquitetura/` — documentação arquitetural fundacional da V3 (ver

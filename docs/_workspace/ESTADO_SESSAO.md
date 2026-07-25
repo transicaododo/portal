@@ -1,539 +1,166 @@
-# GOVERNANÇA DO PROJETO
-
-> Versão: 2.0
-> Projeto: Influencia
-> Status: Ativo
-
----
-
-# 1. PROPÓSITO
-
-Este documento define as regras oficiais de governança do projeto Influencia.
-
-Seu objetivo é garantir:
-
-- continuidade entre sessões;
-- padronização entre diferentes IAs;
-- documentação consistente;
-- redução de perda de contexto;
-- evolução sustentável do projeto.
-
-Toda IA, colaborador ou mantenedor deve seguir estas regras.
-
----
-
-# 2. PRINCÍPIOS
-
-## 2.1 Fonte Única da Verdade
-
-Cada informação deve existir em apenas um local.
-
-Nunca duplicar informações entre documentos.
-
----
-
-## 2.2 Separação de Responsabilidades
-
-Cada documento possui apenas uma responsabilidade.
-
-Nenhum documento deve assumir funções de outro.
-
----
-
-## 2.3 Estado ≠ Histórico
-
-O estado atual representa somente o momento presente.
-
-O histórico registra apenas acontecimentos concluídos.
-
-Jamais utilizar histórico para controlar o estado atual.
-
----
-
-## 2.4 Sessões são descartáveis
-
-Nenhuma sessão de IA deve ser considerada memória permanente.
-
-Toda informação importante deve ser registrada na documentação oficial.
-
----
-
-## 2.5 Governança acima da ferramenta
-
-A governança do projeto não depende de uma IA específica.
-
-Claude, GPT, Gemini ou qualquer outra ferramenta devem seguir exatamente as mesmas regras.
-
----
-
-# 3. CAMADAS DE CONHECIMENTO
-
-O projeto possui quatro níveis oficiais de conhecimento.
-
-## Permanente
-
-Conhecimento válido por longo prazo.
-
-Exemplos:
-
-- arquitetura
-- padrões
-- convenções
-- stack
-- workflows
-- decisões permanentes
-
----
-
-## Operacional
-
-Conhecimento referente ao estado atual do projeto.
-
-Exemplos:
-
-- fase atual
-- missão atual
-- bloqueios
-- próxima tarefa
-- branch
-
----
-
-## Histórico
-
-Registro apenas de marcos importantes.
-
-Exemplos:
-
-- conclusão de fases
-- grandes refatorações
-- migrações
-- releases
-
----
-
-## Técnico
-
-Documentação funcional do sistema.
-
-Exemplos:
-
-- SPEC
-- ADR
-- PRD
-- arquitetura
-- diagramas
-- regras de negócio
-
----
-
-# 4. RESPONSABILIDADES DOS DOCUMENTOS
-
-| Documento | Responsabilidade |
-|------------|------------------|
-| CLAUDE.md | Conhecimento permanente |
-| ESTADO_SESSAO.md | Snapshot operacional |
-| docs/handoff/README.md | Histórico executivo |
-| docs/specs | Especificações |
-| docs/adrs | Decisões arquiteturais |
-| docs/planning | Planejamento |
-
----
-
-# 5. REGRAS GERAIS
-
-É proibido:
-
-- duplicar documentação;
-- transformar ESTADO_SESSAO em diário;
-- utilizar handoff como backlog;
-- registrar pensamentos da IA;
-- registrar tentativas fracassadas;
-- manter informações obsoletas.
-
-Sempre priorizar documentação objetiva, curta e atualizada.
-
----
-
-# 6. CRITÉRIO DE CLASSIFICAÇÃO
-
-Sempre que surgir uma nova informação, responder:
-
-"Ela continuará válida daqui a seis meses?"
-
-Se SIM:
-
-→ documentação permanente.
-
-Se NÃO:
-
-→ documentação operacional.
-
-Se representar um marco:
-
-→ histórico.
-
-Se representar comportamento do sistema:
-
-→ documentação técnica.
-
----
-
-# 7. OBJETIVO DA GOVERNANÇA
-
-Esta governança existe para tornar o projeto independente da memória das sessões, garantindo continuidade, previsibilidade e facilidade de manutenção ao longo de toda a evolução do Influencia.
-
-# HANDOFF DO PROJETO
-
-> Projeto: Influencia
-> Objetivo: Registrar apenas marcos relevantes da evolução do projeto.
-
----
-
-# PROPÓSITO
-
-Este documento registra exclusivamente os grandes marcos da evolução do projeto.
-
-Ele não deve ser utilizado para:
-
-- controle de tarefas;
-- backlog;
-- diário de desenvolvimento;
-- registro de sessões;
-- documentação técnica.
-
-Seu objetivo é permitir que qualquer pessoa compreenda rapidamente a evolução do projeto sem precisar ler conversas, commits ou históricos extensos. Boas práticas de handoff recomendam registrar apenas informações necessárias para a continuidade operacional, evitando duplicação com a documentação técnica.  [oai_citation:0‡AlterSquare](https://altersquare.io/blog/code-handover-checklist-good-documentation-outsourced-team?utm_source=chatgpt.com)
-
----
-
-# QUANDO REGISTRAR
-
-Adicionar uma nova entrada apenas quando ocorrer um marco relevante.
-
-Exemplos:
-
-- conclusão de uma fase;
-- mudança arquitetural significativa;
-- migração tecnológica;
-- início de produção;
-- release importante;
-- refatoração estrutural.
-
-Não registrar pequenas correções.
-
----
-
-# FORMATO OFICIAL
-
-Cada registro deve seguir exatamente esta estrutura:
-
-```md
-## AAAA-MM-DD
-
-### Marco
-
-Resumo do marco.
-
-### Principais decisões
-
-- decisão 1
-- decisão 2
-
-### Impacto
-
-Descrição objetiva.
-
-### Próxima fase
-
-Descrição.
-```
-
----
-
-# HISTÓRICO
-
-## 2026-07-23
-
-### Marco
-
-Encerramento oficial da Fase 1 e início da Governança da Fase 2.
-
-### Principais decisões
-
-- Consolidação do repositório.
-- Sincronização completa entre ambiente local e GitHub.
-- Criação da estrutura de governança.
-- Separação entre documentação permanente, operacional e histórica.
-
-### Impacto
-
-O projeto passa a possuir uma governança independente da ferramenta utilizada (Claude, GPT, Gemini ou outra IA).
-
-### Próxima fase
-
-Implantação completa da Governança da Fase 2 e padronização do fluxo de abertura e encerramento das sessões.
-
 # ESTADO DA SESSÃO
 
-> Este documento representa exclusivamente o estado operacional atual do projeto.
-> Não registrar histórico, decisões antigas ou discussões encerradas.
+> Snapshot enxuto do estado **atual** do projeto — nunca um diário de
+> bordo. Este documento é **sempre reescrito por completo** a cada
+> `/fim` (nunca acrescentado). Histórico narrativo, riscos detalhados,
+> checklists completos e prompts de handoff anteriores vivem em
+> `docs/_workspace/logs/` — ver "Links para logs relacionados" no final.
+> Dependências entre SPECs continuam em `docs/_workspace/TASK_ROUTER.md`.
+
+**Última atualização:** 2026-07-25
 
 ---
 
-# PROJETO
-
-**Nome:** Influencia
-
-**Fase Atual:**
-Fase 2 — Governança
-
-**Status Geral:**
-🟢 Em andamento
-
----
-
-# MISSÃO ATUAL
-
-Implantar a Governança da Fase 2.
-
----
-
-# OBJETIVO DA SESSÃO
-
-Padronizar a documentação, definir o fluxo operacional das IAs e estabelecer o novo modelo oficial de governança do projeto.
-
----
-
-# BRANCH ATUAL
-
-main
-
----
-
-# CONTEXTO ATUAL
-
-A Fase 1 foi oficialmente encerrada.
-
-O repositório encontra-se sincronizado entre ambiente local e GitHub.
-
-A documentação de governança começou a ser implantada.
-
----
-
-# CONCLUÍDO
-
-- Estrutura inicial da governança criada.
-- Pasta docs/governanca criada.
-- Pasta docs/handoff criada.
-- GOVERNANCA_DO_PROJETO.md criado.
-- handoff/README.md criado.
-
----
-
-# EM EXECUÇÃO
-
-- Escrita da documentação oficial de governança.
-
----
-
-# BLOQUEIOS
-
-Nenhum.
-
----
-
-# PRÓXIMA TAREFA
-
-Atualizar o CLAUDE.md para refletir a nova Governança da Fase 2.
-
----
-
-# CHECKLIST
-
-## Governança
-
-- [x] Estrutura criada
-- [x] Documento de Governança criado
-- [x] Documento de Handoff criado
-- [x] Estado da Sessão padronizado
-- [ ] CLAUDE.md atualizado
-- [ ] Fluxo de abertura de sessão definido
-- [ ] Fluxo de encerramento de sessão definido
-
----
-
-# OBSERVAÇÕES
-
-Este documento deve permanecer pequeno.
-
-Sempre substituir informações antigas.
-
-Nunca transformar este arquivo em histórico.
-
-Todas as decisões permanentes pertencem ao CLAUDE.md.
-
-Todo marco concluído pertence ao docs/handoff/README.md.
-
----
-
-**Última atualização**
-
-2026-07-23
-
-# GOVERNANÇA DO PROJETO
-
-Esta seção define como toda IA deve trabalhar dentro do projeto Influencia.
-
-Estas regras possuem prioridade sobre qualquer preferência operacional da IA.
-
----
-
-# DOCUMENTOS OFICIAIS
-
-O projeto possui quatro níveis oficiais de documentação.
-
-## 1. Conhecimento Permanente
-
-Responsável por armazenar tudo que permanece válido ao longo do projeto.
-
-Documento:
-
-- CLAUDE.md
-
-Exemplos:
-
-- arquitetura
-- padrões
-- convenções
-- stack
-- workflow
-- linguagem ubíqua
-- decisões permanentes
-
----
-
-## 2. Estado Operacional
-
-Representa exclusivamente o estado atual do projeto.
-
-Documento:
-
-docs/_workspace/ESTADO_SESSAO.md
-
-Este documento deve permanecer pequeno.
-
-Seu conteúdo deve ser atualizado continuamente.
-
-Jamais deve funcionar como histórico.
-
----
-
-## 3. Histórico Executivo
-
-Responsável por registrar apenas grandes marcos.
-
-Documento:
-
-docs/handoff/README.md
-
-Registrar apenas:
-
-- encerramento de fases
-- grandes refatorações
-- releases
-- mudanças arquiteturais
-- migrações importantes
-
-Nunca registrar pequenas tarefas.
-
----
-
-## 4. Documentação Técnica
-
-Documentação funcional do sistema.
-
-Inclui:
-
-- PRD
-- SPEC
-- ADR
-- Architecture
-- Domain
-- Business Rules
-
----
-
-# SINGLE SOURCE OF TRUTH
-
-Toda informação deve possuir exatamente um local oficial.
-
-Nunca duplicar conteúdo entre documentos.
-
-Sempre atualizar o documento responsável.
-
-Nunca copiar o mesmo conteúdo para múltiplos arquivos. Esse princípio reduz inconsistências e facilita a manutenção da documentação ao longo do tempo.  [oai_citation:0‡Atlassian](https://www.atlassian.com/work-management/knowledge-sharing/documentation/building-a-single-source-of-truth-ssot-for-your-team?utm_source=chatgpt.com)
-
----
-
-# ABERTURA DE SESSÃO
-
-Ao iniciar uma nova sessão a IA deve obrigatoriamente:
-
-1. Ler CLAUDE.md.
-
-2. Ler docs/_workspace/ESTADO_SESSAO.md.
-
-3. Identificar a fase atual.
-
-4. Identificar a missão atual.
-
-5. Verificar a branch ativa.
-
-6. Propor um plano de execução.
-
-Nenhuma alteração deve ser realizada antes dessa análise.
-
----
-
-# ENCERRAMENTO DA SESSÃO
-
-Antes de finalizar uma sessão a IA deve:
-
-1. Atualizar ESTADO_SESSAO.md.
-
-2. Remover informações obsoletas.
-
-3. Registrar um handoff apenas se um marco relevante tiver sido concluído.
-
-4. Informar a próxima tarefa sugerida.
-
-5. Garantir que toda decisão permanente esteja documentada.
-
----
-
-# REGRAS GERAIS
-
-É proibido:
-
-- usar ESTADO_SESSAO.md como diário;
-- registrar pensamentos internos da IA;
-- duplicar documentação;
-- criar documentação redundante;
-- manter informações obsoletas;
-- criar novos documentos quando já existir um apropriado.
-
----
-
-# PRINCÍPIO FUNDAMENTAL
-
-A governança pertence ao projeto.
-
-Ela não pertence ao Claude.
-
-Ela não pertence ao GPT.
-
-Ela não pertence ao Gemini.
-
-Qualquer IA deve seguir exatamente estas regras.
-
-O objetivo é garantir continuidade, previsibilidade e independência da ferramenta utilizada.
+## Situação atual
+
+- **Projeto:** DODÔ (nome oficial desde `ADR-020`). Plataforma
+  **Influencia**. Produção alvo: `criativododo.com.br` /
+  `portal.criativododo.com.br` (Locaweb Hospedagem II). Ambiente legado
+  (`estudioela.com`/`elafashionmkt.com.br`) congelado.
+- **Branch:** `docs/governance-phase2`, 8 commits à frente de `origin`, 0
+  atrás. PR #77 aberta, sem mudança de status.
+- **Fase corrente:** rebranding DODÔ concluído em código (paleta
+  laranja/roxo aplicada, `design-system/` do Stitch removida) →
+  redesign incremental do frontend React ainda não iniciado na prática
+  (plano técnico pronto, zero linhas implementadas).
+- **Paleta:** decisão tomada e aplicada. `frontend/src/theme/
+  tokens.css` (não commitado) usa laranja `#f14f28` como
+  `--color-action` (primária) e roxo `#504ea1` como `--color-highlight`
+  (secundária). O app React (`localhost:5173`/`127.0.0.1:8000`) é a
+  fonte de verdade visual, evoluindo por redesign incremental — não o
+  Design System do Stitch, removido do repositório.
+- **Reorganização documental (esta sessão):** `ESTADO_SESSAO.md`
+  reestruturado para snapshot enxuto (≤300 linhas); todo o histórico
+  narrativo anterior foi movido para
+  `docs/_workspace/logs/2026-Rebranding-DODO.md`, sem perda de conteúdo.
+  Nova política de manutenção descrita em `TASK_ROUTER.md` §73 e nos
+  comandos `/comecar`/`/fim`.
+
+## Objetivos
+
+1. Migrar o legado (planilha + Apps Script) para a V3 (Laravel + React +
+   PostgreSQL), com domínio soberano em
+   `docs/history/CONTRATO_SOBERANO.md`.
+2. Concluir o redesign incremental do frontend React a partir do plano
+   já produzido, sem regressão visual/funcional.
+3. Publicar o DODÔ em produção na Locaweb Hospedagem II, hoje bloqueado
+   por SSH (porta 22) e por uma configuração de painel pendente do
+   responsável.
+
+## Próxima missão recomendada
+
+1. **Executar a Fase A do plano de redesign**
+   (`docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md`): criar componente
+   `Card` (substitui `.card` duplicado em `Dashboard`/
+   `PortalDashboardPage`), simplificar `StatusBadge` para wrapper de
+   `Badge`, corrigir comentário desatualizado em
+   `AuthSplitLayout.module.css`. Validar visualmente a cada passo.
+2. **Decisão do responsável, antes da Fase D do plano:** construir
+   `Modal` agora sem consumidor real, ou só especificar e adiar até uma
+   tela precisar dele.
+3. **Formalizar `ADR-019`** — o documento ainda registra roxo como
+   primária, o código já reflete laranja. Só formalizar a decisão já
+   tomada pelo responsável, não decidir sozinho.
+
+Frentes paralelas herdadas, nenhuma priorizada — perguntar ao
+responsável antes de retomar:
+
+4. Retorno do chamado Locaweb sobre a porta 22 SSH.
+5. Revisão do briefing de UX (`docs/_workspace/UX/
+   BRIEFING_TELAS_E_COMPONENTES_DODO.md`) pelo responsável.
+6. Preparação de deploy do DODÔ (SSH bloqueado, PostgreSQL na
+   Hospedagem II não confirmado, subdomínio com tipo errado no painel).
+7. Aprovação e commit da frente Sprint 01 + rebranding em `frontend/`.
+
+## Pendências/bloqueios
+
+- Fase A do plano de redesign não iniciada.
+- Decisão sobre construir `Modal` agora ou adiar (sem consumidor real
+  hoje).
+- `ADR-019` desatualizado frente ao código (roxo no documento, laranja
+  no `tokens.css`).
+- `design-system/` removida do disco, mas a deleção segue só staged,
+  não commitada.
+- `frontend/src/theme/tokens.css` com paleta nova aplicada, não
+  commitado.
+- SSH porta 22 na Locaweb em timeout, sem ETA — bloqueia
+  `migrate`/cache/`admin:create`/crontab mesmo com contingência FTP.
+- Revisão e aprovação do briefing de UX pendente — nenhuma tela/
+  componente do briefing deve ser implementada sem essa aprovação.
+- Disponibilidade real de PostgreSQL na Hospedagem II não confirmada.
+- Subdomínio `portal.criativododo.com.br` com tipo "Apontamento" —
+  precisa virar "Conteúdo da pasta" no painel antes do deploy
+  funcionar; ação exclusiva do responsável.
+- Aprovação e commit da frente Sprint 01 + rebranding em `frontend/`
+  seguem pendentes.
+- Push dos 8 commits locais para `origin` — nenhum push feito.
+- Validação visual de telas autenticadas — só login validado ao vivo.
+- **Arquivo sensível não rastreado na raiz:** `IMPORTANTE
+  Webmail_Codigos_de_backup.txt` — não deve ir para nenhum commit.
+- Arquivos não rastreados herdados de sessões paralelas
+  (`backend/.env.backup-*`, screenshots na raiz, `DOCS_INVENTARIO.txt`,
+  `ESTADO_SESSAO.backup.md`, `provisorios/`, `skills-dodo/` fora do
+  repo) — sinalizados para o responsável decidir, não tocados.
+- Riscos detalhados, achados de sessões anteriores e demais dívidas
+  herdadas: ver `docs/_workspace/logs/2026-Rebranding-DODO.md` e
+  `TASK_ROUTER.md` (§45–§72).
+
+## Últimos commits relevantes
+
+- `3812c37` feat(design-system): importar Design System DODÔ do Stitch
+  com equivalência semântica de tokens
+- `786a259` docs(governance): aplicar ADR-020 (nome DODÔ) em CLAUDE.md
+- `a368857` docs(governance): consolidar CLAUDE.md como documento de
+  governança completo (Fase 2)
+- `8a0f505` docs(adr): registrar ADR-020 — DODÔ como nome oficial do
+  projeto
+- `d3dba5a` feat(design-system): atualizar documentação e cobertura dos
+  ativos de marca
+
+## Arquivos importantes
+
+- `docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md` — plano de execução
+  do redesign incremental, por tela/componente, checklist de 33 tarefas
+  em 5 fases. Ler por completo antes de iniciar qualquer implementação
+  visual.
+- `docs/_workspace/TASK_ROUTER.md` — fonte única de estado e
+  dependências entre SPECs; histórico completo por seção datada (§1–§73).
+- `frontend/src/theme/tokens.css` — paleta DODÔ v2 aplicada (laranja
+  primária, roxo secundária), não commitado. Fonte de verdade de cor
+  para qualquer trabalho de redesign.
+- `docs/adrs/ADR-019-design-system-dodo-como-ssot-visual.md` — não
+  commitado, texto desatualizado (roxo como primária) frente ao código
+  atual — pendência a formalizar, não a corrigir silenciosamente.
+- `docs/infrastructure/INFRAESTRUTURA.md` — fonte oficial de dados de
+  infraestrutura.
+- `docs/_workspace/UX/BRIEFING_TELAS_E_COMPONENTES_DODO.md` —
+  especificação de arquitetura de telas/componentes, aguardando revisão
+  do responsável.
+
+## Links para logs relacionados
+
+- `docs/_workspace/logs/2026-Rebranding-DODO.md` — log de fase corrente
+  (rebranding DODÔ + redesign incremental do frontend). Contém o
+  histórico narrativo completo de sessões anteriores, riscos detalhados,
+  checklists completos e prompts de handoff anteriores — consultar só
+  quando precisar de contexto histórico específico, não como leitura de
+  rotina.
+- `docs/_workspace/TASK_ROUTER.md` — histórico completo por SPEC/seção
+  datada (§1–§73), incluindo a decisão que criou esta reorganização
+  (§73).
+- `docs/handoff/README.md` — marcos concluídos (fim de fase, migrações,
+  releases).
+
+## Observações
+
+Este documento deve permanecer pequeno (~300 linhas no máximo) e ser
+sempre substituído por completo, nunca acrescentado — política vigente
+desde a reorganização de 2026-07-25 (`TASK_ROUTER.md` §73). Antes de
+sobrescrever, mover para o log de fase corrente
+(`docs/_workspace/logs/`) qualquer informação histórica que ainda não
+esteja lá. Decisões permanentes pertencem ao `CLAUDE.md`; dados estáveis
+de infraestrutura pertencem a `docs/infrastructure/INFRAESTRUTURA.md`;
+marcos concluídos pertencem a `docs/handoff/README.md`; histórico
+completo e dependências entre SPECs pertencem a
+`docs/_workspace/TASK_ROUTER.md`; histórico narrativo detalhado pertence
+a `docs/_workspace/logs/`.
