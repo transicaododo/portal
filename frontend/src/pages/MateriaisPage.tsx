@@ -164,7 +164,7 @@ export default function MateriaisPage() {
 
               {isAdmin && material.status === 'PENDENTE' && (
                 <div className={styles.itemActions}>
-                  <Button onClick={() => handleAprovar(material)}>aprovar</Button>
+                  <Button variant="secondary" onClick={() => handleAprovar(material)}>aprovar</Button>
                   <Button
                     variant="secondary"
                     onClick={() => {

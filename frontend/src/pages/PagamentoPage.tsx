@@ -172,6 +172,7 @@ export default function PagamentoPage() {
 
               <Button
                 type="submit"
+                variant="secondary"
                 isLoading={isEnviandoComprovante}
                 loadingText="enviando…"
                 className={styles.submit}

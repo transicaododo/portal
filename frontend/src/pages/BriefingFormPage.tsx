@@ -210,7 +210,7 @@ export default function BriefingFormPage() {
           >
             salvar
           </Button>
-          <Button type="button" onClick={() => navigate(-1)}>
+          <Button type="button" variant="secondary" onClick={() => navigate(-1)}>
             voltar
           </Button>
         </div>
