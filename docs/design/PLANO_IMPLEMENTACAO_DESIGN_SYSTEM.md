@@ -26,13 +26,24 @@ sprint, frentes independentes (componentes, telas admin, telas portal,
 QA) rodam em paralelo por subagentes com escopo exclusivo — um único
 responsável integra, resolve conflitos e comita.
 
-**Princípio permanente adotado em 2026-07-25:** sempre que duas ou mais
-implementações forem visual e funcionalmente equivalentes, consolidá-las
-num único componente oficial do Design System, desde que não altere
-comportamento, não introduza regressão, respeite o Manual e preserve
-compatibilidade com as telas existentes — evoluir componentes-base em
-vez de corrigir tela por tela, sempre que a mudança se propagar
-corretamente para toda a aplicação.
+**Princípios permanentes adotados em 2026-07-25:**
+
+- sempre que duas ou mais implementações forem visual e funcionalmente
+  equivalentes, consolidá-las num único componente oficial do Design
+  System, desde que não altere comportamento, não introduza regressão,
+  respeite o Manual e preserve compatibilidade com as telas existentes —
+  evoluir componentes-base em vez de corrigir tela por tela, sempre que
+  a mudança se propagar corretamente para toda a aplicação.
+- **regra de capitalização, obrigatória:** todo texto de interface em
+  sentence case (maiúscula só na primeira letra da frase, nunca title
+  case) — detalhe completo e exemplos em
+  `docs/design/manual/index.html#tipografia`. Vale para qualquer string
+  nova ou tocada em qualquer sprint, mesmo fora do escopo imediato,
+  desde que a correção seja só de capitalização e não altere
+  comportamento. Auditoria em 2026-07-25 (grep/ripgrep em todo
+  `frontend/src/**/*.tsx` por padrões de title case) não encontrou
+  violação pendente no texto literal das telas — o problema conhecido
+  era só CSS (`text-transform: uppercase`), já corrigido no Sprint 1.
 
 ---
 
