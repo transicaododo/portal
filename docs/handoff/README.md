@@ -104,3 +104,59 @@ Validação visual das 21 páginas autenticadas que só foram verificadas por
 análise estática nesta sessão (sem backend/credencial de teste
 disponível) — sprint dedicada de QA visual, prevista e aceita como próxima
 etapa desde o início desta migração.
+
+## 2026-07-25
+
+### Marco
+
+Manual de Design DODÔ v1.0 publicado (`docs/design/manual/index.html` +
+`MANUAL_DODO_v1.0.pdf`) como SSOT visual oficial do projeto, encerrando
+um histórico de três gerações de Design System em conflito entre si e
+com o código real (`docs/design/archive/README.md` documenta as três).
+`ADR-019` formalizada e commitada pela primeira vez, resolvendo a
+contradição pendente desde `TASK_ROUTER.md` §71/§72. Auditoria completa
+do frontend React contra o Manual concluída, com plano de implementação
+em 6 sprints (`docs/design/PLANO_IMPLEMENTACAO_DESIGN_SYSTEM.md`) —
+nenhum componente foi alterado.
+
+### Principais decisões
+
+- Manual construído a partir do Brand Foundations v0.1 (fonte principal),
+  do import Google Stitch de 2026-07-25 e dos ativos válidos de
+  `est-dio-el-design-system/brand`, com o React em produção como
+  referência de implementação — nunca como algo a ser substituído.
+- Ativos centrais da marca (logotipo, símbolo, paleta oficial, tipografia,
+  naming) tratados como congelados nesta edição: documentados como
+  existem hoje, não redesenhados. Evolução desses ativos exige briefing
+  específico e aprovação explícita, fora de escopo.
+- Único princípio de evolução deliberada nesta edição: curvatura de
+  superfícies grandes (cards/containers/painéis), com proximidade humana
+  como critério primário e papel funcional como secundário — registrado
+  como princípio, sem token numérico fechado (decisão explícita do
+  responsável, gated para uma etapa posterior).
+- As três gerações anteriores (`docs/design/stitch-export/` pré-DODÔ,
+  o import Stitch de 25/07, `est-dio-el-design-system/` v2.0
+  roxo-primária) foram arquivadas em `docs/design/archive/` via `git mv`
+  a partir do histórico restaurado — nenhum dado apagado.
+- Commit único `d08e8fd` (149 arquivos), confirmado sem nenhuma alteração
+  funcional de `frontend/`/`backend/` misturada — a paleta já aplicada em
+  `frontend/src/theme/tokens.css` e ~54 arquivos de componentes/páginas
+  permanece não commitada, deliberadamente fora desta frente.
+
+### Impacto
+
+O projeto passa a ter uma única referência visual oficial, navegável e
+com o racional de cada decisão documentado — não mais uma escolha entre
+pastas conflitantes. A auditoria do React confirmou que nenhuma tela ou
+componente precisa ser reescrito do zero; os desvios encontrados
+(capitalização decorativa, CTAs duplicados/competindo, um símbolo
+decorativo fora do vocabulário de marca, e a lacuna estrutural do Portal
+não ser mobile-first/bottom-nav) são pontuais e já estão priorizados no
+plano de implementação.
+
+### Próxima fase
+
+Aprovação do responsável para `docs/design/PLANO_IMPLEMENTACAO_DESIGN_SYSTEM.md`,
+seguida do Sprint 1 (correções de tipografia — risco mínimo, maior
+alcance). Decisão pendente do responsável sobre a escala numérica de
+radius antes do Sprint 5 (curvatura).

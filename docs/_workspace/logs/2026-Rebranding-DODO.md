@@ -316,4 +316,164 @@ fase anterior; decisão não tomada aqui, fora do escopo desta tarefa).
 missão real do projeto: redesign incremental do frontend (Fase A do
 plano), conforme `ESTADO_SESSAO.md`.
 
+## 2026-07-25 — `/fim` desta sessão (encerramento formal da frente de reorganização documental)
+
+Commit de consolidação final `edb14ad9c...` (`docs(_workspace): consolidar
+fechamento da reorganização documental (commit 36ab33d)`), contendo
+apenas `ESTADO_SESSAO.md`, `TASK_ROUTER.md` §73 ("Estado ao final") e
+este arquivo de log. Branch `docs/governance-phase2` passa de 8 para 10
+commits à frente de `origin` (ainda sem push — fora do escopo desta
+frente).
+
+Nenhuma tarefa nova foi iniciada neste `/fim` — só a formalização de
+fechamento pedida pelo responsável do projeto. A sessão foi renomeada
+para "agente A" pelo responsável antes deste encerramento; o próximo
+contexto será assumido por outro agente, que deve retomar por
+`/comecar` normalmente (nada de especial a fazer além disso — a
+reorganização já deixou `ESTADO_SESSAO.md` e este log no estado
+correto para a próxima sessão).
+
+**Frente de reorganização documental formalmente encerrada.** Próxima
+missão do projeto: Fase A do plano de redesign do frontend
+(`docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md`), sem relação com esta
+frente.
+
+## 2026-07-25 — Consolidação do Manual de Design DODÔ v1.0 (sessão "agente B", paralela ao encerramento acima)
+
+Sessão concorrente à do "agente A" (a entrada anterior é de outra sessão,
+fechada separadamente). Escopo: consolidação documental do Design System
+e preparação (não execução) da implementação no React, por instrução
+direta do responsável do projeto, em duas frentes sequenciais.
+
+### Frente 1 — Inventário e diagnóstico (antes de qualquer escrita)
+
+Auditoria paralela (4 subagentes, escopo exclusivo cada): (1) Design
+System interno do repo — mapeou `design-system/` (import Stitch,
+deletado do disco mas em git HEAD) e `est-dio-el-design-system/` (bundle
+"criativo DODÔ v2.0", idem) como duas gerações em conflito entre si e com
+o código; (2) documentos DODÔ do Downloads (`DESIGN DODÔ.md`,
+`Brand-Foundations-v0.1.md/pdf`, `Briefing de Telas e Componentes v2.0`,
+`Lista Priorizada de Melhorias v2.0`, `Checklist Final`, `PROMPT.rtf`) —
+achou divergência de hex entre dois sub-grupos de documentos (Creme/
+Preto/Lime com valores levemente diferentes) e uma sombra CSS não
+recalculada após mudança de token; (3) estrutura do repo e proposta de
+nova organização; (4) screenshots de referência (Hero/Login/Full Page/
+Cores na raiz do projeto) e telas exportadas do Stitch.
+
+**Achado central, resolvido por leitura direta de `frontend/src/theme/
+tokens.css`:** o código real bate exatamente com `Brand-Foundations-
+v0.1.md` + `DESIGN_DODO.md` (paleta laranja-primária `#f14f28`/roxo-
+secundária `#504ea1`), não com `est-dio-el-design-system/` (paleta roxo-
+primária `#564f94`, que havia sido aprovada e revertida no mesmo dia,
+24/07). O `ADR-019` (nunca commitado) nomeava a geração errada (a
+revertida) como SSOT — contradição identificada e corrigida na Frente 2.
+
+Adicionado à auditoria, por pedido do responsável: `skills-dodo/`
+(biblioteca de skills do Claude Code da agência, fora do repo git
+formalmente rastreado como tal) — só `tom-dodo/SKILL.md` (tom de voz
+verbal, já consolidado) mostrou-se relevante como fonte complementar; o
+resto (branding estratégico, financeiro, mensagens) é conhecimento de
+agência, não do Design System do produto.
+
+### Frente 2 — Construção do Manual de Design DODÔ v1.0
+
+Por instrução explícita do responsável, mudança de escopo: em vez de só
+consolidar documentação, construir a "primeira edição oficial" do Manual
+— HTML navegável premium (estilo Stripe/Vercel/Linear/Notion) + PDF,
+usando `Brand-Foundations-v0.1.pdf` como fonte principal, o layout React
+atual como referência de implementação (nunca para ser substituído — a
+app React é a base, o Stitch é só referência histórica/UX), e os ativos
+válidos de `est-dio-el-design-system/brand`.
+
+Diretrizes de marca recebidas e aplicadas: linguagem tipográfica em
+sentence case (caixa baixa por padrão, caixa alta só com justificativa
+semântica); tom boutique/contemporâneo/caloroso/premium sem ostentação,
+nunca enterprise/SaaS genérico; ativos centrais (logotipo, símbolo,
+paleta oficial, tipografia da marca, naming) tratados como **congelados**
+nesta fase — documentados como existem, nunca redesenhados. Único
+princípio de evolução deliberada: curvatura (bordas) das superfícies
+grandes (cards/containers/painéis), com proximidade humana como critério
+primário e papel funcional como secundário — **sem token numérico
+fechado nesta edição**, só o princípio (confirmado com o responsável via
+perguntas específicas antes de escrever o capítulo).
+
+Execução com paralelização máxima por pedido do responsável — 6
+subagentes de conteúdo (Essência/Personalidade, Logotipo/Ativos, Paleta/
+Cor, Tipografia/Linguagem, Sistema Gráfico, Grounding do React real) +
+3 subagentes de suporte (revisão editorial, componentes visuais HTML/CSS/
+SVG, auditoria de ativos copiados) rodando em paralelo, consolidação
+final feita por mim (HTML único autocontido, ~1100 linhas, offline, sem
+CDN — fontes Elms Sans/Work Sans e os 15 ícones de marca copiados para
+dentro de `docs/design/manual/assets/`).
+
+PDF gerado via Chrome headless (`--headless --print-to-pdf`, binário do
+`Google Chrome.app` local). Um bug real encontrado na revisão visual do
+PDF (não pelos subagentes de QA, por mim mesmo lendo o PDF gerado): o
+diagrama de curvatura cortava o último bloco na borda da página por
+depender de scroll horizontal, que não existe em PDF — corrigido com
+`flex-wrap` e PDF regerado. Aprovado pelo responsável sem mais ajustes.
+
+### Frente 3 — Consolidação documental e arquivamento (pós-aprovação do Manual)
+
+Por instrução do responsável: (1) consolidar documentação do Design
+System, arquivando (nunca apagando) material obsoleto; (2) atualizar
+referências internas; (3) auditar o React contra o Manual e gerar plano
+de implementação, **sem tocar em nenhum componente**; (4) um commit
+único e limpo, sem misturar alterações funcionais do React pendentes
+(que já estavam soltas no working tree desde antes desta sessão).
+
+Arquivamento: restauradas do git history (`git checkout HEAD --`) as
+pastas `design-system/` e `est-dio-el-design-system/` (estavam deletadas
+do disco, não commitadas) e movidas com `git mv` para
+`docs/design/archive/` — `dodo-stitch-import-2026-07-25/`,
+`est-dio-el-design-system-v2-roxo/`, mais `tear-editorial-legado/` (era
+`docs/design/stitch-export/`, sistema pré-DODÔ) e
+`brand-guide-screenshots-v1/` (os 6 PNGs soltos na raiz). README de
+arquivo com contexto de cada pasta + banner "[ARQUIVADO]" nos dois
+README/DESIGN_DODO.md mais lidos, apontando para o Manual.
+
+`ADR-019` reescrita do zero (nunca tinha sido commitada) para nomear o
+Manual como SSOT, com o histórico completo das 3 gerações e a correção
+da contradição original. `docs/design/DESIGN_SYSTEM.md` e
+`docs/handoff/README.md` atualizados para apontar para o Manual (nota de
+atualização no handoff, sem reescrever o registro histórico original).
+
+Auditoria do React (3 subagentes paralelos: componentes compartilhados,
+telas admin, telas públicas/portal) — nenhum componente ou tela precisa
+ser refeito do zero. Achados principais: `text-transform: uppercase`
+decorativo espalhado em 5+ componentes (viola a nova regra de sentence
+case); `Button` usa Elms Sans onde deveria usar Work Sans; múltiplos
+CTAs primários competindo em `PagamentoPage`, `BriefingFormPage`,
+`PortalPerfilPage`, `MateriaisPage`, e 3 listas admin (duplicação
+header+EmptyState); símbolo decorativo não-canônico (estrela) em
+`AuthSplitLayout`, violando a regra "nenhum símbolo novo"; achado
+estrutural mais importante — `PortalShell` reaproveita o CSS do shell
+administrativo e **não tem bottom-nav mobile-first**, apesar do Manual
+exigir isso para o portal.
+
+Plano consolidado em `docs/design/PLANO_IMPLEMENTACAO_DESIGN_SYSTEM.md`,
+6 sprints por risco crescente (Sprint 0 = decisões pendentes do
+responsável, bloqueante para 3 e 5; Sprint 1 = tipografia, risco mínimo/
+alcance máximo; Sprint 2 = disciplina de CTA único; Sprint 3 =
+consolidação de padrões; Sprint 4 = Portal mobile-first, maior risco
+estrutural; Sprint 5 = curvatura, gated na decisão numérica; Sprint 6 =
+biblioteca de ícones, independente). Responsável pediu explicitamente
+para aguardar aprovação do plano completo antes de qualquer sprint, e
+que a implementação futura também use paralelização máxima (tokens,
+componentes base, admin, portal, QA) sob um único integrador.
+
+**Commit único:** `d08e8fd` — 149 arquivos (a maioria reconhecida como
+rename pelo git, histórico preservado), contendo só Manual + arquivamento
++ referências atualizadas + plano de implementação. Confirmado por
+`git diff --cached --name-only` antes de commitar: nenhum arquivo de
+`frontend/`, `backend/`, `docs/_workspace/` ou `mcp/` staged — as ~54
+alterações funcionais do React já pendentes desde antes desta sessão
+permanecem exatamente como estavam, não commitadas, não tocadas.
+
+**Resultado:** Manual de Design DODÔ v1.0 é agora o SSOT visual oficial
+do projeto (`docs/design/manual/index.html` + `.pdf`), com as 3 gerações
+anteriores de Design System arquivadas e rastreáveis. Plano de
+implementação pronto, aguardando aprovação do responsável — **nenhum
+componente React foi alterado nesta sessão.**
+
 <!-- Próxima entrada de fechamento de fase ou sessão detalhada: acrescentar abaixo desta linha, nunca reescrever o que já está acima. -->

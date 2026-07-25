@@ -5499,3 +5499,77 @@ diretamente pelo responsável nesta sessão.
 **Frente encerrada.** Próxima missão do projeto: redesign incremental do
 frontend (Fase A do plano, `docs/_workspace/UX/PLANO_REDESIGN_FRONTEND.md`),
 sem relação com esta reorganização documental.
+
+## 2026-07-25 — §74 Manual de Design DODÔ v1.0 — nova SSOT visual, arquivamento das 3 gerações anteriores, `ADR-019` formalizada, plano de implementação React (decisão explícita do responsável)
+
+Sessão paralela à do `§73` (agente diferente, mesmo dia). Decisão de
+domínio/arquitetura visual, por isso registrada aqui além do
+`ESTADO_SESSAO.md` e do log de fase.
+
+**Contexto:** o `§71` já havia resolvido qual paleta está em produção
+(laranja-primária/roxo-secundária, `frontend/src/theme/tokens.css`), mas
+o `ADR-019` que deveria formalizar isso nunca foi commitado e ainda
+nomeava a geração revertida (`est-dio-el-design-system/`, roxo-primária)
+como SSOT — contradição pendente desde o `§71`/`§72`. Havia, além disso,
+três gerações de Design System soltas no repo (`docs/design/stitch-
+export/` pré-DODÔ, `design-system/` import Stitch 25/07, `est-dio-el-
+design-system/` v2.0 roxo) mais documentos de marca no Downloads do
+responsável (`Brand-Foundations-v0.1`, briefings, checklists) nunca
+integrados ao repositório.
+
+**Decisão:** consolidar tudo num documento único — **Manual de Design
+DODÔ v1.0** (`docs/design/manual/index.html` + `.pdf`) — como SSOT visual
+oficial do projeto, substituindo a busca por "qual pasta é a fonte
+certa" por um documento vivo com o racional de cada decisão. Processo
+completo (inventário → construção do Manual com aprovação do responsável
+por etapas → arquivamento → auditoria React → plano de implementação)
+narrado em detalhe em `docs/_workspace/logs/2026-Rebranding-DODO.md`,
+entrada "Consolidação do Manual de Design DODÔ v1.0".
+
+**Resultado, commitado em `d08e8fd`:**
+
+- `docs/design/manual/` — Manual v1.0, HTML autocontido + PDF. Paleta,
+  tipografia, logotipo e naming tratados como **congelados** (documentados
+  como existem, não redesenhados). Único princípio de evolução aberto:
+  curvatura de superfícies grandes (cards/containers/painéis) — sem
+  token numérico ainda, gated em decisão futura do responsável.
+- `docs/design/archive/` — as 3 gerações anteriores preservadas (git
+  history restaurado + `git mv`, nenhum dado apagado), com README de
+  contexto. Nunca mais usar como referência normativa.
+- `ADR-019` reescrita (nunca tinha sido commitada) — nomeia o Manual
+  como SSOT, resolve a contradição do `§71`/`§72`.
+- `docs/design/PLANO_IMPLEMENTACAO_DESIGN_SYSTEM.md` — auditoria
+  completa do React atual (componentes compartilhados, telas admin,
+  telas públicas/portal) contra o Manual + plano em 6 sprints por risco
+  crescente. Achado estrutural mais relevante para SPECs futuras: o
+  `PortalShell` reaproveita o shell administrativo e não tem bottom-nav
+  mobile-first, apesar de o Manual exigir isso para o Portal da
+  Influenciadora — pendência a resolver antes de qualquer polimento fino
+  de tela do portal.
+
+**Nenhum componente React foi alterado.** Responsável pediu
+explicitamente para aguardar aprovação do plano completo antes de
+iniciar qualquer sprint de implementação, e que a execução futura também
+use paralelização máxima (tokens, componentes base, admin, portal, QA)
+sob um único integrador — registrado no próprio plano.
+
+**Estado ao final — `[x]` concluído e commitado:**
+
+- [x] Manual de Design DODÔ v1.0 (HTML + PDF) aprovado pelo responsável
+- [x] 3 gerações anteriores arquivadas em `docs/design/archive/`, git
+      history preservado
+- [x] `ADR-019` formalizada e commitada
+- [x] `docs/design/DESIGN_SYSTEM.md` e `docs/handoff/README.md`
+      apontando para o Manual
+- [x] Auditoria completa do React (3 frentes) + plano de implementação
+      em `docs/design/PLANO_IMPLEMENTACAO_DESIGN_SYSTEM.md`
+- [x] Commit único `d08e8fd`, confirmado sem nenhuma alteração funcional
+      de `frontend/`/`backend/`/`docs/_workspace/`/`mcp/` misturada
+- [ ] Aprovação do plano de implementação pelo responsável — pendente
+- [ ] Sprints de implementação — não iniciados, aguardando aprovação
+- [ ] Push para `origin` — não feito (pendência geral de todos os
+      commits locais, não específica desta frente)
+
+**Próxima missão real desta frente:** responsável revisa
+`docs/design/PLANO_IMPLEMENTACAO_DESIGN_SYSTEM.md` por completo; após
+aprovação, iniciar Sprint 1 (tipografia — risco mínimo, maior alcance).
