@@ -30,7 +30,6 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
   border-bottom: 1px solid var(--color-outline);
   padding-bottom: var(--sp-2);

@@ -31,7 +31,6 @@
   font-family: var(--font-text);
   font-size: 12px;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
 }
 
@@ -41,7 +40,6 @@
   font-family: var(--font-text);
   font-size: 13px;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
   padding: var(--sp-2) 0;
 }
@@ -93,7 +91,6 @@
   font-family: var(--font-text);
   font-size: 13px;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
 }
 
