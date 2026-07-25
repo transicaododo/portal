@@ -8,8 +8,8 @@ import styles from './AppShell.module.css';
 // própria pronta (auditoria de MVP, 2026-07-22). Briefing/Materiais/
 // Pagamentos/Envio já são funcionais via drill-down a partir de
 // Campanhas/Parceiras; Logística tem visão própria em /logistica desde a
-// correção do backlog P0 (2026-07-22); os demais (Documentos/Histórico/
-// Perfil) ainda não têm nenhuma implementação.
+// correção do backlog P0 (2026-07-22); Perfil ganhou visão própria em
+// 2026-07-25. Documentos/Histórico ainda não têm nenhuma implementação.
 const NAV_ITEMS: { label: string; to?: string }[] = [
   { label: 'Painel', to: '/' },
   { label: 'Marcas', to: '/marcas' },
@@ -23,7 +23,7 @@ const NAV_ITEMS: { label: string; to?: string }[] = [
   { label: 'Pagamentos (em breve)' },
   { label: 'Documentos (em breve)' },
   { label: 'Histórico (em breve)' },
-  { label: 'Perfil (em breve)' },
+  { label: 'Perfil', to: '/perfil' },
 ];
 
 function getInitials(name: string): string {

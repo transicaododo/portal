@@ -37,6 +37,7 @@ Route::post('/parceiras/cadastro', [CadastroPublicoController::class, 'store'])
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::patch('/me', [AuthController::class, 'updateProfile']);
 
     Route::patch('/parceiras/{parceira}/aprovar', [ParceiraController::class, 'aprovar'])
         ->middleware('role:ADMIN');

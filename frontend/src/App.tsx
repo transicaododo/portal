@@ -19,6 +19,7 @@ import MateriaisPage from './pages/MateriaisPage';
 import PagamentoPage from './pages/PagamentoPage';
 import EnvioPage from './pages/EnvioPage';
 import LogisticaPage from './pages/LogisticaPage';
+import PerfilPage from './pages/PerfilPage';
 import AppShell from './components/AppShell';
 import PortalShell from './components/PortalShell';
 import PortalDashboardPage from './pages/portal/PortalDashboardPage';
@@ -91,7 +92,7 @@ function App() {
           <Route path="/logistica" element={<LogisticaPage />} />
           <Route path="/documentos" element={<PlaceholderPage title="Documentos" />} />
           <Route path="/historico" element={<PlaceholderPage title="Histórico" />} />
-          <Route path="/perfil" element={<PlaceholderPage title="Perfil" />} />
+          <Route path="/perfil" element={<PerfilPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       )}
