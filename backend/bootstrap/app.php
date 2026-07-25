@@ -16,6 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+
+        // O grupo 'api' padrão já inclui SubstituteBindings, e
+        // statefulApi() já injeta o pipeline completo do Sanctum
+        // (EncryptCookies, AddQueuedCookiesToResponse, StartSession,
+        // VerifyCsrfToken) para requests do frontend stateful — um
+        // grupo 'web-api' customizado duplicando essas mesmas
+        // middlewares por cima causava StartSession rodando duas vezes
+        // por request, corrompendo a sessão sob chamadas concorrentes
+        // (ex.: Dashboard disparando /parceiras e /campanhas juntos).
         $middleware->statefulApi();
         $middleware->append(SecurityHeaders::class);
         $middleware->append(RequestId::class);
