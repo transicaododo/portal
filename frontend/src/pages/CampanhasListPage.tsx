@@ -8,11 +8,19 @@ import {
 } from '../lib/campanhas';
 import Badge from '../components/Badge';
 import EmptyState from '../components/EmptyState';
+import Pagination from '../components/Pagination';
 import { LinkButton } from '../components/Button';
 import { useAuth } from '../lib/auth';
 import styles from './CampanhasListPage.module.css';
 
 const VALID_STATUS: CampanhaStatus[] = ['PLANEJADA', 'ATIVA', 'ENCERRADA', 'CANCELADA'];
+
+const STATUS_LABEL: Record<CampanhaStatus, string> = {
+  PLANEJADA: 'planejada',
+  ATIVA: 'ativa',
+  ENCERRADA: 'encerrada',
+  CANCELADA: 'cancelada',
+};
 
 export default function CampanhasListPage() {
   const { user } = useAuth();
@@ -58,8 +66,16 @@ export default function CampanhasListPage() {
 
       {campanhas?.length === 0 && (
         <EmptyState
-          title="Nenhuma campanha cadastrada"
-          message="Você ainda não possui campanhas cadastradas."
+          title={
+            statusFilter
+              ? `Nenhuma campanha ${STATUS_LABEL[statusFilter]}`
+              : 'Nenhuma campanha cadastrada'
+          }
+          message={
+            statusFilter
+              ? `Não há campanhas ${STATUS_LABEL[statusFilter]}s no momento.`
+              : 'Você ainda não possui campanhas cadastradas.'
+          }
         />
       )}
 
@@ -97,28 +113,13 @@ export default function CampanhasListPage() {
         </table>
       )}
 
-      {campanhas !== null && campanhas.length > 0 && lastPage > 1 && (
-        <div className={styles.pagination}>
-          <span className={styles.paginationInfo}>
-            página {page} de {lastPage}
-          </span>
-          <button
-            type="button"
-            className={styles.paginationButton}
-            disabled={page <= 1}
-            onClick={() => setPage((current) => current - 1)}
-          >
-            anterior
-          </button>
-          <button
-            type="button"
-            className={styles.paginationButton}
-            disabled={page >= lastPage}
-            onClick={() => setPage((current) => current + 1)}
-          >
-            próxima
-          </button>
-        </div>
+      {campanhas !== null && campanhas.length > 0 && (
+        <Pagination
+          page={page}
+          lastPage={lastPage}
+          onPrev={() => setPage((current) => current - 1)}
+          onNext={() => setPage((current) => current + 1)}
+        />
       )}
     </div>
   );

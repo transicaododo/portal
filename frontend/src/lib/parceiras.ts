@@ -1,6 +1,16 @@
 import { apiClient } from './apiClient';
+import type { BadgeTone } from '../components/Badge';
 
 export type ParceiraStatus = 'Ativa' | 'Inativa';
+
+const PARCEIRA_STATUS_TONE: Record<ParceiraStatus, BadgeTone> = {
+  Ativa: 'success',
+  Inativa: 'neutral',
+};
+
+export function parceiraStatusTone(status: ParceiraStatus): BadgeTone {
+  return PARCEIRA_STATUS_TONE[status];
+}
 
 export type Parceira = {
   id: number;

@@ -3,13 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import {
   aprovarParceira,
   getParceira,
+  parceiraStatusTone,
   reenviarConvite,
   reprovarParceira,
   type Parceira,
 } from '../lib/parceiras';
 import { listHistorico, type HistoricoAlteracao } from '../lib/historico';
 import { useAuth } from '../lib/auth';
-import StatusBadge from '../components/StatusBadge';
+import Badge from '../components/Badge';
 import Button, { LinkButton } from '../components/Button';
 import TextareaField from '../components/TextareaField';
 import styles from './ParceiraProfilePage.module.css';
@@ -120,7 +121,7 @@ export default function ParceiraProfilePage() {
         <div>
           <h2 className={styles.title}>{parceira.nome}</h2>
           <div className={styles.statusRow}>
-            <StatusBadge status={parceira.status} />
+            <Badge label={parceira.status} tone={parceiraStatusTone(parceira.status)} />
           </div>
         </div>
         <div className={styles.headerActions}>

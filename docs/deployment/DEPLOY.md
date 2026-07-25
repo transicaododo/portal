@@ -24,12 +24,24 @@
 > (`GOOGLE_DRIVE_CLIENT_ID`/`_CLIENT_SECRET`/`_REFRESH_TOKEN`), sem Shared
 > Drive. Ver `docs/adrs/ADR-017-oauth-conta-dedicada-google-drive.md` e
 > `docs/deployment/PLANO_DE_IMPLANTACAO.md` Etapa 5.
+>
+> **Nota de revisão (2026-07-23):** domínio e hospedagem mudaram desde que
+> este runbook foi escrito — rebranding "Estúdio Elã" → "Criativo Dodô",
+> domínio institucional `criativododo.com.br`, aplicação em
+> `portal.criativododo.com.br`, hospedagem **Locaweb Hospedagem II Linux**
+> (substitui o plano "Hospedagem Linux" original e o domínio
+> `influencia.estudioela.com` citados abaixo). A restrição soberana de
+> "zero custo recorrente adicional" citada no próximo parágrafo também foi
+> substituída — ver nota de revisão em `docs/deployment/ARQUITETURA_PRODUCAO.md`.
+> Passagens abaixo foram corrigidas para o valor vigente; menções
+> remanescentes ao domínio antigo são só contexto histórico explícito.
 
 Runbook operacional. Ver `docs/release/TEAR_V2.5_GO_LIVE_CHECKLIST.md` (raiz do
 repositório) para o checklist de prontidão e a lista de pendências P0/P1/P2, e
 `docs/deployment/ARQUITETURA_PRODUCAO.md` para a decisão de arquitetura por
-trás deste runbook (Locaweb Hospedagem Linux compartilhada, sem Docker/root —
-decisão soberana de custo zero, aprovada e definitiva em 2026-07-21).
+trás deste runbook (Locaweb Hospedagem II Linux compartilhada, sem Docker/root
+— decisão soberana de custo zero de 2026-07-21, superada em 2026-07-23 pela
+contratação real de domínio novo + Hospedagem II, ver nota de revisão acima).
 
 > **Nota de consolidação (2026-07-22):** este runbook já descreveu, em versão
 > anterior, um fluxo baseado em Docker Compose. Essa versão ficou obsoleta no
@@ -46,11 +58,16 @@ decisão soberana de custo zero, aprovada e definitiva em 2026-07-21).
 
 ## 1. Pré-requisitos
 
-- Hospedagem Locaweb Linux já contratada: acesso SSH, Crontab, PHP 8.3,
-  PostgreSQL gerenciado pelo próprio plano, SSL emitido pelo painel, Git.
-- Domínio: `influencia.estudioela.com` (subdomínio de `estudioela.com`,
-  definitivo desde 2026-07-22 — ver `docs/deployment/PLANO_DE_IMPLANTACAO.md`
-  Etapa 1), registro DNS isolado apontando para o host Locaweb.
+- Hospedagem Locaweb Hospedagem II Linux já contratada (2026-07-23): acesso
+  SSH, Crontab, PHP 8.3, PostgreSQL gerenciado pelo próprio plano — **plano
+  novo ainda não reconfirmado por evidência real (SSH/painel)**, ver
+  pendências —, SSL emitido pelo painel, Git.
+- Domínio: `portal.criativododo.com.br` (aplicação, sob o domínio
+  institucional `criativododo.com.br`, registrado 2026-07-23 — substitui
+  `influencia.estudioela.com`, decisão anterior de 2026-07-22 — ver
+  `docs/deployment/PLANO_DE_IMPLANTACAO.md` Etapa 1), registro DNS isolado
+  apontando para o host Locaweb (DNS ainda sem nameserver/registro A
+  confirmado — ver pendências).
 - Credenciais reais: banco gerenciado (host/porta/usuário/senha do painel),
   Google Drive (pasta comum + conta dedicada via OAuth — `ADR-017`,
   Material + backup), relay SMTP incluso no plano/domínio.
@@ -103,7 +120,7 @@ Não existe seed de admin em produção por padrão (`DevUserSeeder` só roda em
 ```bash
 php artisan admin:create \
   --name="Nome Completo" \
-  --email="admin@estudioela.com"
+  --email="admin@criativododo.com.br"
   # --password é opcional; se omitido, o comando pergunta de forma oculta
 ```
 
@@ -190,8 +207,10 @@ Agendar via crontab do host (retenção sugerida: 14 diários + 8 semanais):
 
 ## 9. O que este runbook não cobre (decisão externa, fora de escopo de código)
 
-- Escolha de domínio definitivo (subdomínio de `estudioela.com` já decidido
-  em arquitetura; string exata a confirmar na execução).
+- Domínio definitivo já escolhido (`portal.criativododo.com.br`, decisão de
+  2026-07-23) — falta apenas confirmar, por evidência real no painel, que o
+  domínio está vinculado à Hospedagem II contratada (DNS sem
+  nameserver/registro A na última verificação).
 - Provisionamento real do banco gerenciado, da conta dedicada OAuth do
   Google Drive (`ADR-017`) e dos secrets do GitHub Actions — passos
   manuais no painel Locaweb/Google Cloud/GitHub, detalhados em

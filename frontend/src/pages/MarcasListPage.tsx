@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listMarcasPage, type Marca } from '../lib/marcas';
+import { listMarcasPage, marcaStatusTone, type Marca } from '../lib/marcas';
 import { useAuth } from '../lib/auth';
 import EmptyState from '../components/EmptyState';
 import { LinkButton } from '../components/Button';
+import Badge from '../components/Badge';
+import Pagination from '../components/Pagination';
 import styles from './MarcasListPage.module.css';
 
 export default function MarcasListPage() {
@@ -59,7 +61,7 @@ export default function MarcasListPage() {
             {marcas.map((marca) => (
               <tr key={marca.id}>
                 <td>{marca.nome}</td>
-                <td>{marca.status}</td>
+                <td><Badge label={marca.status} tone={marcaStatusTone(marca.status)} /></td>
                 <td>{marca.contato_email ?? '—'}</td>
                 <td className={styles.actionCell}>
                   {isAdmin && (
@@ -74,28 +76,13 @@ export default function MarcasListPage() {
         </table>
       )}
 
-      {marcas !== null && marcas.length > 0 && lastPage > 1 && (
-        <div className={styles.pagination}>
-          <span className={styles.paginationInfo}>
-            página {page} de {lastPage}
-          </span>
-          <button
-            type="button"
-            className={styles.paginationButton}
-            disabled={page <= 1}
-            onClick={() => setPage((current) => current - 1)}
-          >
-            anterior
-          </button>
-          <button
-            type="button"
-            className={styles.paginationButton}
-            disabled={page >= lastPage}
-            onClick={() => setPage((current) => current + 1)}
-          >
-            próxima
-          </button>
-        </div>
+      {marcas !== null && marcas.length > 0 && (
+        <Pagination
+          page={page}
+          lastPage={lastPage}
+          onPrev={() => setPage((current) => current - 1)}
+          onNext={() => setPage((current) => current + 1)}
+        />
       )}
     </div>
   );

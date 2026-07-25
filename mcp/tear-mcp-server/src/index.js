@@ -6,6 +6,7 @@ const {
 } = require("@modelcontextprotocol/sdk/types.js");
 
 const { environmentStatus } = require("./tools/environment.js");
+const { designSystemContext } = require("./tools/design_system.js");
 
 const server = new Server(
   {
@@ -32,6 +33,15 @@ server.setRequestHandler(
         name: "tear_environment_status",
         description:
           "Retorna informações reais do ambiente atual do projeto TEAR.",
+        inputSchema: {
+          type: "object",
+          properties: {},
+        },
+      },
+      {
+        name: "tear_design_system",
+        description:
+          "Retorna o Design System Estúdio Elã vigente no projeto Influencia: tokens (Stitch export), tokens já implementados em frontend/src/index.css, UI_RULES.md e a lista de componentes React já implementados. Inclui aviso sobre a formalização pendente (ADR-002).",
         inputSchema: {
           type: "object",
           properties: {},

@@ -1,35 +1,35 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--sp-6);
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--sp-4);
   justify-content: space-between;
 }
 
 .title {
   font-size: 36px;
-  color: var(--color-on-surface);
-  margin-bottom: var(--space-2);
+  color: var(--color-text);
+  margin-bottom: var(--sp-2);
 }
 
 .subtitle {
   font-size: 15px;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .error {
   color: var(--color-on-error-container);
   background: var(--color-error-container);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--sp-3) var(--sp-4);
 }
 
 .loading {
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .table {
@@ -39,21 +39,21 @@
 }
 
 .table th {
-  font-family: var(--font-caption);
+  font-family: var(--font-text);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
-  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-muted);
+  padding: var(--sp-3) var(--sp-4);
   border-bottom: 1px solid var(--color-outline-strong);
 }
 
 .table td {
-  padding: var(--space-4);
+  padding: var(--sp-4);
   border-bottom: 1px solid var(--color-outline);
   font-size: 15px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .actionCell {
@@ -61,7 +61,7 @@
 }
 
 .actionLink {
-  color: var(--color-primary);
+  color: var(--color-action);
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.1em;

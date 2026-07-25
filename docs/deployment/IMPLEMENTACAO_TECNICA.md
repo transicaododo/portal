@@ -1,8 +1,13 @@
 # IMPLEMENTACAO_TECNICA.md — TEAR V2.5
 
-**Base:** `ARQUITETURA_PRODUCAO.md` (revisado, decisão definitiva
-2026-07-21 — Locaweb Hospedagem Linux, PostgreSQL gerenciado, deploy via
-GitHub Actions + SSH, zero custo recorrente adicional).
+**Base:** `ARQUITETURA_PRODUCAO.md` (decisão definitiva 2026-07-21 —
+Locaweb Hospedagem Linux, PostgreSQL gerenciado, deploy via GitHub
+Actions + SSH, zero custo recorrente adicional; **revisado em
+2026-07-23** — domínio `criativododo.com.br`/`portal.criativododo.com.br`
+e Locaweb Hospedagem II Linux substituem, respectivamente,
+`influencia.estudioela.com` e o plano "Hospedagem Linux" original, e a
+premissa de "zero custo recorrente adicional" deixou de valer — ver nota
+de revisão no topo daquele documento).
 **Escopo:** `tear-v2-app` (Laravel + Sanctum + Spatie Permission / React +
 Vite). Não cobre o legado GAS.
 **Natureza deste documento:** mapeamento técnico do que precisa mudar
@@ -16,16 +21,17 @@ pelo Laravel a partir de `public/build`, origem única — ver ADR-015
 resolve a lacuna que existia entre este documento (já assumia
 `public/build`) e o código (ainda não tinha a fiação).
 
-Arquitetura aprovada, resumida: Locaweb Hospedagem Linux (compartilhada,
-PHP 8.3, sem Docker/root) → PostgreSQL gerenciado pelo próprio plano →
-deploy via GitHub Actions (build do frontend no CI + job de deploy via
-SSH, `releases/` + symlink `current`) → Google Drive (pasta comum, conta
-dedicada via OAuth, também destino do backup) → SMTP incluso no
-plano/domínio → backup `pg_dump` + Crontab + upload para o Drive + alerta
-de e-mail nativo → subdomínio de `estudioela.com` → SSL do painel Locaweb
-→ CI (GitHub Actions, já existente) + CD (job novo de deploy via SSH) →
-monitoramento obrigatório (Pulse + alerta de e-mail nativo); Sentry/
-UptimeRobot/Healthchecks.io/R2/SMTP dedicado como melhorias opcionais.
+Arquitetura aprovada, resumida: Locaweb Hospedagem II Linux
+(compartilhada, PHP 8.3, sem Docker/root) → PostgreSQL gerenciado pelo
+próprio plano → deploy via GitHub Actions (build do frontend no CI + job
+de deploy via SSH, `releases/` + symlink `current`) → Google Drive (pasta
+comum, conta dedicada via OAuth, também destino do backup) → SMTP incluso
+no plano/domínio → backup `pg_dump` + Crontab + upload para o Drive +
+alerta de e-mail nativo → domínio `criativododo.com.br`
+(`portal.criativododo.com.br`) → SSL do painel Locaweb → CI (GitHub
+Actions, já existente) + CD (job novo de deploy via SSH) → monitoramento
+obrigatório (Pulse + alerta de e-mail nativo); Sentry/UptimeRobot/
+Healthchecks.io/R2/SMTP dedicado como melhorias opcionais.
 
 ---
 
@@ -86,10 +92,10 @@ A ordem segue dependência real:
 
 | Variável | Já existe no template? | Valor esperado na arquitetura aprovada |
 |---|---|---|
-| `APP_URL` | sim | `https://influencia.estudioela.com` (decisão definitiva de 2026-07-22, ver `PLANO_DE_IMPLANTACAO.md` Etapa 1 — já preenchido em `.env.production.example`) |
-| `FRONTEND_URL` | sim | `https://influencia.estudioela.com` |
-| `SANCTUM_STATEFUL_DOMAINS` | sim | `influencia.estudioela.com`, sem protocolo |
-| `SESSION_DOMAIN` | sim | `influencia.estudioela.com` (host exato, sem ponto inicial — não o domínio pai) |
+| `APP_URL` | sim | `https://portal.criativododo.com.br` (decisão vigente de 2026-07-23, ver `PLANO_DE_IMPLANTACAO.md` Etapa 1 revisada — substitui `influencia.estudioela.com`; já preenchido em `.env.production.example`) |
+| `FRONTEND_URL` | sim | `https://portal.criativododo.com.br` |
+| `SANCTUM_STATEFUL_DOMAINS` | sim | `portal.criativododo.com.br`, sem protocolo |
+| `SESSION_DOMAIN` | sim | `portal.criativododo.com.br` (host exato, sem ponto inicial — não o domínio pai) |
 | `DB_CONNECTION`/`HOST`/`PORT`/`DATABASE`/`USERNAME`/`PASSWORD` | sim | apontam para o **PostgreSQL gerenciado da Locaweb** (host/porta/credenciais do painel, obtidos na Etapa 3 do `PLANO_DE_IMPLANTACAO.md`) |
 | `MAIL_MAILER`/`MAIL_HOST`/`MAIL_PORT`/`MAIL_USERNAME`/`MAIL_PASSWORD` | sim | relay SMTP incluso no plano/domínio Locaweb |
 | `GOOGLE_DRIVE_CLIENT_ID` / `_CLIENT_SECRET` / `_REFRESH_TOKEN` / `_ROOT_FOLDER_ID` | sim | OAuth de conta dedicada — pessoal, sem Workspace (`ADR-017`) — não Service Account; `elafashionmkt-org` bloqueia Service Account Key via Org Policy |

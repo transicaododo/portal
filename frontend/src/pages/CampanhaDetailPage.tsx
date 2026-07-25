@@ -196,7 +196,7 @@ export default function CampanhaDetailPage() {
                       tone={participacaoStatusTone(participacao.status)}
                     />
                     {participacao.congelado_em && (
-                      <span className={styles.congeladaTag}>congelada</span>
+                      <Badge label="congelada" tone="neutral" />
                     )}
                   </td>
                   <td className={styles.actionCell}>

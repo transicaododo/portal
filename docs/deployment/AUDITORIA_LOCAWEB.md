@@ -297,6 +297,16 @@ implementada em `ADR-016` (variante diferente da opção B acima, ver nota
 no início desta seção): `tear-v2-deploy.yml`/`deploy-locaweb.sh` já
 refletem a mecânica adotada.
 
+**Atualização (2026-07-24):** SSH voltou a ficar bloqueado (porta 22 em
+timeout nos 3 alvos, sem ETA — `docs/_workspace/TASK_ROUTER.md`
+§55/§56/§60/§62), desta vez sem relação com a janela de habilitação
+manual que motivou a análise original acima. `ADR-016` permanece a
+decisão vigente para quando o SSH voltar. Enquanto o bloqueio persiste,
+uma variante temporária da opção (B) — só o caminho FTP, sem o SSH manual
+periódico — foi formalizada como contingência operacional em
+`docs/deployment/RUNBOOK_DEPLOY_E_ROLLBACK.md` §"Contingência: deploy
+manual via FTP". Isso não é uma reabertura de `ADR-016`.
+
 **Nenhuma dessas decisões bloqueia o restante da Etapa 2** (SSH, Composer,
 Postgres — itens de validação técnica). Elas bloqueiam especificamente a
 Etapas 9–11 (secrets/estrutura/primeiro deploy) do `PLANO_DE_IMPLANTACAO.md` e podem exigir

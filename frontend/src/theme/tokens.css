@@ -1,0 +1,71 @@
+/*
+  Tokens do Design System DODÔ — paleta oficial adotada em 2026-07-25
+  (laranja #f14f28 primária, roxo #504ea1 secundária). A aplicação React
+  servida em localhost:5173/127.0.0.1:8000 é a base oficial do produto;
+  não há mais protótipo estático separado.
+*/
+:root {
+  /* Papéis semânticos */
+  --color-bg: #f1ece5;
+  --color-surface: #ffffff;
+  --color-text: #171715;
+  --color-text-muted: #6b655c;
+  --color-outline: #b9af9e;
+  --color-outline-strong: #6b655c;
+  --color-action: #f14f28;
+  --color-action-hover: #8a2c15;
+  --color-action-contrast: #ffffff;
+  --color-highlight: #504ea1;
+  --color-highlight-hover: #2e2d63;
+  --color-accent: #daea49;
+
+  --color-error: #f14f28;
+  --color-error-container: #fbd9ce;
+  --color-on-error-container: #8a2c15;
+  --color-success: #1e5c22;
+  --color-success-container: #d7f0d8;
+
+  /* Tipografia */
+  --font-display: 'Elms Sans', sans-serif;
+  --font-text: 'Work Sans', sans-serif;
+  --weight-display: 700;
+  --weight-heading: 700;
+  --weight-body: 400;
+  --weight-emphasis: 600;
+
+  /* Espaçamento — escala idêntica à anterior (base 4), só renomeada */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* Raio (tokens.json → radius) */
+  --radius-field: 8px;
+  --radius-card: 14px;
+  --radius-block: 24px;
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --content-max: 1120px;
+  --grid-gutter: 24px;
+  --breakpoint-md: 768px;
+}
+
+@font-face {
+  font-family: 'Elms Sans';
+  src: url('../assets/fonts/ElmsSans.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../assets/fonts/WorkSans.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}

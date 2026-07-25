@@ -83,7 +83,7 @@ export default function AppShell() {
     <div className={styles.shell}>
       <nav className={styles.sidebar}>
         <div className={styles.brand}>
-          <img src="/elã-vermelho.svg" alt="ELÃ | influência" className={styles.wordmark} />
+          <img src="/horizontal-preto.svg" alt="criativo DODÔ." className={styles.wordmark} />
           <p className={styles.tagline}>Gestão de Influência</p>
         </div>
         <NavList className={styles.navListVertical} />
@@ -93,7 +93,7 @@ export default function AppShell() {
       </nav>
       <div className={styles.main}>
         <header className={styles.mobileTopBar}>
-          <img src="/elã-vermelho.svg" alt="ELÃ | influência" className={styles.wordmarkMobile} />
+          <img src="/horizontal-preto.svg" alt="criativo DODÔ." className={styles.wordmarkMobile} />
           <div className={styles.mobileUser}>
             <span className={styles.avatar}>{initials}</span>
             <button type="button" className={styles.logoutLink} onClick={onLogout}>

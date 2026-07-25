@@ -33,3 +33,7 @@ sources.json
 
 # Secrets
 .secrets/
+.audit/
+provisorios/
+*.bak
+*.backup*
