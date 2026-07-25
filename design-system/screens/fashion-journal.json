@@ -1,0 +1,22 @@
+{
+  "title": "Fashion Journal",
+  "slug": "fashion-journal",
+  "screenId": "93163f309ad74a9591ef5a4225c54c66",
+  "stitchResourceName": "projects/146458383206545482/screens/93163f309ad74a9591ef5a4225c54c66",
+  "device": "DESKTOP",
+  "width": 2560,
+  "height": 4372,
+  "screenshot": "design-system/images/fashion-journal.jpg",
+  "html": "design-system/code/fashion-journal.html",
+  "htmlSizeBytes": 21714,
+  "assetsAssociated": [
+    "design-system/assets/design-tokens-stitch.json"
+  ],
+  "componentsIdentified": [
+    "Sidebar",
+    "Table"
+  ],
+  "designSystemUsed": "Criativo DODÔ (assets/a45ed3305ad44bcf89616a913962d736)",
+  "exportDate": "2026-07-25",
+  "sourceProjectId": "146458383206545482"
+}

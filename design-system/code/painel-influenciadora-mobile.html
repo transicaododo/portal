@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Criativo DODÔ | Painel da Influenciadora</title>
+<style>
+  @font-face {
+    font-family: 'Elms Sans';
+    src: url('../assets/fonts/ElmsSans.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .circle-motif {
+            border-radius: 999px;
+        }
+        .scale-98:active {
+            transform: scale(0.98);
+        }
+        /* Custom scrollbar for clean editorial look */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1ECE5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E4DED2;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#504EA1",
+                    "on-error-container": "#8A2C15",
+                    "on-tertiary-container": "#2E2D63",
+                    "on-tertiary": "#FFFFFF",
+                    "surface-container-lowest": "#FFFFFF",
+                    "on-primary-fixed": "#8A2C15",
+                    "secondary-fixed-dim": "#B7B4E0",
+                    "inverse-primary": "#DAEA49",
+                    "text": "#171715",
+                    "secondary": "#504EA1",
+                    "on-primary": "#FFFFFF",
+                    "primary-container": "#E3E2F5",
+                    "on-primary-container": "#2E2D63",
+                    "surface-container-highest": "#FFFFFF",
+                    "surface-bright": "#F1ECE5",
+                    "on-error": "#FFFFFF",
+                    "secondary-fixed": "#E3E2F5",
+                    "outline": "#B9AF9E",
+                    "on-secondary": "#FFFFFF",
+                    "on-surface": "#171715",
+                    "on-secondary-fixed-variant": "#2E2D63",
+                    "error-container": "#FBD9CE",
+                    "accent-lime": "#DAEA49",
+                    "on-secondary-container": "#2E2D63",
+                    "on-tertiary-fixed": "#2E2D63",
+                    "surface-container-low": "#E7DED2",
+                    "primary-fixed": "#FBD9CE",
+                    "background": "#F1ECE5",
+                    "surface-dim": "#F1ECE5",
+                    "secondary-container": "#E3E2F5",
+                    "on-background": "#171715",
+                    "on-tertiary-fixed-variant": "#2E2D63",
+                    "on-surface-variant": "#6B655C",
+                    "error": "#F14F28",
+                    "surface-tint": "#F14F28",
+                    "surface-container": "#F1ECE5",
+                    "surface": "#F1ECE5",
+                    "tertiary-fixed": "#E3E2F5",
+                    "on-primary-fixed-variant": "#8A2C15",
+                    "tertiary-container": "#E3E2F5",
+                    "surface-variant": "#F1ECE5",
+                    "outline-variant": "#E4DED2",
+                    "tertiary-fixed-dim": "#8886C4",
+                    "surface-container-high": "#FFFFFF",
+                    "primary-fixed-dim": "#F14F28",
+                    "inverse-on-surface": "#F1ECE5",
+                    "on-secondary-fixed": "#2E2D63",
+                    "inverse-surface": "#171715",
+                    "primary": "#F14F28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "0.75rem",
+                    "xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "16px",
+                    "section-gap": "48px",
+                    "container-padding": "16px",
+                    "base": "4px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "20px",
+                    "gutter-desktop": "24px"
+            },
+            "fontFamily": {
+                    "display": ["Elms Sans"],
+                    "headline-md": ["Elms Sans"],
+                    "micro": ["Work Sans"],
+                    "body-sm": ["Work Sans"],
+                    "label": ["Work Sans"],
+                    "headline-lg": ["Elms Sans"],
+                    "headline-lg-mobile": ["Elms Sans"],
+                    "button": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "caption": ["Work Sans"],
+                    "headline-sm": ["Elms Sans"],
+                    "lead": ["Work Sans"],
+                    "body": ["Work Sans"]
+            },
+            "fontSize": {
+                    "display": ["72px", {"lineHeight": "80px", "fontWeight": "700"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "micro": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label": ["13px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "button": ["14px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "lead": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "body": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen pb-24">
+<!-- Top Navigation Placeholder (Fixed Mobile Header) -->
+<header class="sticky top-0 z-40 bg-background/80 backdrop-blur-md px-margin-mobile py-6 flex justify-between items-center">
+<h1 class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary">Criativo DODÔ</h1>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-on-surface-variant">notifications</button>
+<div class="w-10 h-10 circle-motif bg-surface-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional and stylish headshot of a female digital influencer with a creative flair. She has soft, warm lighting illuminating her face against a minimalist cream-colored studio background. Her expression is welcoming and confident, reflecting a modern editorial aesthetic with high-quality fashion photography vibes. The composition is a close-up circle-cropped portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnlTaNV1PVuuFL6SarqPKgFt_kI6cmGbedKMKLwioBQuXV9egThdzxYWiMrYnAgQWyoHpWLTNq9QQRktSBi3crLWC6sqv05nGJSxuvuzAZKfcUEUDYlHApKhWLXxcBKGvxyLuLUuu60MQcn_6l2KOKYFpGYMBOQFl8Ly6bqV4SgftrCPvZFk_jApkd8wkB7kLLUsrSPm2BEiPyMuGKzjSGGekrlgMbOHl3entmLh1y1-O7NQ98W9BC1gkdE6BlIw2a-MZjO1sPKQ">
+</div>
+</div>
+</header>
+<main class="px-margin-mobile max-w-lg mx-auto">
+<!-- Welcome Section -->
+<section class="mt-8 mb-12">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-primary circle-motif"></span>
+<p class="font-label text-label text-on-surface-variant uppercase tracking-widest">Dashboard</p>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface leading-tight">Olá, <br>Mariana Costa</h2>
+<p class="font-body text-body text-on-surface-variant mt-2 max-w-[85%]">Confira o andamento das suas campanhas e novas oportunidades para hoje.</p>
+</section>
+<!-- Quick Stats Bento Grid -->
+<section class="grid grid-cols-2 gap-4 mb-section-gap">
+<div class="bg-surface p-6 rounded-xl border border-outline-variant flex flex-col justify-between h-32">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+<div>
+<p class="font-label text-label text-on-surface-variant">Engajamento</p>
+<p class="font-headline-sm text-headline-sm">4.8%</p>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-xl border border-outline-variant flex flex-col justify-between h-32">
+<span class="material-symbols-outlined text-primary">payments</span>
+<div>
+<p class="font-label text-label text-on-surface-variant">Saldo</p>
+<p class="font-headline-sm text-headline-sm">R$ 2.4k</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<div class="mb-section-gap">
+<button class="w-full bg-primary text-on-primary font-button text-button py-4 rounded-xl flex items-center justify-center gap-2 shadow-sm scale-98 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+                Novo Projeto
+            </button>
+</div>
+<!-- Campaigns Section -->
+<section class="mb-section-gap">
+<div class="flex justify-between items-end mb-6">
+<h3 class="font-headline-sm text-headline-sm">Campanhas</h3>
+<a class="font-label text-label text-primary flex items-center gap-1" href="#">Ver todas <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<!-- Campaign List -->
+<div class="space-y-4">
+<!-- Campaign Item 1 -->
+<div class="bg-surface p-5 rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 circle-motif bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-body text-body font-semibold">Lançamento Verão '24</h4>
+<p class="font-caption text-caption text-on-surface-variant">Marca: Aura Studio</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-secondary/10 text-secondary font-label text-label circle-motif border border-secondary/20">Ativa</span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-outline-variant">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 circle-motif border-2 border-surface bg-slate-200"></div>
+<div class="w-8 h-8 circle-motif border-2 border-surface bg-slate-300"></div>
+</div>
+<p class="font-caption text-caption text-on-surface-variant">Próxima entrega: <strong>Amanhã</strong></p>
+</div>
+</div>
+<!-- Campaign Item 2 -->
+<div class="bg-surface p-5 rounded-xl border border-outline-variant opacity-80">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 circle-motif bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<h4 class="font-body text-body font-semibold">Review Tech Hub</h4>
+<p class="font-caption text-caption text-on-surface-variant">Marca: Connect+ </p>
+</div>
+</div>
+<span class="px-3 py-1 bg-outline-variant/30 text-on-surface-variant font-label text-label circle-motif">Finalizada</span>
+</div>
+</div>
+<!-- Campaign Item 3 -->
+<div class="bg-surface p-5 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 circle-motif bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">hourglass_empty</span>
+</div>
+<div>
+<h4 class="font-body text-body font-semibold">Shoot Campanha Outono</h4>
+<p class="font-caption text-caption text-on-surface-variant">Marca: Urban Chic</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary font-label text-label circle-motif border border-primary/20">Pendente</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Divider Accent -->
+<div class="flex justify-center py-8 opacity-20">
+<span class="text-on-surface-variant font-headline-sm">Ô</span>
+</div>
+<!-- News/Tips Section -->
+<section class="mb-section-gap">
+<div class="bg-surface-container-low rounded-2xl overflow-hidden relative">
+<div class="p-8 z-10 relative">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Dica de hoje</h3>
+<p class="font-body text-body text-on-surface-variant mb-6">Como melhorar a iluminação para vídeos de unboxing em ambientes internos.</p>
+<button class="bg-on-surface text-surface font-button text-button px-6 py-2 rounded-full scale-98 transition-all">Ler Guia</button>
+</div>
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[120px]">lightbulb</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface flex justify-around items-center px-gutter-mobile py-3 shadow-[0_-1px_10px_rgba(23,23,21,0.04)] border-t border-outline-variant">
+<!-- Home / Início (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-2 transition-all duration-150 scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label text-label mt-1">Início</span>
+</a>
+<!-- Jobs -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest px-4 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="work_outline">work_outline</span>
+<span class="font-label text-label mt-1">Jobs</span>
+</a>
+<!-- Metrics / Métricas -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest px-4 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label text-label mt-1">Métricas</span>
+</a>
+<!-- Profile / Perfil -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest px-4 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label text-label mt-1">Perfil</span>
+</a>
+</nav>
+<!-- Simple Micro-interaction script -->
+<script>
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Prevent default for demo
+                e.preventDefault();
+                
+                // Clear active states
+                document.querySelectorAll('nav a').forEach(l => {
+                    l.classList.remove('bg-primary-container', 'text-on-primary-container', 'scale-95');
+                    l.classList.add('text-on-surface-variant');
+                    const icon = l.querySelector('.material-symbols-outlined');
+                    if(icon) icon.style.fontVariationSettings = "'FILL' 0";
+                });
+                
+                // Set active
+                this.classList.add('bg-primary-container', 'text-on-primary-container', 'scale-95');
+                this.classList.remove('text-on-surface-variant');
+                const icon = this.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+
+        // Simple Fade-in Animation for items
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('section, .bg-surface');
+            items.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(10px)';
+                item.style.transition = `all 0.4s ease ${index * 0.05}s`;
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 50);
+            });
+        });
+    </script>
+</body></html>

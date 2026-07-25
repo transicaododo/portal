@@ -1,0 +1,437 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Briefing de Campanha | Criativo DODÔ</title>
+<style>
+  @font-face {
+    font-family: 'Elms Sans';
+    src: url('../assets/fonts/ElmsSans.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#F1ECE5",
+                        "on-secondary-fixed": "#2E2D63",
+                        "surface-container": "#F1ECE5",
+                        "on-error": "#FFFFFF",
+                        "outline-variant": "#E4DED2",
+                        "tertiary-fixed-dim": "#8886C4",
+                        "inverse-on-surface": "#F1ECE5",
+                        "on-error-container": "#8A2C15",
+                        "secondary-container": "#E3E2F5",
+                        "on-background": "#171715",
+                        "secondary-fixed": "#E3E2F5",
+                        "on-primary-fixed-variant": "#8A2C15",
+                        "tertiary": "#504EA1",
+                        "error-container": "#FBD9CE",
+                        "inverse-surface": "#171715",
+                        "surface-container-low": "#E7DED2",
+                        "tertiary-fixed": "#E3E2F5",
+                        "on-secondary-fixed-variant": "#2E2D63",
+                        "on-tertiary-fixed-variant": "#2E2D63",
+                        "on-surface-variant": "#6B655C",
+                        "surface-container-high": "#FFFFFF",
+                        "on-secondary-container": "#2E2D63",
+                        "error": "#F14F28",
+                        "surface-variant": "#F1ECE5",
+                        "primary-fixed-dim": "#F14F28",
+                        "tertiary-container": "#E3E2F5",
+                        "on-tertiary-container": "#2E2D63",
+                        "surface-bright": "#F1ECE5",
+                        "outline": "#B9AF9E",
+                        "on-surface": "#171715",
+                        "primary": "#F14F28",
+                        "primary-fixed": "#FBD9CE",
+                        "surface-container-highest": "#FFFFFF",
+                        "surface": "#F1ECE5",
+                        "on-primary": "#FFFFFF",
+                        "on-primary-fixed": "#8A2C15",
+                        "on-primary-container": "#2E2D63",
+                        "surface-tint": "#F14F28",
+                        "text": "#171715",
+                        "background": "#F1ECE5",
+                        "on-tertiary": "#FFFFFF",
+                        "secondary-fixed-dim": "#B7B4E0",
+                        "on-secondary": "#FFFFFF",
+                        "surface-container-lowest": "#FFFFFF",
+                        "inverse-primary": "#DAEA49",
+                        "secondary": "#504EA1",
+                        "on-tertiary-fixed": "#2E2D63",
+                        "primary-container": "#E3E2F5",
+                        "accent-lime": "#DAEA49"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1.25rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "16px",
+                        "base": "4px",
+                        "margin-mobile": "20px",
+                        "section-gap": "48px",
+                        "margin-desktop": "32px",
+                        "gutter-desktop": "24px",
+                        "gutter-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Elms Sans"],
+                        "headline-lg": ["Elms Sans"],
+                        "label": ["Work Sans"],
+                        "body": ["Work Sans"],
+                        "headline-sm": ["Elms Sans"],
+                        "button": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "700"}],
+                        "label": ["13px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "button": ["14px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            background-color: #F1ECE5; /* Standard brand background */
+            color: #171715;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #B9AF9E;
+            border-radius: 10px;
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .circumflex-divider::after {
+            content: 'Ô';
+            display: block;
+            text-align: center;
+            font-family: 'Elms Sans';
+            font-weight: 700;
+            font-size: 24px;
+            margin: 48px 0;
+            color: #F14F28;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="font-body text-body">
+<!-- Desktop SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 border-r border-outline-variant bg-surface flex flex-col p-base z-40 hidden md:flex">
+<div class="px-margin-desktop py-6">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Criativo DODÔ</h1>
+<p class="text-on-surface-variant font-label text-label">Admin Panel</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-8">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label text-label">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-bold border-r-2 border-secondary bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label text-label">Campanhas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label text-label">Influenciadoras</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label text-label">Relatórios</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-label">Configurações</span>
+</a>
+</nav>
+<div class="px-4 py-6 border-t border-outline-variant space-y-2">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-button text-button hover:opacity-90 active:scale-95 transition-all mb-4">
+                Novo Projeto
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label text-label">Suporte</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label text-label">Sair</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-64 min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-background sticky top-0 z-30">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-[1240px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary md:hidden">Criativo DODÔ</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body text-body text-on-surface-variant hover:text-primary transition-all" href="#">Visão Geral</a>
+<a class="font-body text-body text-primary border-b border-primary" href="#">Briefing</a>
+<a class="font-body text-body text-on-surface-variant hover:text-primary transition-all" href="#">Arquivos</a>
+<a class="font-body text-body text-on-surface-variant hover:text-primary transition-all" href="#">Equipe</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait-style profile avatar of a creative professional in a circular frame. The subject is a woman with glasses, looking friendly, against a soft cream-colored background that matches the brand aesthetic. High-quality editorial studio lighting, minimalist composition, soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWCb2Bz5ouz4tOhmY7eF3s3YILCnLqp-0CCXuCKCPttRrqbwnN14DsO5Cf8HFXJVgw2UbrrQlJaqHYvetRJ0Rgh90yjWWY4TT6XFOLntfNLjCN6VfZvFsurh_R_rS2mgtQtCogkKz8mSk2R2RaPR7YKNjv4zJNVa5tRJTqMjGOmCbPovuPETGLnAMRTPxFREvZajbkpWBLCDY1nCeyYbuSmhoWUSyuLumah3ema9BGZ0sgQSi_DtVT8ab_3SskyAYNMaSXgH2mPQ">
+</div>
+</div>
+</div>
+</header>
+<!-- Briefing Content -->
+<article class="max-w-[800px] mx-auto px-margin-mobile md:px-margin-desktop mt-12 mb-32">
+<!-- Header Section -->
+<section class="mb-16">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-accent-lime text-on-surface rounded-full font-label text-label uppercase tracking-widest">Briefing</span>
+<span class="text-on-surface-variant font-label text-label">Ver. 1.2 — Ago 2024</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-text tracking-tight leading-tight mb-4">
+                    Luminous Beauty Summer: <br>The Radiant Collective
+                </h1>
+<p class="font-lead text-lead text-on-surface-variant max-w-xl">
+                    Uma campanha editorial focada na celebração da pele real sob o sol de verão, unindo sofisticação minimalista e autenticidade.
+                </p>
+</section>
+<div class="circumflex-divider"></div>
+<!-- Objectives -->
+<section class="mb-24">
+<h2 class="font-headline-sm text-headline-sm text-text mb-8 flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                    Objetivos Centrais
+                </h2>
+<div class="space-y-6">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed italic border-l-4 border-secondary-container pl-6">
+                        "Posicionar a Luminous como a marca definitiva para o 'glow' natural de verão, focando na facilidade de uso e durabilidade dos produtos em climas tropicais."
+                    </p>
+<ul class="space-y-4 pt-4">
+<li class="flex items-start gap-4 font-body text-body">
+<span class="mt-2 w-1.5 h-1.5 rounded-full bg-text flex-shrink-0"></span>
+<span>Aumentar o awareness da linha 'Sun Drenched' entre o público de 25-40 anos.</span>
+</li>
+<li class="flex items-start gap-4 font-body text-body">
+<span class="mt-2 w-1.5 h-1.5 rounded-full bg-text flex-shrink-0"></span>
+<span>Gerar 500k de impressões orgânicas através de conteúdos nativos de alta estética.</span>
+</li>
+<li class="flex items-start gap-4 font-body text-body">
+<span class="mt-2 w-1.5 h-1.5 rounded-full bg-text flex-shrink-0"></span>
+<span>Enfatizar os benefícios do ácido hialurônico presente na fórmula.</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Moodboard (Bento Grid) -->
+<section class="mb-24">
+<h2 class="font-headline-sm text-headline-sm text-text mb-8">Visual Moodboard</h2>
+<div class="grid grid-cols-6 grid-rows-2 gap-4 h-[600px]">
+<div class="col-span-4 row-span-2 rounded-xl overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A high-fashion editorial photograph of a model with glowing, sun-kissed skin during golden hour. The lighting is warm and directional, creating long shadows. The overall aesthetic is minimalist, featuring a soft cream background and natural textures. The mood is serene and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0BuebeMb_ZRS3_Okn1vR05fNot3TLhHYUiddSyZYVKfQZgzHoEiVMdbfIL1_gY6Y5711XPk7QzYGv_1UIU7ocEkXRVCzKcSWToP1C97pS5T4kHY3ZvbUeNaq1lECxAScaxBse-px4bLQnOQY4i5N9pvj1NGjcdXz4GUrfnWwCnT7wr-a5GD4giu4kN-00A5fhSdEjSakaMGJfAwETepXKQ4RZSe4qhKA5iVkPijZzWJt7k3mBCw39MZvIm44-oXvwYJvMMIjGdA">
+</div>
+<div class="col-span-2 row-span-1 rounded-full overflow-hidden border-2 border-background">
+<img class="w-full h-full object-cover" data-alt="A close-up macro shot of liquid beauty product with iridescent particles, reflecting sunlight. The texture is viscous and luxurious, with soft bokeh in the background. Colors are warm gold, champagne, and cream. The lighting is bright and summery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB139Udf3nT7dyqWTfdJVGE3SDTlET09RfufUHZMe2UmuhO7Euzg6Nj8VulsVTMxuMAGOFZm40HjG92ZRUXRj8S9SraPMM2h9OYs488n4TX2zBjCQf3OQMCSFVtMhtcv_JXPWydxacJ5fquQvz23CHc10qxqm-z-ObyafPM9pdKgnbxcTikelD52emvWCR4aVtMmoDSAiCjUhCEy-nurfOulka3Wl6uq_jYVQMpaDPH7Z9jXcebsWWPh5q5Te7CyMT1ds5HG5sOUQ">
+</div>
+<div class="col-span-2 row-span-1 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An architectural detail of a minimalist Mediterranean villa. Clean white lines against a deep blue sky. Soft shadows cast by a palm leaf. The lighting is crisp and high-contrast, evoking a luxury summer atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDND0McQGSQj1O8Nye061DlUogMLYRDm5FoxEvYvFM9TKIpDz__g5G7dIURqwd2M00dhshjN-2be4114e2Gq4fqCzx0vRsODJ8llX3X1N6i6lutnG_v56-CwKYumalpDhf54gUvE8E8qTdP5l7KwMpxWuLj85uiYadbdHYHJLzKLIfLPaVIdaUS5DVNE2fL0Ws4IPEbZlQQVSgXq6l4TPc03CRHonJcjLyC46YuW9bvPLmkFba7o2B8-HU4IR_guUm361HHdV4kkA">
+</div>
+</div>
+<p class="mt-4 font-caption text-caption text-on-surface-variant text-center">Referência: Luz natural, tons quentes, texturas orgânicas e minimalismo mediterrâneo.</p>
+</section>
+<div class="circumflex-divider"></div>
+<!-- Brand Guidelines -->
+<section class="mb-24">
+<h2 class="font-headline-sm text-headline-sm text-text mb-8">Diretrizes da Marca</h2>
+<div class="grid md:grid-cols-2 gap-12">
+<div>
+<h3 class="font-label text-label uppercase tracking-widest text-primary mb-4">Tom de Voz</h3>
+<p class="font-body text-body text-on-surface leading-relaxed">
+                            Sofisticado mas acessível. Evite termos excessivamente técnicos. Fale como uma amiga especialista em beleza que valoriza o tempo e a saúde da pele. O silêncio e o espaço nas legendas são bem-vindos.
+                        </p>
+</div>
+<div>
+<h3 class="font-label text-label uppercase tracking-widest text-secondary mb-4">Visual Mandatory</h3>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li>• Logotipo aplicado de forma sutil no canto superior.</li>
+<li>• Sem filtros pesados; manter a textura natural da pele.</li>
+<li>• Paleta de cores: Cremes, Ouros e Terracotas.</li>
+<li>• Tipografia: Work Sans ou similar (limpa).</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Deliverables -->
+<section class="mb-24 p-8 bg-surface-container-low rounded-2xl border border-outline-variant">
+<h2 class="font-headline-sm text-headline-sm text-text mb-8">Entregáveis</h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-4 border-b border-outline-variant">
+<div>
+<p class="font-body text-body font-bold text-text">01. Pack de Reels: "Summer Routine"</p>
+<p class="font-caption text-caption text-on-surface-variant">Vídeo de 15-30s com transições suaves e trilha lo-fi.</p>
+</div>
+<span class="font-label text-label px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-lg">3 Unidades</span>
+</div>
+<div class="flex items-center justify-between py-4 border-b border-outline-variant">
+<div>
+<p class="font-body text-body font-bold text-text">02. Story Set: "Deep Dive"</p>
+<p class="font-caption text-caption text-on-surface-variant">Sequência de 5 stories explicando os ativos dos produtos.</p>
+</div>
+<span class="font-label text-label px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-lg">2 Sets</span>
+</div>
+<div class="flex items-center justify-between py-4">
+<div>
+<p class="font-body text-body font-bold text-text">03. Static Post: "Hero Shot"</p>
+<p class="font-caption text-caption text-on-surface-variant">Foto editorial do produto em contexto de uso.</p>
+</div>
+<span class="font-label text-label px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-lg">1 Foto</span>
+</div>
+</div>
+</section>
+<!-- Timeline -->
+<section class="mb-24">
+<h2 class="font-headline-sm text-headline-sm text-text mb-8">Cronograma</h2>
+<div class="relative pl-8 border-l-2 border-outline-variant space-y-12">
+<div class="relative">
+<span class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-background"></span>
+<p class="font-label text-label text-primary font-bold">15 AGO</p>
+<h4 class="font-body text-body font-bold text-text">Envio dos Produtos</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Logística internacional para os criadores selecionados.</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-outline-variant border-4 border-background"></span>
+<p class="font-label text-label text-on-surface-variant">22 AGO</p>
+<h4 class="font-body text-body font-bold text-text">Aprovação de Roteiros</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Submissão dos conceitos criativos via plataforma.</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-outline-variant border-4 border-background"></span>
+<p class="font-label text-label text-on-surface-variant">05 SET</p>
+<h4 class="font-body text-body font-bold text-text">Lançamento Oficial</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Início da veiculação coordenada em todas as redes.</p>
+</div>
+</div>
+</section>
+<!-- References & Attachments -->
+<section class="mb-24">
+<h2 class="font-headline-sm text-headline-sm text-text mb-6">Referências e Arquivos</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<a class="flex items-center gap-4 p-4 border border-outline-variant rounded-xl hover:bg-surface-container-low transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">attachment</span>
+</div>
+<div class="flex-1">
+<p class="font-label text-label font-bold text-text">Guia_Visual_Luminous.pdf</p>
+<p class="font-caption text-caption text-on-surface-variant">4.2 MB • PDF</p>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">download</span>
+</a>
+<a class="flex items-center gap-4 p-4 border border-outline-variant rounded-xl hover:bg-surface-container-low transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">link</span>
+</div>
+<div class="flex-1">
+<p class="font-label text-label font-bold text-text">Pasta de Assets (Cloud)</p>
+<p class="font-caption text-caption text-on-surface-variant">Acesso a logos e fontes.</p>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">open_in_new</span>
+</a>
+</div>
+</section>
+<!-- Feedback Form -->
+<section class="mb-32 p-8 border-2 border-dashed border-outline-variant rounded-2xl">
+<h2 class="font-headline-sm text-headline-sm text-text mb-2">Dúvidas ou Sugestões?</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">O time criativo responderá em até 24h úteis.</p>
+<form class="space-y-4">
+<textarea class="w-full bg-background border border-outline-variant rounded-xl p-4 font-body text-body focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" placeholder="Escreva sua pergunta aqui..." rows="3"></textarea>
+<div class="flex justify-end">
+<button class="bg-text text-background px-8 py-3 rounded-xl font-button text-button hover:opacity-90 active:scale-95 transition-all" type="submit">
+                            Enviar Clarificação
+                        </button>
+</div>
+</form>
+</section>
+</article>
+</main>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-2 bg-surface border-t border-outline-variant shadow-sm rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label text-label">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">work_outline</span>
+<span class="font-label text-label">Jobs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label text-label">Métricas</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-label">Perfil</span>
+</a>
+</nav>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple visibility observer for scroll reveal effects
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(section);
+        });
+    </script>
+</body></html>

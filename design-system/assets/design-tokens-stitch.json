@@ -1,0 +1,156 @@
+{
+  "bodyFont": "WORK_SANS",
+  "bodyFontFamily": "Work Sans",
+  "colorMode": "LIGHT",
+  "colorVariant": "FIDELITY",
+  "customColor": "#f14f28",
+  "font": "BE_VIETNAM_PRO",
+  "headlineFont": "BE_VIETNAM_PRO",
+  "headlineFontFamily": "Be Vietnam Pro",
+  "labelFont": "WORK_SANS",
+  "labelFontFamily": "Work Sans",
+  "overridePrimaryColor": "#f14f28",
+  "overrideSecondaryColor": "#504ea1",
+  "roundness": "ROUND_EIGHT",
+  "spacingScale": 2,
+  "namedColors": {
+    "accent-lime": "#DAEA49",
+    "background": "#EFE7DC",
+    "error": "#ba1a1a",
+    "error_container": "#ffdad6",
+    "inverse_on_surface": "#ffede9",
+    "inverse_primary": "#ffb4a3",
+    "inverse_surface": "#3e2c28",
+    "on_background": "#271814",
+    "on_error": "#ffffff",
+    "on_error_container": "#93000a",
+    "on_primary": "#ffffff",
+    "on_primary_container": "#fffbff",
+    "on_primary_fixed": "#3d0700",
+    "on_primary_fixed_variant": "#8a1c00",
+    "on_secondary": "#ffffff",
+    "on_secondary_container": "#393689",
+    "on_secondary_fixed": "#100563",
+    "on_secondary_fixed_variant": "#3e3c8e",
+    "on_surface": "#271814",
+    "on_surface_variant": "#5b403a",
+    "on_tertiary": "#ffffff",
+    "on_tertiary_container": "#fcfcff",
+    "on_tertiary_fixed": "#001e2e",
+    "on_tertiary_fixed_variant": "#004c6c",
+    "outline": "#8f7068",
+    "outline_variant": "#e4beb5",
+    "primary": "#b02600",
+    "primary_container": "#d63c16",
+    "primary_fixed": "#ffdad2",
+    "primary_fixed_dim": "#ffb4a3",
+    "secondary": "#5655a8",
+    "secondary_container": "#a7a5ff",
+    "secondary_fixed": "#e2dfff",
+    "secondary_fixed_dim": "#c3c0ff",
+    "surface": "#fff8f6",
+    "surface_bright": "#fff8f6",
+    "surface_container": "#ffe9e4",
+    "surface_container_high": "#ffe2db",
+    "surface_container_highest": "#f9dcd6",
+    "surface_container_low": "#fff0ed",
+    "surface_container_lowest": "#ffffff",
+    "surface_dim": "#f0d4cd",
+    "surface_tint": "#b52700",
+    "surface_variant": "#f9dcd6",
+    "tertiary": "#00628a",
+    "tertiary_container": "#007dad",
+    "tertiary_fixed": "#c6e7ff",
+    "tertiary_fixed_dim": "#83cfff",
+    "text": "#171715"
+  },
+  "spacing": {
+    "base": "4px",
+    "container-padding": "16px",
+    "gutter-desktop": "24px",
+    "gutter-mobile": "16px",
+    "margin-desktop": "32px",
+    "margin-mobile": "20px",
+    "section-gap": "48px"
+  },
+  "typography": {
+    "body": {
+      "fontFamily": "Work Sans",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "24px"
+    },
+    "body-lg": {
+      "fontFamily": "Work Sans",
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "lineHeight": "28px"
+    },
+    "body-sm": {
+      "fontFamily": "Work Sans",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "lineHeight": "20px"
+    },
+    "button": {
+      "fontFamily": "Work Sans",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "16px"
+    },
+    "caption": {
+      "fontFamily": "Work Sans",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "lineHeight": "16px"
+    },
+    "display": {
+      "fontFamily": "Be Vietnam Pro",
+      "fontSize": "72px",
+      "fontWeight": "700",
+      "lineHeight": "80px"
+    },
+    "headline-lg": {
+      "fontFamily": "Be Vietnam Pro",
+      "fontSize": "48px",
+      "fontWeight": "700",
+      "lineHeight": "56px"
+    },
+    "headline-lg-mobile": {
+      "fontFamily": "Be Vietnam Pro",
+      "fontSize": "32px",
+      "fontWeight": "700",
+      "lineHeight": "40px"
+    },
+    "headline-md": {
+      "fontFamily": "Be Vietnam Pro",
+      "fontSize": "32px",
+      "fontWeight": "700",
+      "lineHeight": "40px"
+    },
+    "headline-sm": {
+      "fontFamily": "Be Vietnam Pro",
+      "fontSize": "24px",
+      "fontWeight": "700",
+      "lineHeight": "32px"
+    },
+    "label": {
+      "fontFamily": "Work Sans",
+      "fontSize": "13px",
+      "fontWeight": "500",
+      "lineHeight": "16px"
+    },
+    "lead": {
+      "fontFamily": "Work Sans",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "lineHeight": "30px"
+    },
+    "micro": {
+      "fontFamily": "Work Sans",
+      "fontSize": "11px",
+      "fontWeight": "500",
+      "lineHeight": "14px"
+    }
+  }
+}
