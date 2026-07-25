@@ -790,7 +790,16 @@ tr:last-child td { border-bottom: none; }
                 <p class="manual-callout__text">esta não é uma regra isolada: o guia de tom de voz verbal da agência já define a mesma prática para toda comunicação da Dodô — Instagram, site, e-mails. a regra que passa a valer para a interface do produto estende, para dentro da tela, um princípio que a marca já pratica na própria voz.</p>
               </div>
             </div>
-            <p style="font-size:13.5px; color:var(--color-text-muted);">isto é princípio, não implementação — como ele se traduz em token de CSS (<code>text-transform</code> ou equivalente) é decisão de uma etapa posterior de definição de tokens técnicos.</p>
+
+            <p><strong>decisão do responsável (2026-07-25) — regra de capitalização, obrigatória:</strong> a regra se aplica a todo texto de interface — títulos, subtítulos, labels, botões, badges, menus, breadcrumbs, placeholders, mensagens, notificações, estados vazios, tooltips, modais, tabelas, cabeçalhos, qualquer string visível na tela. sentence case significa maiúscula só na primeira letra da frase, nunca em cada palavra — nunca title case. mantêm capitalização própria apenas nomes de pessoas, nomes de marcas, nomes oficiais e siglas.</p>
+            <div class="manual-callout manual-callout--boa-pratica">
+              <div class="manual-callout__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14 L12 8 L17 14"/><circle cx="12" cy="17.5" r=".6" fill="currentColor" stroke="none"/></svg></div>
+              <div class="manual-callout__body">
+                <p class="manual-callout__label">correto × incorreto</p>
+                <p class="manual-callout__text">"bom dia, Amanda!" · "nova campanha" · "enviar briefing" · "alterar senha" · "portal de marcas" (corretos — Amanda é nome próprio, o resto é sentence case) &nbsp;/&nbsp; "Bom Dia, Amanda!" · "Nova Campanha" · "Portal De Marcas" (incorretos — title case).</p>
+              </div>
+            </div>
+            <p style="font-size:13.5px; color:var(--color-text-muted);">a aplicação em texto de interface (acima) é regra obrigatória a partir de 2026-07-25, vale para toda string nova ou tocada em qualquer sprint, mesmo fora do escopo imediato, desde que a correção seja só de capitalização e não altere comportamento. como o princípio se traduz em token formal de CSS (<code>text-transform</code> ou equivalente, para os casos de estilo visual) segue como decisão de uma etapa posterior de definição de tokens técnicos.</p>
           </div>
         </details>
       </section>
