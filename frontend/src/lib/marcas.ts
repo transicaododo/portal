@@ -1,6 +1,16 @@
 import { apiClient } from './apiClient';
+import type { BadgeTone } from '../components/Badge';
 
 export type MarcaStatus = 'Ativa' | 'Inativa';
+
+const MARCA_STATUS_TONE: Record<MarcaStatus, BadgeTone> = {
+  Ativa: 'success',
+  Inativa: 'neutral',
+};
+
+export function marcaStatusTone(status: MarcaStatus): BadgeTone {
+  return MARCA_STATUS_TONE[status];
+}
 
 export type Marca = {
   id: number;

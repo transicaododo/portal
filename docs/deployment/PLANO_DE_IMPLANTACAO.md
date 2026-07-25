@@ -15,10 +15,20 @@
   refletir o estado real do código em 2026-07-22 (ver §0).
 - **Não reavalia nenhuma decisão de arquitetura.** Decisões já fechadas e
   não reabertas aqui: `docs/deployment/ARQUITETURA_PRODUCAO.md` (Locaweb
-  Hospedagem Linux compartilhada, sem Docker/root, PostgreSQL gerenciado,
-  deploy via GitHub Actions + SSH, zero custo recorrente adicional) e
+  Hospedagem II Linux compartilhada, sem Docker/root, PostgreSQL
+  gerenciado, deploy via GitHub Actions + SSH — revisada em 2026-07-23,
+  ver nota no topo daquele documento; a premissa original de "zero custo
+  recorrente adicional" não vale mais) e
   `docs/adrs/ADR-015-frontend-servido-pelo-laravel.md` (Laravel serve o
-  build do Vite, origem única).
+  build do Vite, origem única — inalterado pela mudança de domínio).
+- **Domínio/hospedagem atualizados em 2026-07-23:** este documento foi
+  escrito em 2026-07-22 assumindo `influencia.estudioela.com` /
+  hospedagem "Hospedagem Linux". A decisão vigente (rebranding "Estúdio
+  Elã" → "Criativo Dodô") é domínio `criativododo.com.br`, aplicação em
+  `portal.criativododo.com.br`, hospedagem Locaweb Hospedagem II Linux —
+  ver Etapa 1 (revisada) abaixo. Passagens que ainda citam o valor antigo
+  fora de um contexto explicitamente histórico foram corrigidas nesta
+  revisão; a ordem das etapas e os critérios de aceite não mudaram.
 - **Este documento não implementa nenhuma funcionalidade nova.** Cobre
   exclusivamente implantação, configuração, segurança, validação e
   operação.
@@ -80,21 +90,26 @@ credencial ou decisão que só o responsável do projeto tem.
 
 ## 2. Passo a passo — do ambiente local atual ao primeiro acesso em produção
 
-### Etapa 1 — Confirmar domínio/subdomínio definitivo ✅ concluída (2026-07-22)
+### Etapa 1 — Confirmar domínio/subdomínio definitivo ✅ concluída (2026-07-22, revisada 2026-07-23)
 
 - **Objetivo:** travar o nome exato que vai ser usado antes de qualquer
   variável de ambiente ou registro DNS ser criado — mudar depois implica
   refazer SSL, CORS, `SESSION_DOMAIN` e `SANCTUM_STATEFUL_DOMAINS`.
-- **Decisão (responsável do projeto, 2026-07-22): `influencia.estudioela.com`.**
-  Substitui o exemplo ilustrativo `tear.estudioela.com` usado nos
-  documentos anteriores a esta data — onde aparecer, é o nome antigo de
-  exemplo, não uma decisão diferente.
+- **Decisão vigente (responsável do projeto, 2026-07-23): domínio
+  institucional `criativododo.com.br`, aplicação (`tear-v2-app`) em
+  `portal.criativododo.com.br`.** Parte do rebranding "Estúdio Elã" →
+  "Criativo Dodô" e da migração para Locaweb Hospedagem II Linux (ver
+  `docs/_workspace/TASK_ROUTER.md` §50, `docs/_workspace/ESTADO_SESSAO.md`).
+  Substitui a decisão anterior (2026-07-22, `influencia.estudioela.com`,
+  que por sua vez substituía o exemplo ilustrativo `tear.estudioela.com`)
+  — ambas mantidas aqui só como registro histórico, não como valor a
+  usar em configuração nova.
 - **Onde configurar:** propagado às Etapas 4 (DNS) e 8 (`.env` real —
   `APP_URL`, `FRONTEND_URL`, `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`
   já preenchidos com este valor em
   `backend/.env.production.example`, restam só os campos que
   dependem de credencial externa).
-- **Como validar:** o nome `influencia.estudioela.com` aparece de forma
+- **Como validar:** o nome `portal.criativododo.com.br` aparece de forma
   idêntica em `APP_URL`, `FRONTEND_URL`, `SANCTUM_STATEFUL_DOMAINS`,
   `SESSION_DOMAIN` e no registro DNS (Etapa 4) — nenhuma variação de
   `www.`/subdomínio diferente.
@@ -106,9 +121,20 @@ credencial ou decisão que só o responsável do projeto tem.
 
 ### Etapa 2 — Confirmar acesso à hospedagem Locaweb ⏳ parcialmente validada (2026-07-22)
 
+> **Nota de revisão (2026-07-23):** a auditoria abaixo descreve a
+> hospedagem **legada** (`estudioela.com`, Hospedagem I Linux) — desde
+> 2026-07-23 o plano contratado é **Locaweb Hospedagem II Linux**, sob o
+> domínio `criativododo.com.br`. Os achados sobre limitações do painel
+> (SSH por senha, sem chave, sessão de 3h) vêm de reclamações de outros
+> clientes e da documentação oficial da Locaweb sobre o Let's Encrypt
+> deles, não são específicos da Hospedagem I — mas **não foram
+> reconfirmados** para a Hospedagem II. Tratar como hipótese a validar,
+> não como fato já auditado no novo plano.
+
 - **Auditoria completa do painel realizada (read-only) — ver
-  `docs/deployment/AUDITORIA_LOCAWEB.md`.** Confirmado: hospedagem correta
-  já existe (`estudioela.com`, Hospedagem I Linux, mesmo plano de
+  `docs/deployment/AUDITORIA_LOCAWEB.md`.** Confirmado (no plano legado,
+  Hospedagem I): hospedagem correta já existia
+  (`estudioela.com`, Hospedagem I Linux, mesmo plano de
   `elafashionmkt.com.br`, sem custo adicional), PHP 8.3 ativo, PostgreSQL
   disponível, Crontab nativo disponível. **Achado que corrige a premissa
   abaixo:** o painel **não oferece SSH por chave** — só senha (a mesma do
@@ -176,19 +202,20 @@ credencial ou decisão que só o responsável do projeto tem.
 ### Etapa 4 — Configurar DNS do subdomínio
 
 - **Objetivo:** apontar o subdomínio definido na Etapa 1 para o host
-  Locaweb, sem alterar os nameservers de todo `estudioela.com`.
+  Locaweb, sem alterar os nameservers de todo `criativododo.com.br`.
 - **Dependências:** Etapa 1 (nome definitivo) e Etapa 2 (IP/CNAME do
   host Locaweb, informado pelo painel).
-- **Onde configurar:** painel de DNS onde `estudioela.com` já está
-  hospedado hoje — criar um registro `A`/`CNAME` isolado (nome = o
-  subdomínio escolhido, TTL 300–3600).
+- **Onde configurar:** painel de DNS onde `criativododo.com.br` está
+  registrado (Locaweb, registrar do domínio desde 2026-07-23) — criar um
+  registro `A`/`CNAME` isolado (nome = o subdomínio escolhido, TTL
+  300–3600).
 - **Como validar:**
   ```bash
-  dig +short influencia.estudioela.com
+  dig +short portal.criativododo.com.br
   ```
 - **Critérios de aceite:** resolve para o IP/host correto a partir de
-  pelo menos duas redes diferentes. Resto de `estudioela.com` (e-mail,
-  site) continua intocado.
+  pelo menos duas redes diferentes. Resto de `criativododo.com.br`
+  (e-mail, se configurado) continua intocado.
 
 ---
 
@@ -398,8 +425,8 @@ credencial ou decisão que só o responsável do projeto tem.
   Habilitar o SSH no painel antes de acionar o workflow.
 - **Como validar:**
   ```bash
-  curl -f https://influencia.estudioela.com/up
-  curl -f https://influencia.estudioela.com/api/health
+  curl -f https://portal.criativododo.com.br/up
+  curl -f https://portal.criativododo.com.br/api/health
   # via SSH, dentro de current/:
   php artisan migrate:status   # todas as migrations "Ran"
   ```
@@ -419,9 +446,9 @@ credencial ou decisão que só o responsável do projeto tem.
 - **Dependências:** Etapa 11 concluída (aplicação respondendo).
 - **Onde configurar:** via SSH, dentro de `~/tear/current/`:
   ```bash
-  php artisan admin:create --name="Nome Completo" --email="admin@estudioela.com"
+  php artisan admin:create --name="Nome Completo" --email="admin@criativododo.com.br"
   ```
-- **Como validar:** login bem-sucedido em `https://influencia.estudioela.com`
+- **Como validar:** login bem-sucedido em `https://portal.criativododo.com.br`
   com o e-mail/senha cadastrados.
 - **Critérios de aceite:** papel `ADMIN` confirmado após login. Comando
   é idempotente — rodar de novo com o mesmo e-mail reseta a senha.
@@ -482,7 +509,7 @@ credencial ou decisão que só o responsável do projeto tem.
   Better Uptime) apontando direto para `/up` e `/api/health` — decisão
   de preferência do responsável do projeto, ambos cobrem o mesmo cenário.
   ```cron
-  */5 * * * * TEAR_URL=https://influencia.estudioela.com /caminho/scripts/healthcheck.sh
+  */5 * * * * TEAR_URL=https://portal.criativododo.com.br /caminho/scripts/healthcheck.sh
   ```
 - **Como validar:** derrubar a aplicação propositalmente por um instante
   (ou simular via `TEAR_URL` apontando para uma porta fechada) e

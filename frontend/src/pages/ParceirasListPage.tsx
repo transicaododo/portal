@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { listParceirasPage, type Parceira, type ParceiraStatus } from '../lib/parceiras';
+import {
+  listParceirasPage,
+  parceiraStatusTone,
+  type Parceira,
+  type ParceiraStatus,
+} from '../lib/parceiras';
 import { useAuth } from '../lib/auth';
-import StatusBadge from '../components/StatusBadge';
+import Badge from '../components/Badge';
 import EmptyState from '../components/EmptyState';
 import { LinkButton } from '../components/Button';
+import Pagination from '../components/Pagination';
 import styles from './ParceirasListPage.module.css';
 
 export default function ParceirasListPage() {
@@ -111,7 +117,7 @@ export default function ParceirasListPage() {
               <tr key={parceira.id}>
                 <td>{parceira.nome}</td>
                 <td>
-                  <StatusBadge status={parceira.status} />
+                  <Badge label={parceira.status} tone={parceiraStatusTone(parceira.status)} />
                 </td>
                 <td>{parceira.email ?? '—'}</td>
                 <td className={styles.actionCell}>
@@ -125,28 +131,13 @@ export default function ParceirasListPage() {
         </table>
       )}
 
-      {parceiras !== null && parceiras.length > 0 && lastPage > 1 && (
-        <div className={styles.pagination}>
-          <span className={styles.paginationInfo}>
-            página {page} de {lastPage}
-          </span>
-          <button
-            type="button"
-            className={styles.paginationButton}
-            disabled={page <= 1}
-            onClick={() => setPage((current) => current - 1)}
-          >
-            anterior
-          </button>
-          <button
-            type="button"
-            className={styles.paginationButton}
-            disabled={page >= lastPage}
-            onClick={() => setPage((current) => current + 1)}
-          >
-            próxima
-          </button>
-        </div>
+      {parceiras !== null && parceiras.length > 0 && (
+        <Pagination
+          page={page}
+          lastPage={lastPage}
+          onPrev={() => setPage((current) => current - 1)}
+          onNext={() => setPage((current) => current + 1)}
+        />
       )}
     </div>
   );

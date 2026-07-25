@@ -12,6 +12,24 @@ Google Sheets como hoje.
 **Este documento é só design.** Nenhum código foi alterado, nenhum deploy
 foi feito.
 
+> **Nota de revisão (2026-07-23):** a restrição soberana de "zero custo
+> recorrente adicional / zero serviço contratado novo" que orienta as
+> decisões abaixo foi **substituída** por uma decisão posterior do
+> responsável do projeto: rebranding "Estúdio Elã" → "Criativo Dodô",
+> novo domínio institucional `criativododo.com.br` (aplicação em
+> `portal.criativododo.com.br`) e migração para **Locaweb Hospedagem II
+> Linux** — ambos contratados em 2026-07-23 (ver
+> `docs/_workspace/TASK_ROUTER.md` §50 e `ESTADO_SESSAO.md`). O
+> raciocínio original abaixo (§0-§13), datado de 2026-07-21, é
+> preservado como registro histórico dessa decisão; onde ele descreve
+> infraestrutura que continua vigente (hospedagem Locaweb, deploy via
+> GitHub Actions + SSH, sem Docker, PostgreSQL gerenciado, storage local,
+> Google Drive, backup) o desenho segue válido — só a premissa de "zero
+> custo novo" e o nome do domínio/plano de hospedagem mudaram. §1, §8 e
+> §12 foram atualizados para o estado atual; valores de custo do
+> restante do documento (inclusive a tabela §13) não foram recalculados
+> — fora de escopo desta revisão.
+
 ---
 
 ## 0. Perfil do problema (por que isso molda a escolha)
@@ -24,14 +42,21 @@ foi feito.
 - **Stack de aplicação já decidida** (não revisitada aqui): Laravel +
   Postgres + Sanctum SPA cookie-based + upload de Material direto ao
   Google Drive + e-mail transacional (convite, reset de senha).
-- **Domínio próprio já existe** (`estudioela.com`).
-- **Hospedagem já contratada:** Locaweb Hospedagem Linux (compartilhada) —
+- **Domínio próprio já existe** (`criativododo.com.br`, registrado
+  2026-07-23 — substitui `estudioela.com`, ver nota de revisão acima).
+- **Hospedagem já contratada:** Locaweb Hospedagem II Linux (compartilhada,
+  contratada 2026-07-23 — substitui o plano "Hospedagem Linux" original) —
   PHP 8.3, acesso SSH, Crontab, banco de dados gerenciado (PostgreSQL),
-  SSL, Git — **sem Docker, sem acesso root**.
-- **Restrição soberana (2026-07-21):** zero custo recorrente adicional;
-  zero contratação de serviço novo (nem VPS, nem PaaS, nem object storage
-  externo). Toda a infraestrutura roda sobre o que já é pago: Locaweb +
-  domínio + Google Drive.
+  SSL, Git a confirmar como mantidos no novo plano — **sem Docker, sem
+  acesso root**.
+- **Restrição soberana (2026-07-21, superada em 2026-07-23):** zero custo
+  recorrente adicional; zero contratação de serviço novo (nem VPS, nem
+  PaaS, nem object storage externo). Toda a infraestrutura rodava sobre o
+  que já era pago: Locaweb + domínio + Google Drive. Essa restrição deixou
+  de valer com a contratação do novo domínio e da nova hospedagem em
+  2026-07-23 (ver nota de revisão no topo do documento) — os demais
+  critérios de decisão (simplicidade operacional para 1 pessoa, segurança/
+  backup, menor downtime, escalabilidade futura) continuam em vigor.
 - Critérios de decisão, em ordem de peso: **zero custo recorrente
   adicional > simplicidade operacional para 1 pessoa > segurança/backup >
   menor downtime possível dentro da restrição > escalabilidade futura.**
@@ -40,12 +65,17 @@ foi feito.
 
 ## 1. Hospedagem
 
-**Decisão: Locaweb Hospedagem Linux, plano já contratado.**
+**Decisão (atualizada em 2026-07-23): Locaweb Hospedagem II Linux.**
+Substitui o plano "Hospedagem Linux" contratado em 2026-07-21 — mesmo
+provedor (Locaweb), novo plano contratado como parte da migração de
+domínio/rebranding (ver nota de revisão no topo do documento).
 
 Compartilhada — sem Docker, sem acesso root, sem systemd. Recursos
-confirmados: PHP 8.3, SSH, Crontab, banco de dados gerenciado
-(PostgreSQL), SSL, Git. Custo incremental: **US$0** — já é um ativo pago
-independente deste projeto.
+confirmados no plano anterior: PHP 8.3, SSH, Crontab, banco de dados
+gerenciado (PostgreSQL), SSL, Git — a reconfirmar na execução se o novo
+plano mantém os mesmos recursos (auditoria equivalente à
+`AUDITORIA_LOCAWEB.md`, feita para o plano anterior, ainda não repetida
+para a Hospedagem II).
 
 ---
 
@@ -57,6 +87,16 @@ Mantém o motor já modelado no código (migrations, queries, testes) — sem
 esforço de portar para MySQL. Backup e patch de versão são de
 responsabilidade do provedor (escopo exato a confirmar na execução — ver
 §7). Custo incremental: **US$0**.
+
+> **Alerta de precedente (2026-07-23) — não assumir disponibilidade sem
+> confirmar no painel:** no plano anterior (Hospedagem I, `estudioela.com`),
+> o painel listava PostgreSQL como disponível, mas o suporte oficial da
+> Locaweb confirmou depois que o plano contratado **não habilitava** o
+> banco de fato (`docs/_workspace/TASK_ROUTER.md` §27) — só apareceu como
+> opção de interface. A Hospedagem II pode ter o mesmo comportamento. Não
+> tratar "PostgreSQL disponível" como fato até confirmar por evidência real
+> (painel + criação de um banco de teste, ou suporte oficial), da mesma
+> forma que foi necessário no plano anterior.
 
 ---
 
@@ -178,11 +218,17 @@ Shared Drive/plano. Custo incremental: **US$0**.
 
 ## 8. Domínio
 
-Sem mudança: **subdomínio de `estudioela.com`** — definitivo desde
-2026-07-22: **`influencia.estudioela.com`** (decisão do responsável do
-projeto, ver `docs/deployment/PLANO_DE_IMPLANTACAO.md` Etapa 1),
-registro `A`/`CNAME` isolado no provedor de DNS atual, sem delegar a zona
-inteira. Custo incremental: **US$0**.
+**Atualizado em 2026-07-23:** domínio institucional
+`criativododo.com.br`, aplicação `tear-v2-app` servida em
+`portal.criativododo.com.br` (decisão do responsável do projeto, ver
+`docs/deployment/PLANO_DE_IMPLANTACAO.md` Etapa 1, revisada) — registro
+`A`/`CNAME` isolado no provedor de DNS da Locaweb, sem delegar a zona
+inteira.
+
+Histórico: entre 2026-07-22 e 2026-07-23 a decisão vigente era um
+subdomínio de `estudioela.com` (`influencia.estudioela.com`) —
+substituída pelo rebranding e pela migração de domínio/hospedagem de
+2026-07-23 (ver nota de revisão no topo do documento).
 
 ---
 
@@ -227,14 +273,14 @@ produção com segurança dentro do perfil atual do projeto.
 
 ```
                          ┌─────────────────────────────────┐
-   Usuário (BR) ───────► │ DNS: influencia.estudioela.com   │
+   Usuário (BR) ───────► │ DNS: portal.criativododo.com.br  │
                          │  (registro A, provedor           │
                          │   de DNS já existente)            │
                          └─────────────────┬─────────────────┘
                                       │ HTTPS (SSL do painel Locaweb)
                                       ▼
                     ┌────────────────────────────────────┐
-                    │   Locaweb Hospedagem Linux           │
+                    │   Locaweb Hospedagem II Linux         │
                     │   (compartilhada, PHP 8.3, sem        │
                     │    Docker/root)                       │
                     │                                        │
@@ -271,14 +317,14 @@ produção com segurança dentro do perfil atual do projeto.
 
 | Área | Escolha |
 |---|---|
-| 1. Hospedagem | Locaweb Hospedagem Linux (já contratada), compartilhada, sem Docker/root |
+| 1. Hospedagem | Locaweb Hospedagem II Linux (contratada 2026-07-23), compartilhada, sem Docker/root |
 | 2. Banco | PostgreSQL gerenciado da própria Locaweb |
 | 3. Deploy | GitHub Actions + SSH, deploy atômico por symlink (`releases/` + `current`) |
 | 4. Storage interno | Disco local do plano compartilhado |
 | 5. Google Drive | Pasta comum no Meu Drive + conta dedicada via OAuth (`ADR-017`) |
 | 6. SMTP | Relay incluso no domínio/plano Locaweb |
 | 7. Backup | `pg_dump` via Crontab + upload para o próprio Google Drive; alerta por e-mail nativo |
-| 8. Domínio | Subdomínio de `estudioela.com` |
+| 8. Domínio | `criativododo.com.br` (aplicação em `portal.criativododo.com.br`) |
 | 9. HTTPS | SSL do painel Locaweb |
 | 10. CI/CD | GitHub Actions (teste + build + deploy via SSH) |
 | 11. Monitoramento obrigatório | Pulse + alerta de e-mail nativo |
@@ -286,6 +332,11 @@ produção com segurança dentro do perfil atual do projeto.
 ---
 
 ## 13. Custo mensal estimado
+
+> Tabela não recalculada na revisão de 2026-07-23 — reflete a premissa
+> superada de "zero custo novo" (ver nota de revisão no topo do
+> documento). O novo domínio e a nova hospedagem (Hospedagem II) têm
+> custo próprio, não coberto por este documento.
 
 | Item | Custo |
 |---|---|

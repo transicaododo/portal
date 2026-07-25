@@ -10,7 +10,7 @@ data, responsável, URL, saída de comando ou ticket.
 - [ ] `pg_dump`, `psql`, cron e espaço em disco confirmados.
 - [ ] Document root configurado para `current/public`.
 - [ ] `storage/` e `bootstrap/cache/` graváveis pelo PHP.
-- [ ] DNS de `influencia.estudioela.com` propagado.
+- [ ] DNS de `portal.criativododo.com.br` propagado.
 - [ ] SSL válido e renovação confirmada.
 - [ ] WAF validado com API, CSRF e upload multipart.
 
@@ -26,6 +26,13 @@ data, responsável, URL, saída de comando ou ticket.
 - [ ] Google Drive OAuth e IDs de pastas configurados.
 
 ## 3. Publicação
+
+> Itens abaixo assumem o caminho padrão via SSH (`ADR-016`). Se a porta 22
+> seguir bloqueada (`docs/_workspace/TASK_ROUTER.md` §55/§56/§60/§62), usar
+> a contingência FTP de
+> `docs/deployment/RUNBOOK_DEPLOY_E_ROLLBACK.md` §"Contingência: deploy
+> manual via FTP" — os itens de `releases`/`current`/symlink não se aplicam
+> nesse caminho; os de `migrate`/caches continuam exigindo SSH mesmo assim.
 
 - [ ] CI do commit candidato está verde.
 - [ ] Método de deploy compatível com o SSH real foi ensaiado.

@@ -1,123 +1,123 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-9);
+  gap: var(--sp-9);
   max-width: 640px;
 }
 
 .loading {
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--sp-2);
 }
 
 .title {
   font-size: 28px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .subtitle {
   font-size: 15px;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .periodo {
   font-size: 13px;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .resumo {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
-  margin-top: var(--space-3);
+  gap: var(--sp-4);
+  margin-top: var(--sp-3);
   font-size: 13px;
 }
 
 .resumoItem {
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .resumoItemVazio {
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
   opacity: 0.5;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--sp-4);
 }
 
 .sectionTitle {
-  font-family: var(--font-caption);
+  font-family: var(--font-text);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .briefingBloco {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-4) 0;
-  border-top: 1px solid var(--color-outline-variant);
+  gap: var(--sp-2);
+  padding: var(--sp-4) 0;
+  border-top: 1px solid var(--color-outline);
 }
 
 .briefingBlocoVazio {
-  padding: var(--space-4) 0;
-  border-top: 1px solid var(--color-outline-variant);
-  color: var(--color-on-surface-variant);
+  padding: var(--sp-4) 0;
+  border-top: 1px solid var(--color-outline);
+  color: var(--color-text-muted);
   opacity: 0.6;
   font-size: 14px;
 }
 
 .briefingTipo {
   font-size: 15px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .briefingOrientacoes {
   font-size: 14px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .briefingPrazo {
   font-size: 13px;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .emBreve {
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
 .briefingProgresso {
   font-size: 13px;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .materiaisLista {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--sp-2);
   list-style: none;
 }
 
 .materialItem {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--sp-3);
   font-size: 13px;
 }
 
 .materialLink {
-  color: var(--color-primary);
+  color: var(--color-action);
 }
 
 .motivoReprovacao {
@@ -128,32 +128,32 @@
 .uploadBloco {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  margin-top: var(--space-2);
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
 }
 
 .uploadLabel {
   align-self: flex-start;
   font-size: 13px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--sp-1);
 }
 
 .pagamentoBloco {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--sp-2);
   align-items: flex-start;
 }
 
 .pagamentoValor {
   font-size: 20px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .comprovanteLink {
   font-size: 14px;
-  color: var(--color-primary);
+  color: var(--color-action);
 }

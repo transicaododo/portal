@@ -31,3 +31,11 @@ Toda informação importante deve permanecer na documentação, nunca apenas na 
 5. Governança acima da ferramenta
 
 A documentação deve funcionar independentemente da IA utilizada (Claude, GPT, Gemini etc.).
+
+---
+
+# Comandos de sessão
+
+O protocolo de abertura/encerramento de sessão (`/comecar`, `/fim`) e a
+arquitetura de comandos do Claude Code que o implementa estão descritos em
+`CLAUDE.md` §"Comandos padrão" (fonte única — não duplicar aqui).

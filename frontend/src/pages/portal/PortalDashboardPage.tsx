@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../lib/auth';
 import { getMeParceira, getMeParticipacoes, type MeParticipacao } from '../../lib/me';
-import type { Parceira } from '../../lib/parceiras';
+import { parceiraStatusTone, type Parceira } from '../../lib/parceiras';
 import { pagamentoStatusTone } from '../../lib/pagamentos';
-import StatusBadge from '../../components/StatusBadge';
 import Badge from '../../components/Badge';
 import styles from '../Dashboard.module.css';
 
@@ -113,7 +112,7 @@ export default function PortalDashboardPage() {
           <article className={styles.card}>
             <h3 className={styles.cardTitle}>Status da conta</h3>
             <p className={styles.cardMessage}>
-              <StatusBadge status={parceira.status} />
+              <Badge label={parceira.status} tone={parceiraStatusTone(parceira.status)} />
             </p>
           </article>
         </section>

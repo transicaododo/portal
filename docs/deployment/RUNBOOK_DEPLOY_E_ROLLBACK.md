@@ -9,7 +9,9 @@ autorização em `docs/release/GATE_FINAL_GO_LIVE.md`.
 ## Premissas
 
 - Produção usa PostgreSQL gerenciado e uma origem única:
-  `https://influencia.estudioela.com`.
+  `https://portal.criativododo.com.br` (domínio atualizado em 2026-07-23 —
+  rebranding "Estúdio Elã" → "Criativo Dodô" + migração para Locaweb
+  Hospedagem II; substitui `influencia.estudioela.com`).
 - O build React está em `backend/public/build`.
 - Cada release deve estar em `releases/<release-id>` e `current` deve apontar
   para a release ativa.
@@ -39,9 +41,9 @@ autorização em `docs/release/GATE_FINAL_GO_LIVE.md`.
    DB_CONNECTION=pgsql
    SESSION_DRIVER=database
    SESSION_SECURE_COOKIE=true
-   APP_URL=https://influencia.estudioela.com
-   FRONTEND_URL=https://influencia.estudioela.com
-   SANCTUM_STATEFUL_DOMAINS=influencia.estudioela.com
+   APP_URL=https://portal.criativododo.com.br
+   FRONTEND_URL=https://portal.criativododo.com.br
+   SANCTUM_STATEFUL_DOMAINS=portal.criativododo.com.br
    ```
 
 7. Garantir que o `.env` tem permissão restrita (`chmod 600`) e não contém
@@ -52,6 +54,10 @@ autorização em `docs/release/GATE_FINAL_GO_LIVE.md`.
 > Não iniciar esta seção enquanto o mecanismo de publicação compatível com o
 > SSH da Locaweb não tiver sido ensaiado. O workflow que requer chave SSH não
 > deve ser tratado como procedimento comprovado para o host auditado.
+>
+> **SSH bloqueado desde 2026-07-24** (porta 22 em timeout nos 3 alvos, sem
+> ETA — `docs/_workspace/TASK_ROUTER.md` §55/§56/§60/§62). Enquanto isso,
+> ver "Contingência: deploy manual via FTP" ao final deste runbook.
 
 1. Gerar dependências PHP no runner de CI:
 
@@ -91,8 +97,8 @@ autorização em `docs/release/GATE_FINAL_GO_LIVE.md`.
 Executar imediatamente:
 
 ```bash
-curl -fsS https://influencia.estudioela.com/up
-curl -fsS https://influencia.estudioela.com/api/health
+curl -fsS https://portal.criativododo.com.br/up
+curl -fsS https://portal.criativododo.com.br/api/health
 ```
 
 Depois validar pelo navegador:
@@ -140,3 +146,105 @@ necessária:
 
 O procedimento exato de restore só é válido após ser ensaiado no ambiente
 Locaweb com as credenciais e ferramentas reais.
+
+## Contingência: deploy manual via FTP (SSH indisponível)
+
+> **Usar apenas enquanto a porta 22 SSH da Locaweb estiver bloqueada** (ver
+> `docs/_workspace/TASK_ROUTER.md` §55/§56/§60/§62 — timeout confirmado nos
+> 3 alvos, sem ETA do suporte, mesmo após novo teste pedido pela própria
+> Locaweb). Não substitui nem reabre a decisão de `ADR-016` (SSH/rsync como
+> mecanismo padrão do pipeline) — é um caminho de contingência temporário,
+> formalizado a pedido do responsável em 2026-07-24. Descontinuar assim que
+> o SSH voltar e retomar o procedimento padrão acima.
+
+### Por que é viável
+
+Reclassificação etapa a etapa do pipeline (`PLANO_DE_IMPLANTACAO.md`
+Etapas 1-17 + este runbook) por dependência real de protocolo — não pela
+convenção atual, que usa SSH para tudo por decisão de `ADR-016`
+(`TASK_ROUTER.md` §62 Frente 2):
+
+- **FTP-viável:** envio de código, `vendor/` e build do frontend (todos já
+  gerados no CI, nunca no host, desde `ADR-016`), criação de diretórios,
+  upload do `.env`.
+- **SSH obrigatório, sem alternativa:** os 4 comandos de
+  `scripts/deploy-locaweb.sh` (symlink de `.env`/`storage`,
+  `migrate --force`, `config:cache`/`route:cache`/`view:cache`, symlink de
+  `current`), mais `admin:create`, `migrate:status`, `crontab -e`, execução
+  manual de `backup-db.sh`, e qualquer rollback.
+- **Só no Painel Locaweb (nem FTP nem SSH):** Postgres gerenciado, DNS,
+  SSL, SMTP, habilitação do próprio SSH.
+
+### Pré-condição
+
+Conta `criativododo2` confirmada vazia em `TASK_ROUTER.md` §56 — permite
+abandonar o padrão `releases/<id>` + symlink `current` (que dependem de
+SSH) e publicar direto num diretório fixo `~/tear/` (path técnico já usado
+no resto da documentação, não é nomenclatura nova — ver `§61`).
+
+### Fases
+
+**Fase 0 — Preparar pacote localmente**
+- Build do frontend: `npm run build:locaweb` (mesmo comando do CI).
+- `composer install --no-dev --optimize-autoloader --no-interaction` para
+  gerar `vendor/` (fora do host — já é assim desde `ADR-016`).
+- `APP_KEY` gerado localmente (`php artisan key:generate --show`), nunca
+  commitado.
+
+**Fase 1 — Provisionar recursos no Painel Locaweb**
+- Banco PostgreSQL gerenciado.
+- DNS de `portal.criativododo.com.br` (ainda sem nameserver/registro A
+  confirmado, ver `DEPLOY.md` §1).
+- SSL.
+
+**Fase 2 — Upload por FTP: código**
+- Enviar `backend/` (exceto `vendor/`, `.env`, `storage/`) para `~/tear/`.
+
+**Fase 3 — Upload por FTP: `vendor/` e build**
+- Enviar `vendor/` gerado na Fase 0.
+- Enviar `public/build` (build do frontend, origem única — `ADR-015`).
+
+**Fase 4 — Upload por FTP: `.env`**
+- Por último, de propósito — evita servir a aplicação com config
+  incompleta.
+- Apontar document root do painel para `~/tear/public`.
+- Validação possível até aqui: só HTTP/FTP, sem shell.
+
+> **Ponto exato de espera por SSH.** Depois da Fase 4, restam só os itens
+> "SSH obrigatório" listados acima (Fase 5) — nada mais tem alternativa
+> por FTP.
+
+**Fase 5 — Comandos que exigem SSH (aguardar liberação da porta 22)**
+
+```bash
+ln -sfn ~/tear/shared/.env ~/tear/.env
+ln -sfn ~/tear/shared/storage ~/tear/storage
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan admin:create --name="Nome Completo" \
+  --email="admin@criativododo.com.br"
+crontab -e   # agendar backup-db.sh
+```
+
+**Fase 6 — Smoke tests**
+
+Mesmos smoke tests da seção "Smoke tests pós-deploy" acima.
+
+### O que se perde nesta contingência
+
+- **Atomicidade de release:** FTP sobrescreve no lugar, sem
+  `releases/`+symlink — aceitável dado o perfil de tráfego administrativo
+  baixo já assumido em `ARQUITETURA_PRODUCAO.md`.
+- **Rollback de aplicação** (seção acima) não se aplica sem SSH — reverter
+  por FTP significa reenviar a release anterior por cima, sem troca
+  atômica de symlink.
+
+### Origem
+
+Plano produzido em `TASK_ROUTER.md` §62 Frente 3 (2026-07-24, só em
+conversa até esta formalização). Retoma a análise da opção (B) de
+`AUDITORIA_LOCAWEB.md` §5.1 — descartada em 2026-07-22 quando o SSH
+respondia (`ADR-016` manteve SSH/rsync puro); hoje volta a ser relevante
+como contingência temporária, não como mudança de arquitetura.

@@ -18,22 +18,36 @@ function greetingForHour(hour: number): string {
   return 'Boa noite';
 }
 
+type IndicadorStatus = 'loading' | 'error' | 'ready';
+
 export default function Dashboard() {
   const { user } = useAuth();
   const [pendentes, setPendentes] = useState<number | null>(null);
+  const [pendentesStatus, setPendentesStatus] = useState<IndicadorStatus>(
+    user?.role === 'ADMIN' ? 'loading' : 'ready',
+  );
   const [totalCampanhas, setTotalCampanhas] = useState<number | null>(null);
+  const [campanhasStatus, setCampanhasStatus] = useState<IndicadorStatus>('loading');
 
   useEffect(() => {
     if (user?.role !== 'ADMIN') return;
+    setPendentesStatus('loading');
     countParceiras({ status: 'Inativa' })
-      .then(setPendentes)
-      .catch(() => setPendentes(null));
+      .then((total) => {
+        setPendentes(total);
+        setPendentesStatus('ready');
+      })
+      .catch(() => setPendentesStatus('error'));
   }, [user?.role]);
 
   useEffect(() => {
+    setCampanhasStatus('loading');
     countCampanhas({ status: 'ATIVA' })
-      .then(setTotalCampanhas)
-      .catch(() => setTotalCampanhas(null));
+      .then((total) => {
+        setTotalCampanhas(total);
+        setCampanhasStatus('ready');
+      })
+      .catch(() => setCampanhasStatus('error'));
   }, []);
 
   if (!user) return null;
@@ -53,7 +67,15 @@ export default function Dashboard() {
       <section className={styles.cards}>
         <article className={styles.card}>
           <h3 className={styles.cardTitle}>Campanhas</h3>
-          {totalCampanhas ? (
+          {campanhasStatus === 'loading' && (
+            <p className={styles.cardMessage}>Carregando…</p>
+          )}
+          {campanhasStatus === 'error' && (
+            <p className={styles.cardMessage} role="alert">
+              Não foi possível carregar as campanhas.
+            </p>
+          )}
+          {campanhasStatus === 'ready' && totalCampanhas ? (
             <>
               <p className={styles.cardMessage}>
                 {totalCampanhas} {totalCampanhas === 1 ? 'campanha ativa' : 'campanhas ativas'}.
@@ -62,7 +84,8 @@ export default function Dashboard() {
                 ver campanhas
               </Link>
             </>
-          ) : (
+          ) : null}
+          {campanhasStatus === 'ready' && !totalCampanhas && (
             <p className={styles.cardMessage}>Nenhuma campanha ativa no momento.</p>
           )}
         </article>
@@ -74,7 +97,15 @@ export default function Dashboard() {
 
         <article className={styles.card}>
           <h3 className={styles.cardTitle}>Aprovações</h3>
-          {pendentes ? (
+          {pendentesStatus === 'loading' && (
+            <p className={styles.cardMessage}>Carregando…</p>
+          )}
+          {pendentesStatus === 'error' && (
+            <p className={styles.cardMessage} role="alert">
+              Não foi possível carregar as aprovações.
+            </p>
+          )}
+          {pendentesStatus === 'ready' && pendentes ? (
             <>
               <p className={styles.cardMessage}>
                 {pendentes} {pendentes === 1 ? 'inscrição aguardando' : 'inscrições aguardando'}{' '}
@@ -84,7 +115,8 @@ export default function Dashboard() {
                 ver novas inscrições
               </Link>
             </>
-          ) : (
+          ) : null}
+          {pendentesStatus === 'ready' && !pendentes && (
             <p className={styles.cardMessage}>Nenhuma aprovação pendente.</p>
           )}
         </article>

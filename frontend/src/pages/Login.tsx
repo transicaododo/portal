@@ -38,7 +38,7 @@ export default function Login() {
           label="Email"
           id="email"
           type="email"
-          placeholder="nome@estudioela.com"
+          placeholder="nome@criativododo.com.br"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           autoComplete="email"
