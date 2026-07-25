@@ -93,7 +93,6 @@ export default function ParceirasListPage() {
         <EmptyState
           title="Nenhuma parceira cadastrada"
           message="Você ainda não possui parceiras cadastradas."
-          action={isAdmin ? <LinkButton to="/parceiras/nova">cadastrar primeira parceira</LinkButton> : undefined}
         />
       )}
 

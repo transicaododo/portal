@@ -42,7 +42,6 @@ export default function MarcasListPage() {
         <EmptyState
           title="Nenhuma marca cadastrada"
           message="Você ainda não possui marcas cadastradas."
-          action={isAdmin ? <LinkButton to="/marcas/nova">cadastrar primeira marca</LinkButton> : undefined}
         />
       )}
 

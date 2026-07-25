@@ -60,7 +60,6 @@ export default function CampanhasListPage() {
         <EmptyState
           title="Nenhuma campanha cadastrada"
           message="Você ainda não possui campanhas cadastradas."
-          action={isAdmin ? <LinkButton to="/campanhas/nova">cadastrar primeira campanha</LinkButton> : undefined}
         />
       )}
 
