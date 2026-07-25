@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
+import InstitucionalPage from './pages/InstitucionalPage';
 import Dashboard from './pages/Dashboard';
 import ParceirasListPage from './pages/ParceirasListPage';
 import ParceiraFormPage from './pages/ParceiraFormPage';
@@ -44,10 +45,12 @@ function App() {
     <Routes>
       <Route path="/cadastro" element={<PublicCadastroPage />} />
       <Route path="/definir-senha" element={<ResetPasswordPage />} />
+      <Route path="/institucional" element={<InstitucionalPage />} />
       {!user && (
         <>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Navigate to="/" replace />} />
+          <Route path="/quero-ser-parceira" element={<LandingPage />} />
           <Route path="/esqueci-senha" element={<ForgotPasswordPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </>
