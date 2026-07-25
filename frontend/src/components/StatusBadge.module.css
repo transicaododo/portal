@@ -5,7 +5,6 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   padding: var(--sp-1) var(--sp-3);
   border: 1px solid transparent;
   border-radius: var(--radius-pill);

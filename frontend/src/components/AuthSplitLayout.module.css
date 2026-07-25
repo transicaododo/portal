@@ -44,7 +44,6 @@
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--color-action-contrast);
 }
 
@@ -58,7 +57,6 @@
   font-family: var(--font-text);
   font-size: 13px;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--color-action-contrast);
 }
 
