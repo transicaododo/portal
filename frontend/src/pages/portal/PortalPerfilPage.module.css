@@ -3,78 +3,78 @@
 }
 
 .loading {
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--sp-8);
 }
 
 .title {
   font-size: 36px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  margin-bottom: var(--space-9);
+  gap: var(--sp-8);
+  margin-bottom: var(--sp-9);
 }
 
 .group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--sp-5);
 }
 
 .groupTitle {
-  font-family: var(--font-caption);
+  font-family: var(--font-text);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
   border-bottom: 1px solid var(--color-outline);
-  padding-bottom: var(--space-2);
+  padding-bottom: var(--sp-2);
 }
 
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
+  gap: var(--sp-4);
 }
 
 .fieldHint {
-  margin-top: calc(var(--space-5) * -1);
+  margin-top: calc(var(--sp-5) * -1);
   font-size: 13px;
-  color: var(--color-on-surface-variant);
+  color: var(--color-text-muted);
 }
 
 .consentRow {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--sp-3);
 }
 
 .consentLabel {
   font-size: 14px;
-  color: var(--color-on-surface);
+  color: var(--color-text);
 }
 
 .formError {
   font-size: 14px;
   color: var(--color-on-error-container);
   background: var(--color-error-container);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--sp-3) var(--sp-4);
 }
 
 .formSuccess {
   font-size: 14px;
-  color: var(--color-on-surface);
-  background: var(--color-surface-container-high);
+  color: var(--color-text);
+  background: var(--color-surface);
   border: 1px solid var(--color-outline);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--sp-3) var(--sp-4);
 }
 
 .submit {

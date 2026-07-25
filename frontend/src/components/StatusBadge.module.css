@@ -1,13 +1,14 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-caption);
+  font-family: var(--font-text);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: var(--space-1) var(--space-3);
+  padding: var(--sp-1) var(--sp-3);
   border: 1px solid transparent;
+  border-radius: var(--radius-pill);
 }
 
 .active {
@@ -16,6 +17,6 @@
 }
 
 .inactive {
-  color: var(--color-on-surface-variant);
-  background: var(--color-surface-container);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
 }
