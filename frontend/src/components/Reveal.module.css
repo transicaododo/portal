@@ -1,0 +1,28 @@
+/*
+  Usa o sistema de motion central (frontend/src/theme/motion.css) — não
+  redefine duração/easing/distância aqui.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--motion-distance));
+  transition:
+    opacity var(--motion-duration-base) var(--motion-ease),
+    transform var(--motion-duration-base) var(--motion-ease);
+  will-change: opacity, transform;
+}
+
+.revealLeft {
+  transform: translateX(calc(var(--motion-distance-sm) * -1));
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

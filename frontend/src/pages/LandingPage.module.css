@@ -1,30 +1,624 @@
-.header {
-  margin-bottom: var(--sp-9);
+/*
+  Composição da Landing. Cor, tipografia, espaçamento, raio e motion vêm
+  sempre de frontend/src/theme/*.css — nenhuma regra aqui declara um
+  valor visual próprio sem ser através de um token.
+*/
+
+.page {
+  background: var(--color-cotton);
+  color: var(--color-noir-black);
 }
 
-.title {
-  font-size: 36px;
-  color: var(--color-text);
-  margin-bottom: var(--sp-2);
+/* Largura máxima do conteúdo editorial, centralizada, com respiro
+   lateral que se adapta à tela. Toda seção de texto/lista da página usa
+   este container, para que a coluna de leitura fique sempre alinhada. */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
 }
 
-.subtitle {
-  font-size: 15px;
-  color: var(--color-text-muted);
+/* Respiro vertical único entre seções editoriais, para que a página
+   tenha uma cadência de leitura constante do início ao fim. */
+.section {
+  padding: var(--space-section-y) 0;
 }
 
-.cta {
-  align-self: flex-start;
+/* ---- hero ---- */
+
+/* Ocupa a tela inteira: a marca se apresenta antes de qualquer texto de
+   apoio, sem competir por espaço com o restante da página. */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
 }
 
-.loginHint {
-  margin-top: var(--sp-8);
-  font-size: 14px;
-  color: var(--color-text-muted);
+/* Camada de parallax maior que o container: dá folga para deslocar sem
+   revelar borda vazia durante o scroll (ver LandingPage.tsx). */
+.heroBg {
+  position: absolute;
+  top: -8%;
+  left: 0;
+  right: 0;
+  height: 108%;
+  background-image: url('../assets/brand/hero-compass.png');
+  background-size: cover;
+  background-position: center;
 }
 
-@media (min-width: 768px) {
-  .title {
-    font-size: 48px;
+.heroBar {
+  position: absolute;
+  top: 56px;
+  left: var(--space-gutter);
+  right: var(--space-gutter);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.heroBar,
+.scrollCue {
+  opacity: 0;
+}
+
+.heroBarIn {
+  opacity: 1;
+}
+
+.heroBar .wordmark,
+.heroBar .navLinks li {
+  opacity: 0;
+  transform: translateY(var(--motion-distance-sm));
+  transition:
+    opacity var(--motion-duration-slow) var(--motion-ease),
+    transform var(--motion-duration-slow) var(--motion-ease);
+}
+
+.heroBarIn .wordmark,
+.heroBarIn .navLinks li {
+  opacity: 1;
+  transform: none;
+}
+
+.scrollCue {
+  /* aparece só depois que a cascata do menu termina de entrar */
+  transition: opacity var(--motion-duration-base) var(--motion-ease) calc(var(--motion-stagger-tight) * 6);
+}
+
+.scrollCue.heroBarIn {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroBar,
+  .scrollCue,
+  .heroBar .wordmark,
+  .heroBar .navLinks li {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.wordmarkLink {
+  display: block;
+  line-height: 0;
+}
+
+.wordmark {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 13px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 128px;
+}
+
+.navLink {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-nav);
+  line-height: 1.25;
+  text-align: right;
+  color: var(--color-cherry-red);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  transition: color var(--motion-duration-fast) var(--motion-ease);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform var(--motion-duration-fast) var(--motion-ease);
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--color-maroon);
+}
+
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Link de destaque do menu (CTA de acesso ao portal): mesmo componente,
+   sublinhado sempre visível em vez de só no hover. */
+.navLinkCta {
+  composes: navLink;
+}
+
+.navLinkCta::after {
+  transform: scaleX(1);
+}
+
+.scrollCue {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  color: var(--color-cherry-red);
+}
+
+.scrollCue svg {
+  width: 100%;
+  height: 100%;
+}
+
+.scrollCue:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-cherry-red);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-pill);
+}
+
+/* ---- manifesto ---- */
+
+.tese {
+  composes: section;
+}
+
+.teseInner {
+  composes: container;
+  display: flex;
+  gap: var(--space-column-gap);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.teseHeadlineWrap {
+  flex: 0 1 340px;
+  min-width: 260px;
+}
+
+.teseHeadline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-quote);
+  line-height: 1.1;
+  color: var(--color-maroon);
+  margin: 0;
+}
+
+.teseTexto {
+  flex: 1 1 380px;
+  max-width: 480px;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.teseParagrafo {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--color-noir-black);
+  margin: 0;
+}
+
+/* ---- arquitetura de serviços ---- */
+
+.servicos {
+  composes: section;
+  background: var(--color-cherry-red);
+  color: var(--color-white);
+}
+
+.servicosInner {
+  composes: container;
+}
+
+.servicosTitulo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-title);
+  line-height: 1.1;
+  margin: 0 0 var(--space-block-gap-l);
+}
+
+.servicosLista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.servicoItem {
+  border-bottom: 1px solid var(--color-divider-on-dark);
+  padding: var(--space-sm) 0;
+}
+
+.servicoItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.servicoItem:first-child {
+  padding-top: 0;
+}
+
+.servicoResumo {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  cursor: pointer;
+  padding: 0;
+}
+
+.servicoResumo:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-cotton);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Rótulo de item: um nível abaixo do título de seção, um nível acima do
+   texto corrido — a lista precisa se ler como sumário, não como parágrafo. */
+.servicoNome {
+  font-family: var(--font-accent);
+  font-weight: 500;
+  font-size: var(--text-label);
+  margin: 0;
+  transition:
+    font-weight var(--motion-duration-fast) var(--motion-ease),
+    text-decoration-color var(--motion-duration-fast) var(--motion-ease);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+}
+
+.servicoResumo:hover .servicoNome,
+.servicoResumo:focus-visible .servicoNome {
+  font-weight: 700;
+  text-decoration-color: currentColor;
+}
+
+.servicoToggle {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+
+.servicoToggle::before,
+.servicoToggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  background: var(--color-white);
+  transform: translate(-50%, -50%);
+  transition: transform var(--motion-duration-fast) var(--motion-ease);
+}
+
+.servicoToggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.servicoToggleAberto::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Altura animada com grid-template-rows (0fr → 1fr) em vez de max-height:
+   não precisa medir a altura real do conteúdo em JS. */
+.servicoConteudoWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows calc(var(--motion-duration-fast) * 1.4) var(--motion-ease);
+}
+
+.servicoConteudoAberto {
+  grid-template-rows: 1fr;
+}
+
+.servicoConteudoInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.servicoDescricao {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  margin: var(--space-sm) 0 0;
+  max-width: var(--measure-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicoConteudoWrap,
+  .servicoToggle::before,
+  .servicoToggle::after,
+  .servicoNome {
+    transition: none;
+  }
+}
+
+/* ---- metodologia ---- */
+
+/* Empurrada para a borda direita do container em vez de centralizada:
+   cria assimetria deliberada com o manifesto (à esquerda) e o resto da
+   página (centralizada), reforçando que é uma pausa reflexiva, não mais
+   um bloco de conteúdo igual aos outros. */
+.metodologia {
+  composes: section;
+  background: var(--color-cotton);
+}
+
+.metodologiaBloco {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.metodologiaConteudo {
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-block-gap-m);
+}
+
+.metodologiaTitulo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-title);
+  line-height: 1.1;
+  color: var(--color-cherry-red);
+  text-align: right;
+  margin: 0;
+}
+
+.metodologiaTexto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.metodologiaParagrafo {
+  font-family: var(--font-accent);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--color-cherry-red);
+  text-align: right;
+  margin: 0;
+}
+
+.metodologiaParagrafo strong {
+  font-weight: 700;
+}
+
+/* ---- fechamento / CTA ---- */
+
+/* O CTA e o rodapé formam uma única coluna editorial: rodapé com pouco
+   respiro próprio para ler como continuação do convite acima, não como
+   um bloco à parte. */
+.fechamento {
+  composes: section;
+  padding-bottom: var(--space-block-gap-l);
+  background: var(--color-maroon);
+  color: var(--color-white);
+}
+
+.fechamentoBloco {
+  composes: container;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-block-gap-s);
+  text-align: left;
+}
+
+.fechamentoTitulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-title);
+  line-height: 1.1;
+  max-width: 800px;
+  margin: 0;
+}
+
+.fechamentoConvite {
+  font-family: var(--font-accent);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  max-width: var(--measure-body);
+  margin: 0;
+}
+
+.fechamentoConvite strong {
+  font-weight: 700;
+}
+
+.botaoAgendar {
+  border: 1px solid var(--color-white);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--color-noir-black);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-body);
+  padding: 14px 56px;
+  cursor: pointer;
+  display: inline-block;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease),
+    color var(--motion-duration-fast) var(--motion-ease);
+}
+
+/* Hover em "fantasma": o fundo esvai revelando a cor da seção por trás,
+   a borda branca permanece como contorno — sinaliza clique sem depender
+   só de mudança de cor. */
+.botaoAgendar:hover,
+.botaoAgendar:focus-visible {
+  background: transparent;
+  color: var(--color-white);
+}
+
+/* ---- rodapé ---- */
+
+.rodape {
+  composes: section;
+  padding-top: 16px;
+  padding-bottom: 24px;
+  background: var(--color-maroon);
+  color: var(--color-white);
+}
+
+.rodapeInner {
+  composes: container;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+}
+
+.footerLink {
+  color: inherit;
+  font-weight: 600;
+  transition: color var(--motion-duration-fast) var(--motion-ease);
+}
+
+.footerLink:hover,
+.footerLink:focus-visible {
+  color: var(--color-cotton);
+  text-decoration: underline;
+}
+
+/*
+  Breakpoints em duas etapas: --breakpoint-lg empilha grids de coluna
+  antes que fiquem apertados, --breakpoint-md reescala tipografia para
+  telas pequenas. `@media` não lê variáveis CSS, então os valores
+  literais abaixo precisam continuar batendo com --breakpoint-lg/
+  --breakpoint-md em theme/tokens.css.
+*/
+@media (max-width: 1100px) {
+  .teseInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .teseHeadlineWrap {
+    flex: none;
+  }
+
+  .teseTexto {
+    max-width: 100%;
+  }
+
+  .metodologiaBloco {
+    justify-content: flex-start;
+  }
+
+  .metodologiaConteudo {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--container-pad-mobile);
+  }
+
+  .section,
+  .fechamento {
+    padding: var(--space-section-y-mobile) 0;
+  }
+
+  .hero {
+    height: 85svh;
+    min-height: 400px;
+  }
+
+  .heroBar {
+    top: 24px;
+    left: 24px;
+    right: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .navLinks {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: auto;
+    gap: 12px 16px;
+  }
+
+  .navLink {
+    text-align: left;
+    font-size: 13px;
+  }
+
+  .metodologiaBloco {
+    padding: 0 var(--container-pad-mobile);
+  }
+
+  .metodologiaTitulo,
+  .metodologiaParagrafo {
+    text-align: left;
+  }
+
+  .botaoAgendar {
+    padding: 14px 40px;
   }
 }

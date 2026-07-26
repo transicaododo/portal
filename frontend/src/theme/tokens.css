@@ -1,60 +1,9 @@
 /*
-  Tokens do Design System DODÔ — paleta oficial adotada em 2026-07-25
-  (laranja #f14f28 primária, roxo #504ea1 secundária). A aplicação React
-  servida em localhost:5173/127.0.0.1:8000 é a base oficial do produto;
-  não há mais protótipo estático separado.
+  Tokens visuais da DODÔ — cor, tipografia, escala, espaçamento e grid.
+  Toda tela nova (Landing, Login, Portal) consome estes tokens em vez de
+  valores soltos, para que a identidade e o ritmo fiquem consistentes em
+  qualquer parte do produto.
 */
-:root {
-  /* Papéis semânticos */
-  --color-bg: #f1ece5;
-  --color-surface: #ffffff;
-  --color-text: #171715;
-  --color-text-muted: #6b655c;
-  --color-outline: #b9af9e;
-  --color-outline-strong: #6b655c;
-  --color-action: #f14f28;
-  --color-action-hover: #8a2c15;
-  --color-action-contrast: #ffffff;
-  --color-highlight: #504ea1;
-  --color-highlight-hover: #2e2d63;
-  --color-accent: #daea49;
-
-  --color-error: #f14f28;
-  --color-error-container: #fbd9ce;
-  --color-on-error-container: #8a2c15;
-  --color-success: #1e5c22;
-  --color-success-container: #d7f0d8;
-
-  /* Tipografia */
-  --font-display: 'Elms Sans', sans-serif;
-  --font-text: 'Work Sans', sans-serif;
-  --weight-display: 700;
-  --weight-heading: 700;
-  --weight-body: 400;
-  --weight-emphasis: 600;
-
-  /* Espaçamento — escala idêntica à anterior (base 4), só renomeada */
-  --sp-1: 4px;
-  --sp-2: 8px;
-  --sp-3: 12px;
-  --sp-4: 16px;
-  --sp-5: 24px;
-  --sp-6: 32px;
-  --sp-7: 48px;
-  --sp-8: 64px;
-  --sp-9: 96px;
-
-  /* Raio (tokens.json → radius) */
-  --radius-field: 8px;
-  --radius-card: 14px;
-  --radius-block: 24px;
-  --radius-pill: 9999px;
-
-  /* Layout */
-  --content-max: 1120px;
-  --grid-gutter: 24px;
-  --breakpoint-md: 768px;
-}
 
 @font-face {
   font-family: 'Elms Sans';
@@ -68,4 +17,83 @@
   src: url('../assets/fonts/WorkSans.ttf') format('truetype');
   font-weight: 100 900;
   font-display: swap;
+}
+
+:root {
+  /* Paleta de marca */
+  --color-cotton: #edebdd;
+  --color-cherry-red: #810100;
+  --color-maroon: #630002;
+  --color-noir-black: #1b1717;
+  --color-white: #ffffff;
+  /* Divisor sutil sobre fundos escuros (Cherry Red/Maroon) — separa
+     itens de uma lista sem competir com o texto. */
+  --color-divider-on-dark: rgb(255 255 255 / 25%);
+
+  /* Tipografia — Work Sans para títulos/UI, Elms Sans para rótulos e
+     texto de acompanhamento. Hierarquia construída só por peso, escala
+     e espaçamento — nunca por itálico. */
+  --font-display: 'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-accent: 'Elms Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Escala tipográfica — cada papel tem um tamanho próprio e bem
+     separado dos vizinhos, para que a hierarquia fique clara à
+     primeira vista, nunca "tudo do mesmo nível". */
+  --text-title: 52px;
+  /* título de seção — o nível mais alto da página */
+  --text-quote: 38px;
+  /* PROVISÓRIO — lacuna do Design System: a manchete-manifesto (seção
+     "sobre") tem papel de citação editorial, não de título de seção, e
+     precisa de um tamanho intermediário próprio para não quebrar em
+     uma única palavra por linha numa coluna estreita. */
+  --text-label: 22px;
+  /* rótulo de componente (ex.: item de accordion) — abaixo do título,
+     acima do corpo */
+  --text-body: 15px;
+  /* texto corrido — parágrafos, descrições */
+  --text-nav: 15px;
+  --text-small: 12px;
+
+  /* Escala de espaçamento */
+  --space-sm: 24px;
+  --space-nav-gap: 21px;
+  --space-list-gap: 48px;
+  --space-block-gap-s: 48px;
+  --space-block-gap-m: 48px;
+  --space-block-gap-l: 64px;
+  --space-column-gap: 72px;
+
+  /* Medida de leitura confortável para parágrafos longos */
+  --measure-body: 62ch;
+
+  /* Raio — usado em qualquer elemento acionável (botões, pills) */
+  --radius-pill: 20px;
+
+  /* Anel de foco por teclado — espessura/distância fixas; a cor é
+     definida por componente conforme o fundo em que ele aparece. */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 6px;
+
+  --content-max: 1440px;
+  /* Margem lateral usada só onde um elemento se posiciona sobre uma
+     imagem full-bleed (ex.: menu sobreposto ao hero) — não é o
+     container de texto do corpo da página, ver --container-max. */
+  --space-gutter: 207px;
+
+  /* Container do corpo da página: largura máxima do conteúdo editorial,
+     centralizado, com respiro lateral que se adapta à tela. */
+  --container-max: 1026px;
+  --container-pad: 40px;
+  --container-pad-mobile: 24px;
+
+  /* Ritmo vertical: mesmo respiro entre todas as seções editoriais, para
+     que a leitura tenha cadência única do início ao fim da página. */
+  --space-section-y: 140px;
+  --space-section-y-mobile: 80px;
+
+  /* Breakpoints: o primeiro empilha grids de coluna antes que fiquem
+     apertados, o segundo reescala tipografia para telas pequenas.
+     PROVISÓRIO — ainda não validados pelo responsável do produto. */
+  --breakpoint-lg: 1100px;
+  --breakpoint-md: 768px;
 }

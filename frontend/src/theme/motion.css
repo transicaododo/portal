@@ -1,0 +1,41 @@
+/*
+  Sistema de motion da DODÔ — única fonte de duração/easing/distância/
+  stagger para qualquer animação do produto (Landing, e depois Portal).
+  Nenhum componente declara sua própria duração ou curva de easing; todos
+  consomem estas variáveis, para que o ritmo de movimento seja o mesmo em
+  qualquer tela. Ver frontend/src/motion.ts para o lado JS/TS deste mesmo
+  sistema (stagger usado em delay inline, detecção de
+  prefers-reduced-motion).
+*/
+:root {
+  /* Curva de desaceleração suave — o movimento chega ao destino sem
+     quicar nem parar bruscamente. */
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Durações */
+  --motion-duration-fast: 0.35s;
+  /* microinterações: hover, toggle do accordion */
+  --motion-duration-base: 1.2s;
+  /* revelação padrão de scroll (fade + subida) */
+  --motion-duration-slow: 1.5s;
+  /* entrada do cabeçalho no load, cascata do rodapé */
+
+  /* Distância percorrida nas revelações — curta, o movimento é sentido,
+     não visto como "slide". */
+  --motion-distance: 28px;
+  --motion-distance-sm: 14px;
+
+  /* Stagger entre itens de um mesmo grupo (parágrafos, itens de
+     serviço, links do rodapé); variante compacta para grupos curtos de
+     UI (nav). Espelha STAGGER_STEP / STAGGER_STEP_TIGHT em motion.ts. */
+  --motion-stagger: 0.15s;
+  --motion-stagger-tight: 0.05s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-fast: 0s;
+    --motion-duration-base: 0s;
+    --motion-duration-slow: 0s;
+  }
+}
