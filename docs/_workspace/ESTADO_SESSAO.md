@@ -13,57 +13,53 @@
 ## Fase/Sprint atual
 
 Sequência mandatada Design System → Landing → Login → Portal. Landing
-concluída e aprovada pelo responsável; próxima etapa é Login.
+concluída e aprovada; próxima etapa é Login. Esta sessão foi paralela
+à sequência: produziu documentação de referência do Design System, não
+avançou Login.
 
 ## Branch ativa
 
-`fix/session-pipeline-test`, com upstream `origin/fix/session-pipeline-test`
-já configurado. HEAD em `2dce389`. Working tree ainda com um volume
-grande de mudanças não commitadas alheias a esta sessão (migração de
-`frontend/src/legacy-src/`, reorganização de `docs/`, pastas novas como
-`design-system/` e `.claude/skills/`) — não tocadas aqui, ver
-"Bloqueios abertos".
+`fix/session-pipeline-test`, upstream configurado. HEAD em `528dd4f`.
+Working tree ainda com um volume grande de mudanças não commitadas
+alheias a esta sessão (migração de `frontend/src/legacy-src/`,
+specs/deployment/planning modificados) — ver "Bloqueios abertos".
 
 ## Últimos concluídos
 
-- Landing reconstruída do zero exclusivamente a partir de
-  `design-system/` (paleta, tipografia, hero, narrativa) — commit
-  `2dce389`.
-- Motion System centralizado (`theme/motion.css` + `motion.ts`, sem
-  valor hardcoded em componente).
-- Composição refinada contra a referência oficial (`criativododo`/
-  estudioela.com) sem importar identidade — 2 bugs reais corrigidos
-  (quebra de linha da manchete do manifesto; rodapé permanentemente
-  invisível por limitação do `IntersectionObserver` em conteúdo no fim
-  da página).
-- Regra de tipografia formalizada: identidade DODÔ nunca usa itálico;
-  hierarquia só por peso (400–700), escala e espaçamento.
-- Passada de redução proporcional de escala (títulos -20%, corpo -15%,
-  rodapé compactado) e reestruturação do CTA + rodapé em coluna
-  editorial única alinhada à esquerda — aprovado pelo responsável.
+- Projeto "Design System DODÔ" criado no Claude Design (`DesignSync`,
+  `projectId b5b37e19-3bd4-4ceb-b415-5d6c4b98d604`) e Manual editorial
+  publicado como Artifact
+  (`https://claude.ai/code/artifact/47276095-3be0-4a61-baf3-b044e0e3d072`)
+  — extraídos do código real, sem sync automatizado ainda.
+- `ADR-021` criada: documentação de Design deixa de ser registro
+  histórico permanente; código + `frontend/src/assets/brand/` são a
+  única fonte de verdade visual. `ADR-019`/`ADR-020` mantidas intactas.
+- `CLAUDE.md` atualizado (Restrições, Diretórios congelados,
+  Documentação complementar) para refletir `ADR-021`.
+- Limpeza de `docs/design/` e `exports/notebooklm/` executada e
+  commitada (`528dd4f`) — Design Systems antigos, Manual anterior,
+  imports Stitch/v2-roxo/tear-editorial-legado, screenshots.
 
 ## Bloqueios abertos
 
-- Migração de `frontend/src/legacy-src/` (~85 arquivos movidos para
-  fora de `frontend/src/`) segue não commitada — não é desta sessão,
-  precisa de revisão própria antes de iniciar o Login.
+- Migração de `frontend/src/legacy-src/` (~85 arquivos) segue não
+  commitada — precisa de revisão própria antes do Login.
 - Achados de segurança de sessões anteriores seguem sem confirmação de
-  resolução: `IMPORTANTE Webmail_Codigos_de_backup.txt` commitado no
-  histórico (`d6454df`); `backend/.env.backup-20260723-185819` (não
-  rastreado) com segredos em texto puro.
-- Reconciliação de git de sessões anteriores (renames de
-  `design-system/`, branch `docs/governance-phase2` divergente) segue
-  não feita.
+  resolução: `IMPORTANTE Webmail_Codigos_de_backup.txt` no histórico
+  (`d6454df`); `backend/.env.backup-20260723-185819` com segredos em
+  texto puro.
+- Reconciliação de git de sessões anteriores (branch
+  `docs/governance-phase2` divergente) segue não feita.
+- Duas gerações de tokens/paleta coexistem sem reconciliação (Cherry
+  Red ativa vs. laranja/roxo estacionada) — documentado no Manual, não
+  resolvido.
 
 ## Próxima missão recomendada
 
-Iniciar o Login, seguindo o mesmo processo da Landing: extrair
-identidade/composição só de `design-system/`, herdar o sistema de
-tokens/motion/container já construído, sem reabrir decisões de
-identidade já fixadas (paleta, tipografia, Motion System). Antes disso,
-considerar revisar e commitar a migração de `legacy-src/` isoladamente
-(bloqueio acima), para não acumular mais um ciclo de trabalho em cima de
-working tree sujo.
+Iniciar o Login, seguindo o mesmo processo da Landing — herdar tokens/
+motion/container já construídos, sem reabrir paleta/tipografia já
+fixadas. Antes disso, revisar e commitar a migração de `legacy-src/`
+isoladamente (bloqueio acima).
 
 ## Tarefa ativa
 
@@ -72,3 +68,5 @@ Nenhuma (`docs/_workspace/TASK.md` vazio — Login ainda não iniciado).
 ## Log mais recente
 
 `docs/_workspace/logs/2026-07-26_LANDING_DESIGN_SYSTEM_REBUILD.md`
+(seção "Design System DODÔ: projeto no Claude Design, Manual editorial
+e ADR-021" ao final do arquivo).

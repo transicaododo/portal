@@ -117,3 +117,90 @@ Precisa de revisão e commit próprio antes de iniciar o Login.
 ## Próxima fase
 
 Login, herdando o mesmo sistema de tokens/motion/container da Landing.
+
+---
+
+## 2026-07-26 (sessão separada) — Design System DODÔ: projeto no Claude Design, Manual editorial e ADR-021
+
+Sessão distinta da reconstrução da Landing acima — tarefa própria do
+responsável do produto, não parte da sequência Design System → Landing
+→ Login → Portal em si, mas um deliverable de referência para as
+próximas etapas.
+
+### O que foi construído
+
+1. **Projeto "Design System DODÔ" no Claude Design** (via ferramenta
+   `DesignSync`, `projectId b5b37e19-3bd4-4ceb-b415-5d6c4b98d604`) — 20
+   arquivos: `README.md` (11 seções: Introdução, Brand Foundations,
+   Color System, Typography, Layout Foundation, Components, Interaction
+   & Motion, Patterns, Product Themes, Roadmap, Pendências) + cartões de
+   preview HTML vivos (tokens, componentes, padrões, product themes,
+   marca), tudo extraído do código real (`frontend/src/theme/tokens.css`,
+   `frontend/legacy-src/theme/tokens.css`), nunca inventado.
+2. **Artifact HTML único** ("Manual de Design — DODÔ",
+   `https://claude.ai/code/artifact/47276095-3be0-4a61-baf3-b044e0e3d072`)
+   — mesmo conteúdo, publicado como página autocontida (fontes reais
+   embutidas em base64, sem dependência externa).
+
+### Achado técnico relevante (vale para Login/Portal)
+
+O repositório tem **duas gerações de tokens/componentes coexistindo,
+sem reconciliação**: a ativa (`frontend/src`, paleta Cherry Red/Cotton/
+Noir Black, só `LandingPage`+`Reveal` existem) e a estacionada
+(`frontend/legacy-src`, paleta laranja/roxo, biblioteca de componentes
+completa — Button, Badge, TextField/SelectField/TextareaField,
+Pagination, EmptyState, AppShell, PortalShell, AuthSplitLayout — real,
+mas não importada por nada hoje). `ADR-019` documenta essa divergência.
+
+Ativos oficiais de marca ficam só em `frontend/src/assets/brand/`:
+exatamente 2 SVGs — `wordmark-preto.svg` (assinatura institucional,
+**confirmadamente usado** em `LandingPage.tsx:2`) e `stack-preto.svg`
+(emblema "Ô", geometria de monograma compacto, **não usado por nenhum
+componente hoje**). Não existem variantes coloridas/claras oficiais
+fora do acervo já removido (ver ADR-021 abaixo).
+
+### Iteração de direção de arte (pedidos do responsável, em sequência)
+
+Versão inicial comunicava "documentação de engenharia"; o responsável
+redirecionou para tratamento editorial (Cotton dominante, Cherry Red só
+como destaque, respiro vertical amplo, capítulos como páginas de livro,
+inspiração HIG/Material reinterpretada com o DNA DODÔ) e, depois, para
+curadoria editorial mais rígida: paleta legada (laranja/roxo/lime)
+rebaixada a nota histórica compacta (sem grade de amostras/gráfico de
+proporção), 19 pendências técnicas reduzidas a 5 realmente relevantes
+para identidade + 1 apêndice técnico denso, e uma seção nova explicando
+a arquitetura de identidade (Wordmark = assinatura institucional; Ô =
+emblema autônomo, não uma redução do wordmark) usando só os 2 SVGs
+oficiais reais, sem recriar nem simular logotipo.
+
+### ADR-021 e limpeza de documentação de Design
+
+O responsável pediu exclusão completa de toda documentação de Design
+anterior a esta sessão. Recusado no primeiro pedido, citando
+`CLAUDE.md` (`Não apagar dados`, imutabilidade de ADR, diretórios
+congelados). O responsável então optou por mudar a regra primeiro,
+como caminho correto — resultado:
+
+- **`ADR-021`** (novo,
+  `docs/adrs/ADR-021-documentacao-de-design-nao-e-registro-historico-permanente.md`):
+  documentação de Design deixa de ser registro histórico permanente;
+  única fonte de verdade da identidade visual passa a ser o frontend em
+  produção + `frontend/src/assets/brand/`. Explicitamente **não** altera
+  imutabilidade de ADR (nenhuma ADR foi removida) nem a restrição geral
+  de dados de produto/domínio.
+- **`CLAUDE.md`** atualizado (`Restrições`, `Diretórios congelados`,
+  `Documentação complementar`) para refletir a nova política.
+- **Limpeza executada**, commit `528dd4f`: removido `docs/design/`
+  inteiro (Design Systems antigos, Manual anterior em
+  `docs/design/manual/`, imports Stitch/v2-roxo/tear-editorial-legado,
+  screenshots, pasta `HISTORICO/` duplicada, inventário/auditoria
+  avulsos) e `exports/notebooklm/`. `ADR-019` e `ADR-020` **mantidas
+  intactas** — nenhuma delas foi substituída em conteúdo, só a cláusula
+  de preservação de `ADR-019` item 2. `frontend/legacy-src/` (código,
+  não documentação) não foi tocado.
+
+### Pendência
+
+O Claude Design project e o Artifact HTML não têm sincronização
+automatizada com o repositório — releitura manual do código a cada
+atualização futura (registrado no próprio Manual, capítulo Roadmap).
