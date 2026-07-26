@@ -71,7 +71,13 @@ acima é o ciclo que se repete a cada tarefa individual dentro desse
 pipeline.
 
 ## Restrições
-- Não apagar dados.
+- Não apagar dados de produto/domínio (usuários, campanhas, contratos,
+  histórico de auditoria do produto). **Exceção (`ADR-021`,
+  2026-07-26):** documentação de Design (manuais, guias de estilo,
+  exports, protótipos, inventários/auditorias de frontend avulsas) não
+  é dado permanente — pode ser removida quando substituída, sem
+  necessidade de arquivamento. Ver `ADR-021` para o escopo exato dessa
+  exceção; ADRs continuam fora dela (nunca removidas, só supersedidas).
 - Não alterar permissões sem autorização.
 - Deploy de produção: ver "Mandato de operação autônoma" abaixo.
 
@@ -141,6 +147,12 @@ Antes de iniciar qualquer tarefa:
 
 1. `docs/_workspace/TASK_ROUTER.md` — fonte única de estado (o que está
    `[x]`/`[>]`/`[ ]`, dependências entre SPECs, dívidas registradas).
+   **Nunca abrir o arquivo inteiro** (5.700+ linhas, maioria histórico
+   de sessões passadas): localizar a seção relevante por grep (SPEC,
+   ADR ou palavra-chave) e ler só essa seção — o próprio cabeçalho do
+   arquivo já exige leitura por âncora, nunca integral. Ver
+   `docs/_workspace/logs/2026-07-25_AUDITORIA_COMANDOS_LEVES.md` para o
+   diagnóstico completo.
 2. `docs/PRD.md` (seções indicadas pelo TASK_ROUTER para a SPEC em questão).
 3. `docs/history/CONTRATO_SOBERANO.md` (domínio soberano — nunca reabrir).
 4. `docs/specs/SPEC-NNN.md` da SPEC em questão.
@@ -181,7 +193,10 @@ entre elas, cada uma cobre um assunto:
   ainda pendente).
 - `docs/deployment/` — arquitetura de produção, runbooks de deploy e
   rollback, checklist de go-live, monitoramento.
-- `docs/design/` — regras de UI e exports de design.
+- `design-system/` — não é mais fonte de documentação (`ADR-021`,
+  2026-07-26): a identidade visual vive só no código
+  (`frontend/src/`) e nos ativos oficiais de marca
+  (`frontend/src/assets/brand/`).
 - `docs/governanca/` — modelo de governança do projeto.
 - `docs/handoff/` — marcos concluídos (histórico de entregas — não é
   estado atual, isso é `ESTADO_SESSAO.md`/`TASK_ROUTER.md`).
@@ -232,3 +247,13 @@ O agente deve:
 - Preferir grep/sed a leitura completa.
 - Não explorar o repositório sem necessidade.
 - Não abrir arquivos fora do escopo.
+
+
+## Diretórios congelados
+
+Nenhum diretório de documentação de Design é mais tratado como acervo
+congelado (`ADR-021`, 2026-07-26) — `design-system/archive/inventario/`
+e `exports/notebooklm/` deixaram de existir/ser preservados; consulte
+`ADR-021` se precisar do racional. Este convenção de "diretório
+congelado" pode voltar a ser usada no futuro para outra categoria de
+acervo (não-Design), mas hoje não há nenhum diretório nessa condição.
